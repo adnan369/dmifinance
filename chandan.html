@@ -26,23 +26,13 @@
         <div class="w-full flex flex-col items-center">
 
             <!-- Header Banner (#D3D5D4) -->
-            <header class="w-full bg-[#D3D5D4] py-7 px-6 flex items-center justify-center">
-                <div class="flex items-center gap-3.5 select-none">
-                    <!-- DMI Finance Vector Logo -->
-                    <svg class="w-[74px] h-[54px] shrink-0" viewBox="0 0 120 88" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="DMI Finance Logo">
-                        <path d="M22 10C66 10 112 24 114 52C116 74 72 82 14 82L18 71C64 70 98 63 97 48C96 29 58 15 22 10Z" fill="#0B3B9D" />
-                        <path d="M23 47L36 44L27 76L14 78L23 47Z" fill="#0B3B9D" />
-                        <path d="M40 43L52 40L44 72L32 74L40 43Z" fill="#0B3B9D" />
-                        <path d="M56 39L68 36L60 67L48 70L56 39Z" fill="#0B3B9D" />
-                        <path d="M72 35L83 32L76 61L64 64L72 35Z" fill="#0B3B9D" />
-                        <path d="M86 31L96 28L91 49L81 52L86 31Z" fill="#0B3B9D" />
-                    </svg>
-                    <!-- Brand Typography -->
-                    <div class="flex flex-col leading-[0.95] tracking-tight text-[#232323]">
-                        <span class="text-[28px] font-black">DMI</span>
-                        <span class="text-[27px] font-black">FINANCE</span>
-                    </div>
-                </div>
+            <header class="w-full bg-[#D3D5D4] py-6 px-6 flex items-center justify-center">
+                <img
+                    src="https://www.dmifinance.in/wp-content/uploads/2026/05/Logo-final-RGB.svg"
+                    alt="DMI Finance Logo"
+                    onerror="this.replaceWith(Object.assign(document.createElement('span'), { textContent: 'DMI FINANCE', className: 'text-[26px] font-black tracking-tight text-[#0B3B9D] select-none' }))"
+                    class="h-12 sm:h-14 w-auto max-w-[260px] object-contain select-none"
+                />
             </header>
 
             <!-- Main Content Area -->
@@ -144,14 +134,16 @@
                             onclick="handleAppSpecificClick(event, 'tez://upi/pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2549.04&cu=INR')"
                             class="flex flex-col items-center justify-center py-2.5 px-1.5 bg-white border border-gray-200 hover:border-[#0B3B9D] rounded-xl shadow-2xs active:scale-95 transition-all"
                         >
-                            <span class="w-8 h-8 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center mb-1">
-                                <!-- Official Google Pay G Icon -->
-                                <svg class="w-4 h-4" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/>
-                                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.31 24 12 24z"/>
-                                    <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
-                                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
-                                </svg>
+                            <span class="w-8 h-8 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center mb-1 p-1 overflow-hidden">
+                                <!-- Provided GPay SVG -->
+                                <svg class="w-full h-full object-contain" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 123.84 104.9" style="enable-background:new 0 0 123.84 104.9" xml:space="preserve" aria-hidden="true"><style type="text/css"><![CDATA[
+	.st0{clip-path:url(#SVGID_3_);}
+	.st1{clip-path:url(#SVGID_4_);}
+	.st2{clip-path:url(#SVGID_9_);}
+	.st3{fill:#2DA94F;}
+	.st4{fill:#FDBD00;}
+	.st5{clip-path:url(#SVGID_10_);}
+]]></style><g><g><defs><path id="SVGID_1_" d="M65.7,63.18l30.4-52.66l16.56,9.56c10.69,6.17,14.36,19.85,8.18,30.54l-17.12,29.65 c-3.86,6.68-12.4,8.97-19.09,5.12l-15.37-8.87C64.6,73.81,63,67.84,65.7,63.18L65.7,63.18z"/></defs><defs><rect id="SVGID_2_" y="0.02" width="123.84" height="104.88"/></defs><clipPath id="SVGID_3_"><use xlink:href="#SVGID_1_" style="overflow:visible"/></clipPath><clipPath id="SVGID_4_" class="st0"><use xlink:href="#SVGID_2_" style="overflow:visible"/></clipPath><g class="st1"><defs><rect id="SVGID_5_" x="64.32" y="10.34" width="59.52" height="77.04"/></defs><clipPath id="SVGID_6_"><use xlink:href="#SVGID_5_" style="overflow:visible"/></clipPath><g style="clip-path:url(#SVGID_6_)"><image style="overflow:visible" width="132" height="164" xlink:href="data:image/jpeg;base64,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 nJT82+vk5Kfmw2HybbUs/hT83f/Z" transform="matrix(0.48 0 0 -0.48 63.3027 88.1797)"/></g></g></g><path class="st4" d="M62.46,26.62l-37.82,65.5l16.56,9.56c10.69,6.17,24.37,2.51,30.54-8.18l24.53-42.49 c3.86-6.68,1.57-15.23-5.12-19.09l-15.37-8.87C71.12,20.35,65.16,21.95,62.46,26.62L62.46,26.62z"/><path class="st3" d="M96.1,10.51L84.38,3.75C71.02-3.97,53.93,0.61,46.21,13.98L24.47,51.62c-3.86,6.68-1.57,15.23,5.12,19.09 l11.72,6.76c6.68,3.86,15.23,1.57,19.09-5.12l25.95-44.95l0,0c5.39-9.34,17.33-12.53,26.66-7.14L96.1,10.51L96.1,10.51z M96.1,10.51L96.1,10.51L96.1,10.51L96.1,10.51z"/><g><defs><path id="SVGID_7_" d="M49.58,25.01l-12.93-7.45c-5.76-3.32-13.13-1.35-16.46,4.4L4.67,48.77c-7.64,13.2-3.11,30.08,10.12,37.7 l9.85,5.67l11.94,6.88l5.18,2.98c-9.2-6.16-12.12-18.5-6.5-28.21l4.02-6.94l14.71-25.42C57.32,35.69,55.35,28.33,49.58,25.01 L49.58,25.01z"/></defs><defs><rect id="SVGID_8_" y="0.02" width="123.84" height="104.88"/></defs><clipPath id="SVGID_9_"><use xlink:href="#SVGID_7_" style="overflow:visible"/></clipPath><clipPath id="SVGID_10_" class="st2"><use xlink:href="#SVGID_8_" style="overflow:visible"/></clipPath><g class="st5"><defs><rect id="SVGID_11_" x="0.96" y="15.86" width="54.72" height="86.16"/></defs><clipPath id="SVGID_12_"><use xlink:href="#SVGID_11_" style="overflow:visible"/></clipPath><g style="clip-path:url(#SVGID_12_)"><image style="overflow:visible" width="120" height="182" xlink:href="data:image/jpeg;base64,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 hZtD6Qoy/9k=" transform="matrix(0.48 0 0 -0.48 0.3071 102.542)"/></g></g></g></g></svg>
                             </span>
                             <span class="text-[11px] font-semibold text-gray-800">GPay</span>
                         </a>
@@ -162,11 +154,9 @@
                             onclick="handleAppSpecificClick(event, 'phonepe://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2549.04&cu=INR')"
                             class="flex flex-col items-center justify-center py-2.5 px-1.5 bg-white border border-gray-200 hover:border-[#0B3B9D] rounded-xl shadow-2xs active:scale-95 transition-all"
                         >
-                            <span class="w-8 h-8 rounded-full bg-[#5F259F] text-white flex items-center justify-center mb-1 shadow-2xs">
-                                <!-- Official PhonePe पे Emblem -->
-                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                    <path d="M17.2 6.2H7.6V8h4.5c-.2 1-.9 1.8-2 2.1l-.5.1v1.7l4.3 5.9h2.4l-4.1-5.5c1.6-.6 2.7-2 3-3.9h2v-2.2zM13.8 3.5L10.3 6h2.4l2.3-1.6-1.2-.9z"/>
-                                </svg>
+                            <span class="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center mb-1 shadow-2xs">
+                                <!-- Provided PhonePe SVG -->
+                                <svg class="w-full h-full object-contain" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" aria-hidden="true"><circle cx="-25.926" cy="41.954" r="29.873" fill="#5f259f" transform="rotate(-76.714 -48.435 5.641) scale(8.56802)"/><path d="M372.164 189.203c0-10.008-8.576-18.593-18.584-18.593h-34.323l-78.638-90.084c-7.154-8.577-18.592-11.439-30.03-8.577l-27.17 8.577c-4.292 1.43-5.723 7.154-2.862 10.007l85.8 81.508H136.236c-4.293 0-7.154 2.861-7.154 7.154v14.292c0 10.016 8.585 18.592 18.592 18.592h20.015v68.639c0 51.476 27.17 81.499 72.931 81.499 14.292 0 25.739-1.431 40.03-7.146v45.753c0 12.87 10.016 22.886 22.885 22.886h20.015c4.293 0 8.577-4.293 8.577-8.586V210.648h32.893c4.292 0 7.145-2.861 7.145-7.145v-14.3zM280.65 312.17c-8.576 4.292-20.015 5.723-28.591 5.723-22.886 0-34.324-11.438-34.324-37.176v-68.639h62.915v100.092z" fill="#fff" fill-rule="nonzero"/></svg>
                             </span>
                             <span class="text-[11px] font-semibold text-gray-800">PhonePe</span>
                         </a>
@@ -177,10 +167,10 @@
                             onclick="handleAppSpecificClick(event, 'paytmmp://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2549.04&cu=INR')"
                             class="flex flex-col items-center justify-center py-2.5 px-1.5 bg-white border border-gray-200 hover:border-[#0B3B9D] rounded-xl shadow-2xs active:scale-95 transition-all"
                         >
-                            <span class="w-8 h-8 rounded-full bg-sky-50 border border-sky-100 flex items-center justify-center mb-1">
-                                <!-- Official Paytm Dual-Tone Badge -->
+                            <span class="w-8 h-8 rounded-full bg-[#002E6E] text-white flex items-center justify-center mb-1 shadow-2xs">
+                                <!-- Crisp Paytm Mark -->
                                 <span class="text-[9.5px] font-black tracking-tighter leading-none">
-                                    <span class="text-[#002E6E]">Pay</span><span class="text-[#00BAF2]">tm</span>
+                                    <span class="text-white">Pay</span><span class="text-[#00BAF2]">tm</span>
                                 </span>
                             </span>
                             <span class="text-[11px] font-semibold text-gray-800">Paytm</span>
@@ -192,11 +182,11 @@
                             onclick="handlePrimaryUpiClick(event)"
                             class="flex flex-col items-center justify-center py-2.5 px-1.5 bg-white border border-gray-200 hover:border-[#0B3B9D] rounded-xl shadow-2xs active:scale-95 transition-all"
                         >
-                            <span class="w-8 h-8 rounded-full bg-[#0B3B9D]/10 flex items-center justify-center mb-1">
-                                <!-- Official BHIM / UPI Dual Chevron Icon -->
+                            <span class="w-8 h-8 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center mb-1">
+                                <!-- Crisp UPI Dual Chevron Mark -->
                                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                    <path d="M13 3L6 21h4.2l7-18H13z" fill="#097939"/>
-                                    <path d="M17.5 3l-7 18h4.2l7-18h-4.2z" fill="#F37021"/>
+                                    <path d="M12.5 4L6.5 20h3.6l6-16h-3.6z" fill="#0E8635"/>
+                                    <path d="M17.2 4l-6 16h3.6l6-16h-3.6z" fill="#E97208"/>
                                 </svg>
                             </span>
                             <span class="text-[11px] font-semibold text-gray-800">Any UPI</span>
@@ -227,6 +217,8 @@
                     </div>
                     <p id="utrErrorMsg" class="hidden text-[11px] text-red-600 font-medium mt-1.5">Please enter a valid 12-digit UPI UTR / Reference number.</p>
                 </div>
+            </main>
+        </div>
 
         <!-- Bottom Contact Bar (#0B3B9D) -->
         <footer class="w-full bg-[#0B3B9D] text-white py-3.5 px-4 text-center mt-auto shrink-0">
@@ -234,7 +226,7 @@
                 For any queries, please contact <strong class="font-bold">DMI Finance</strong>
             </p>
             <p class="text-[13.5px] sm:text-[14px] leading-snug mt-0.5 flex flex-wrap justify-center items-center gap-x-3 gap-y-1">
-                <a href="tel:28064807777" class="hover:underline tracking-wide">28064807777</a>
+                <a href="tel:+917669818769" class="hover:underline tracking-wide">+91 76698 18769</a>
                 <a href="mailto:customercare@dmifinance.in" class="hover:underline">customercare@dmifinance.in</a>
             </p>
         </footer>
