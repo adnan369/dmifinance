@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="hi-Latn" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About DMI Finance | DMI Finance Customer Portal (portal.dmifinance.in)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ==========================================================================
+       Design Tokens & Corporate UI Foundation — DMI Finance Customer Portal
+       ========================================================================== */
+    :root {
+      --bg-page: #f4f7fb;
+      --bg-surface: #ffffff;
+      --bg-subtle: #eef2f7;
+      --navy-950: #071528;
+      --navy-900: #0b1f3a;
+      --navy-800: #13315c;
+      --teal-600: #0d9488;
+      --teal-700: #0f766e;
+      --teal-50: #f0fdfa;
+      --amber-500: #d97706;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --border-soft: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --shadow-sm: 0 2px 8px rgba(11, 31, 58, 0.05);
+      --shadow-md: 0 10px 28px rgba(11, 31, 58, 0.08);
+      --shadow-lg: 0 22px 50px rgba(7, 21, 40, 0.16);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --container-max: 1180px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text-primary);
+      background-color: var(--bg-page);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select {
+      font-family: inherit;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    /* ==========================================================================
+       Top Security & Helpline Bar
+       ========================================================================== */
+    .top-strip {
+      background-color: var(--navy-950);
+      color: #cbd5e1;
+      font-size: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .top-strip-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    .top-strip-left, .top-strip-right {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background-color: #2dd4bf;
+      box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.2);
+      display: inline-block;
+    }
+
+    /* ==========================================================================
+       Sticky Main Navigation Header
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background-color: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 70px;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px rgba(11, 31, 58, 0.18);
+      flex-shrink: 0;
+    }
+
+    .brand-text-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--navy-900);
+      line-height: 1.15;
+    }
+
+    .brand-name span {
+      color: var(--teal-600);
+    }
+
+    .brand-sub {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 20px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .nav-links a {
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      transition: color 0.16s ease, background-color 0.16s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--navy-900);
+      background-color: var(--bg-subtle);
+    }
+
+    .nav-links a.active {
+      color: var(--teal-700);
+      background-color: var(--teal-50);
+      font-weight: 700;
+    }
+
+    @media (min-width: 920px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .mobile-menu-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background-color: var(--bg-surface);
+      color: var(--navy-900);
+      cursor: pointer;
+    }
+
+    @media (min-width: 920px) {
+      .mobile-menu-btn {
+        display: none;
+      }
+    }
+
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      padding: 12px 20px 18px;
+      border-top: 1px solid var(--border-soft);
+      background-color: var(--bg-surface);
+    }
+
+    .mobile-nav.open {
+      display: flex;
+    }
+
+    .mobile-nav a {
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .mobile-nav a:hover, .mobile-nav a.active {
+      background-color: var(--teal-50);
+      color: var(--teal-700);
+    }
+
+    /* ==========================================================================
+       Buttons & Interactive Controls
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, background-color 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-sm {
+      padding: 9px 14px;
+      font-size: 13px;
+    }
+
+    .btn-primary {
+      background-color: var(--navy-900);
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(11, 31, 58, 0.16);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--navy-800);
+    }
+
+    .btn-teal {
+      background-color: var(--teal-600);
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(13, 148, 136, 0.22);
+    }
+
+    .btn-teal:hover {
+      background-color: var(--teal-700);
+    }
+
+    .btn-outline {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-outline:hover {
+      background-color: rgba(255, 255, 255, 0.16);
+    }
+
+    .inline-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       About Hero Banner & Overview Card
+       ========================================================================== */
+    .about-hero {
+      background:
+        radial-gradient(circle at 86% 18%, rgba(20, 184, 166, 0.22), transparent 42%),
+        radial-gradient(circle at 14% 84%, rgba(56, 189, 248, 0.12), transparent 45%),
+        linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 58%, var(--navy-800) 100%);
+      color: #ffffff;
+      padding-top: 46px;
+      padding-bottom: 58px;
+    }
+
+    @media (min-width: 768px) {
+      .about-hero {
+        padding-top: 60px;
+        padding-bottom: 68px;
+      }
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    @media (min-width: 980px) {
+      .hero-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 36px;
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #99f6e4;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      margin: 0 0 14px;
+      font-size: clamp(28px, 4.2vw, 42px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+    }
+
+    .hero-title .accent {
+      color: #5eead4;
+    }
+
+    .hero-desc {
+      margin: 0 0 24px;
+      font-size: 15px;
+      line-height: 1.65;
+      color: #cbd5e1;
+      max-width: 600px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .hero-snapshot-card {
+      background-color: var(--bg-surface);
+      color: var(--text-primary);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
+    .snapshot-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .snapshot-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--navy-900);
+    }
+
+    .snapshot-sub {
+      margin: 3px 0 0;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .portal-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background-color: var(--teal-50);
+      color: var(--teal-700);
+      border: 1px solid #99f6e4;
+      white-space: nowrap;
+    }
+
+    .snapshot-list {
+      list-style: none;
+      margin: 0 0 18px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+    }
+
+    .snapshot-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+    }
+
+    .snapshot-check {
+      color: var(--teal-600);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       Section Rhythm & Headers
+       ========================================================================== */
+    .section {
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+
+    @media (min-width: 768px) {
+      .section {
+        padding-top: 68px;
+        padding-bottom: 68px;
+      }
+    }
+
+    .section-white {
+      background-color: var(--bg-surface);
+      border-top: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    @media (min-width: 768px) {
+      .section-header {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+    }
+
+    .section-kicker {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--teal-700);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--navy-900);
+    }
+
+    .section-subtitle {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+      max-width: 480px;
+    }
+
+    /* ==========================================================================
+       Highlight Metrics Grid & Interactive Canvas Journey Graphic
+       ========================================================================== */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 640px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .metrics-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .metric-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: #99f6e4;
+    }
+
+    .metric-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      background-color: var(--teal-50);
+      color: var(--teal-700);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .metric-value {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy-900);
+      margin-bottom: 4px;
+    }
+
+    .metric-title {
+      margin: 0 0 6px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy-900);
+    }
+
+    .metric-desc {
+      margin: 0;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .canvas-showcase {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .canvas-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .canvas-stage-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .stage-btn {
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background-color: var(--bg-page);
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .stage-btn.active {
+      background-color: var(--navy-900);
+      color: #ffffff;
+      border-color: var(--navy-900);
+    }
+
+    .journey-canvas {
+      width: 100%;
+      height: 188px;
+      display: block;
+      border-radius: var(--radius-lg);
+      background-color: #f8fafc;
+    }
+
+    /* ==========================================================================
+       Mission, Vision & Core Values
+       ========================================================================== */
+    .mv-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    @media (min-width: 768px) {
+      .mv-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .mv-card {
+      background-color: var(--bg-page);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .mv-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background-color: var(--teal-50);
+      color: var(--teal-700);
+      margin-bottom: 12px;
+    }
+
+    .mv-title {
+      margin: 0 0 8px;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy-900);
+    }
+
+    .mv-desc {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    @media (min-width: 640px) {
+      .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .values-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .value-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .value-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background-color: var(--teal-50);
+      color: var(--teal-700);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .value-title {
+      margin: 0 0 6px;
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--navy-900);
+    }
+
+    .value-desc {
+      margin: 0;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ==========================================================================
+       Journey Milestones Timeline & How DMI Finance Helps Borrowers
+       ========================================================================== */
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    @media (min-width: 640px) {
+      .timeline-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .timeline-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .milestone-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      border-top: 4px solid var(--teal-600);
+    }
+
+    .milestone-year {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--teal-700);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+
+    .milestone-title {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy-900);
+    }
+
+    .milestone-desc {
+      margin: 0;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .borrower-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    @media (min-width: 640px) {
+      .borrower-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .borrower-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .borrower-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .borrower-title {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy-900);
+    }
+
+    .borrower-desc {
+      margin: 0 0 16px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .borrower-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--teal-700);
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .borrower-link:hover {
+      color: var(--navy-900);
+    }
+
+    /* ==========================================================================
+       Footer
+       ========================================================================== */
+    .site-footer {
+      background-color: var(--navy-950);
+      color: #cbd5e1;
+      padding-top: 48px;
+      padding-bottom: 28px;
+      font-size: 13.5px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @media (min-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+      }
+    }
+
+    .footer-heading {
+      margin: 0 0 12px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #ffffff;
+    }
+
+    .footer-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-list a, .footer-list button {
+      background: none;
+      border: none;
+      padding: 0;
+      color: #94a3b8;
+      font-size: 13.5px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .footer-list a:hover, .footer-list button:hover {
+      color: #ffffff;
+    }
+
+    .footer-bottom {
+      padding-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    /* ==========================================================================
+       Accessible Modal Dialogs
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background-color: rgba(7, 21, 40, 0.65);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-panel {
+      width: 100%;
+      max-width: 450px;
+      background-color: var(--bg-surface);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      animation: modalPop 0.16s ease-out;
+    }
+
+    @keyframes modalPop {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--border-soft);
+      background-color: #f8fafc;
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 16.5px;
+      font-weight: 800;
+      color: var(--navy-900);
+    }
+
+    .modal-close {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-soft);
+      background-color: var(--bg-surface);
+      color: var(--text-secondary);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      color: var(--navy-900);
+      background-color: var(--bg-subtle);
+    }
+
+    .modal-body {
+      padding: 22px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      font-size: 13.5px;
+      color: var(--text-primary);
+      background-color: var(--bg-surface);
+      transition: border-color 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--teal-600);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+    }
+
+    .otp-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-otp {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #99f6e4;
+      background-color: var(--teal-50);
+      color: var(--teal-700);
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-otp:hover {
+      background-color: #ccfbf1;
+    }
+
+    .feedback-box {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .feedback-info {
+      background-color: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e3a8a;
+    }
+
+    .feedback-success {
+      background-color: var(--teal-50);
+      border: 1px solid #99f6e4;
+      color: #115e59;
+    }
+
+    .feedback-error {
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+    }
+  </style>
+</head>
+<body id="top">
+  <!-- Top Security & Helpline Strip -->
+  <div class="top-strip">
+    <div class="container top-strip-inner">
+      <div class="top-strip-left">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span><strong>DMI Finance Customer Portal</strong> (portal.dmifinance.in) &bull; About &amp; Corporate Overview</span>
+      </div>
+      <div class="top-strip-right">
+        <span>Helpline: <strong>022-68539500 / 08064807777</strong></span>
+        <span>Mon–Sat, 9:00 AM – 7:00 PM IST</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1) Sticky Top Navigation Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo" aria-label="DMI Finance Customer Portal Home">
+        <span class="brand-mark" aria-hidden="true">
+          <!-- DMI Finance Geometric Vector Emblem -->
+          <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="24" height="24" rx="6" fill="rgba(255,255,255,0.14)" />
+            <path d="M7.5 19.5V8.5H11.5C13.8 8.5 15.3 10.1 15.3 14C15.3 17.9 13.8 19.5 11.5 19.5H7.5Z" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" />
+            <path d="M18.2 8.5V19.5" stroke="#99F6E4" stroke-width="2.2" stroke-linecap="round" />
+            <path d="M21.8 8.5V19.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span class="brand-text-wrap">
+          <span class="brand-name">DMI <span>Finance</span></span>
+          <span class="brand-sub">ABOUT &bull; PORTAL.DMIFINANCE.IN</span>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active" aria-current="page">About</a>
+        <a href="index.html#loans">Services</a>
+        <a href="index.html#emi-calculator">EMI Calculator</a>
+        <a href="index.html#support">Support</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="btn btn-primary btn-sm" onclick="openModal('loginModal')">
+          <svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+            <polyline points="10 17 15 12 10 7" />
+            <line x1="15" y1="12" x2="3" y2="12" />
+          </svg>
+          <span>Login</span>
+        </button>
+        <button type="button" class="btn btn-teal btn-sm" onclick="openModal('payEmiModal')">
+          <svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+          </svg>
+          <span>Pay EMI</span>
+        </button>
+        <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav">
+      <a href="index.html" onclick="closeMobileNav()">Home</a>
+      <a href="about.html" class="active" onclick="closeMobileNav()">About</a>
+      <a href="index.html#loans" onclick="closeMobileNav()">Services</a>
+      <a href="index.html#emi-calculator" onclick="closeMobileNav()">EMI Calculator</a>
+      <a href="index.html#support" onclick="closeMobileNav()">Support</a>
+    </div>
+  </header>
+
+  <!-- 2) About Hero Banner -->
+  <section class="about-hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-badge">
+          <svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <polyline points="9 12 11 14 15 10" />
+          </svg>
+          <span>About DMI Finance &bull; Digital Financial Services &amp; Lending</span>
+        </div>
+
+        <h1 class="hero-title">
+          Accessible Credit &amp; <span class="accent">Transparent Digital Lending</span> Across India
+        </h1>
+
+        <p class="hero-desc">
+          DMI Finance Bharat mein ek bharosemand digital financial services aur lending platform hai, jo vyaktiyon aur businesses ko saral credit access, spasht terms, aur tez digital customer service ke saath sashakt banata hai.
+        </p>
+
+        <div class="hero-cta-row">
+          <button type="button" class="btn btn-teal" onclick="openModal('payEmiModal')">
+            <svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+            <span>Pay EMI Online</span>
+          </button>
+
+          <a href="index.html" class="btn btn-outline">
+            <span>Back to Home Portal</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-snapshot-card">
+        <div class="snapshot-header">
+          <div>
+            <h2 class="snapshot-title">Customer Portal Advantage</h2>
+            <p class="snapshot-sub">portal.dmifinance.in par kya suvidhayein milti hain</p>
+          </div>
+          <span class="portal-pill">DMI Finance</span>
+        </div>
+
+        <ul class="snapshot-list">
+          <li>
+            <span class="snapshot-check">&#10003;</span>
+            <span><strong>Transparent Loan Terms:</strong> Clear EMI schedule, principal &amp; interest visibility.</span>
+          </li>
+          <li>
+            <span class="snapshot-check">&#10003;</span>
+            <span><strong>24&times;7 Self-Service:</strong> EMI bhugtan, statement, aur NOC download kabhi bhi.</span>
+          </li>
+          <li>
+            <span class="snapshot-check">&#10003;</span>
+            <span><strong>Fast Application Tracking:</strong> Application ID ya mobile number se live status check.</span>
+          </li>
+        </ul>
+
+        <button type="button" class="btn btn-primary" style="width: 100%;" onclick="openModal('loginModal')">
+          <span>Sign In to DMI Finance Portal</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3) Key Highlight Metrics & Interactive HTML5 Canvas Journey Graphic -->
+  <section class="section" id="highlights">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-kicker">Key Highlights &amp; Trust Journey</span>
+          <h2 class="section-title">Why Customers Trust DMI Finance</h2>
+        </div>
+        <p class="section-subtitle">
+          Pan-India digital reach, paperless onboarding, aur surakshit customer service ke saath bharosemand credit.
+        </p>
+      </div>
+
+      <div class="metrics-grid">
+        <article class="metric-card">
+          <div class="metric-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+          </div>
+          <div class="metric-value">Pan-India</div>
+          <h3 class="metric-title">Pan-India Digital Reach</h3>
+          <p class="metric-desc">
+            Metro se lekar tier-2 aur tier-3 shehron tak digital lending aur customer servicing ki pahunch.
+          </p>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <polyline points="9 15 12 18 15 15" />
+            </svg>
+          </div>
+          <div class="metric-value">Paperless</div>
+          <h3 class="metric-title">Paperless Onboarding</h3>
+          <p class="metric-desc">
+            Digital KYC, OTP authentication, aur streamlined online loan journeys bina lambe kagazi jhanjhat ke.
+          </p>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+          </div>
+          <div class="metric-value">24&times;7</div>
+          <h3 class="metric-title">24&times;7 Portal Self-Service</h3>
+          <p class="metric-desc">
+            portal.dmifinance.in par kabhi bhi EMI pay karein, repayment schedule dekhein, ya statement download karein.
+          </p>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <polyline points="9 12 11 14 15 10" />
+            </svg>
+          </div>
+          <div class="metric-value">RBI-Aligned</div>
+          <h3 class="metric-title">RBI-Regulated Lending Standards</h3>
+          <p class="metric-desc">
+            Responsible lending practices, fair disclosure, aur strong data security standards ke saath sanchalit.
+          </p>
+        </article>
+      </div>
+
+      <!-- Interactive HTML5 Canvas Visual Graphic: Digital Lending & Customer Trust Journey -->
+      <div class="canvas-showcase">
+        <div class="canvas-toolbar">
+          <div>
+            <h3 class="metric-title" style="margin-bottom: 2px;">Digital Lending &amp; Customer Trust Journey</h3>
+            <p class="metric-desc">Kisi bhi stage par click karke DMI Finance ke digital customer experience ko dekhein.</p>
+          </div>
+          <div class="canvas-stage-tabs" role="tablist" aria-label="Customer trust journey stages">
+            <button type="button" class="stage-btn active" data-stage="0" onclick="selectJourneyStage(0)">1. Digital Apply</button>
+            <button type="button" class="stage-btn" data-stage="1" onclick="selectJourneyStage(1)">2. Clear Terms</button>
+            <button type="button" class="stage-btn" data-stage="2" onclick="selectJourneyStage(2)">3. Easy EMI</button>
+            <button type="button" class="stage-btn" data-stage="3" onclick="selectJourneyStage(3)">4. Statement &amp; NOC</button>
+          </div>
+        </div>
+        <canvas id="trustJourneyCanvas" class="journey-canvas" aria-label="DMI Finance digital lending and customer trust journey graphic"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4) Mission, Vision & Core Values -->
+  <section class="section section-white" id="mission-vision">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-kicker">Purpose &amp; Principles</span>
+          <h2 class="section-title">Mission, Vision &amp; Core Values</h2>
+        </div>
+        <p class="section-subtitle">
+          Har borrower aur customer ke saath bharosa, spashtata, aur tez digital sahayata hamari neev hai.
+        </p>
+      </div>
+
+      <div class="mv-grid">
+        <article class="mv-card">
+          <span class="mv-tag">Hamara Mission</span>
+          <h3 class="mv-title">Saral, Zimmedar &amp; Inclusive Credit</h3>
+          <p class="mv-desc">
+            Bharat ke har hisse mein individuals aur chhote businesses ko transparent terms aur digital convenience ke saath zimmedar credit uplabdh karana, taaki unke sapne aur zarooratein bina rukawat poori ho sakein.
+          </p>
+        </article>
+
+        <article class="mv-card">
+          <span class="mv-tag">Hamara Vision</span>
+          <h3 class="mv-title">Bharat Ka Sabse Bharosemand Digital Lending Partner</h3>
+          <p class="mv-desc">
+            Technology, data security, aur customer-first service ke zariye ek aisa financial ecosystem banana jahan loan lene se lekar EMI manage karne aur NOC paane tak har kadam saral aur surakshit ho.
+          </p>
+        </article>
+      </div>
+
+      <div class="values-grid">
+        <article class="value-card">
+          <div class="value-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </div>
+          <h3 class="value-title">Customer First</h3>
+          <p class="value-desc">
+            Customer ki suvidha, samay ki bachat, aur madadgar support ko har decision ke kendra mein rakhna.
+          </p>
+        </article>
+
+        <article class="value-card">
+          <div class="value-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </div>
+          <h3 class="value-title">Transparency</h3>
+          <p class="value-desc">
+            Spasht loan schedule, clear EMI details, aur bina kisi uljhan ke account statements aur NOC records.
+          </p>
+        </article>
+
+        <article class="value-card">
+          <div class="value-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+          </div>
+          <h3 class="value-title">Speed &amp; Simplicity</h3>
+          <p class="value-desc">
+            Tez digital verification, instant OTP access, aur aasaan online EMI payment ka seamless anubhav.
+          </p>
+        </article>
+
+        <article class="value-card">
+          <div class="value-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+          </div>
+          <h3 class="value-title">Security &amp; Compliance</h3>
+          <p class="value-desc">
+            Encrypted sessions, regulatory compliance, aur customer data ki suraksha ke liye sakth niyam.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5) Our Journey / Milestones Timeline & How DMI Finance Helps Borrowers -->
+  <section class="section" id="journey">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-kicker">Growth &amp; Milestones</span>
+          <h2 class="section-title">Our Journey &amp; Milestones</h2>
+        </div>
+        <p class="section-subtitle">
+          Digital lending aur customer self-service ko behtar banate hue DMI Finance ka safar.
+        </p>
+      </div>
+
+      <div class="timeline-grid">
+        <article class="milestone-card">
+          <div class="milestone-year">Foundation</div>
+          <h3 class="milestone-title">Structured Credit &amp; Governance</h3>
+          <p class="milestone-desc">
+            Zimmedar underwriting, compliance discipline, aur bharosemand lending model ki mazboot shuruaat.
+          </p>
+        </article>
+
+        <article class="milestone-card">
+          <div class="milestone-year">Digital Expansion</div>
+          <h3 class="milestone-title">Paperless &amp; Tech-Led Lending</h3>
+          <p class="milestone-desc">
+            Digital journeys aur partner integrations ke zariye tez aur paperless credit access ka vistaar.
+          </p>
+        </article>
+
+        <article class="milestone-card">
+          <div class="milestone-year">Pan-India Scale</div>
+          <h3 class="milestone-title">Wide Customer Footprint</h3>
+          <p class="milestone-desc">
+            Bharat ke kai rajyon aur shehron mein lakhs customers aur businesses tak pahunch aur seva.
+          </p>
+        </article>
+
+        <article class="milestone-card">
+          <div class="milestone-year">Customer Portal</div>
+          <h3 class="milestone-title">24&times;7 Self-Service (portal.dmifinance.in)</h3>
+          <p class="milestone-desc">
+            EMI pay karne, application track karne, aur statement/NOC lene ke liye dedicated digital portal.
+          </p>
+        </article>
+      </div>
+
+      <div class="section-header" id="how-we-help" style="margin-top: 12px;">
+        <div>
+          <span class="section-kicker">Borrower Support</span>
+          <h2 class="section-title">How DMI Finance Helps Borrowers</h2>
+        </div>
+        <p class="section-subtitle">
+          Har zaroorat ke liye clear lending solutions aur aasaan digital portal actions.
+        </p>
+      </div>
+
+      <div class="borrower-grid">
+        <article class="borrower-card">
+          <div>
+            <h3 class="borrower-title">Personal Loans</h3>
+            <p class="borrower-desc">
+              Vyaktigath zarooraton ke liye flexible tenure aur clear monthly EMI ke saath personal credit suvidha.
+            </p>
+          </div>
+          <a href="index.html#emi-calculator" class="borrower-link">
+            <span>Calculate Personal Loan EMI &rarr;</span>
+          </a>
+        </article>
+
+        <article class="borrower-card">
+          <div>
+            <h3 class="borrower-title">Consumer &amp; Digital Credit</h3>
+            <p class="borrower-desc">
+              Rozmarra ki kharidari aur digital credit needs ke liye aasaan EMI options aur clear repayment track.
+            </p>
+          </div>
+          <a href="index.html#loans" class="borrower-link">
+            <span>Explore Loan Categories &rarr;</span>
+          </a>
+        </article>
+
+        <article class="borrower-card">
+          <div>
+            <h3 class="borrower-title">Easy EMI Management</h3>
+            <p class="borrower-desc">
+              Upcoming EMI check karein, online bhugtan karein, aur statement ya NOC aasani se download karein.
+            </p>
+          </div>
+          <button type="button" class="borrower-link" onclick="openModal('payEmiModal')">
+            <span>Pay EMI Online &rarr;</span>
+          </button>
+        </article>
+
+        <article class="borrower-card">
+          <div>
+            <h3 class="borrower-title">Seamless Support</h3>
+            <p class="borrower-desc">
+              Application status track karne ya kisi bhi query ke liye customer care aur portal helpdesk se juden.
+            </p>
+          </div>
+          <button type="button" class="borrower-link" onclick="openModal('trackModal')">
+            <span>Track Application Status &rarr;</span>
+          </button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6) Consistent Footer with Disclaimer, Links & Hinglish/English Labels -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-logo" style="margin-bottom: 12px;">
+            <span class="brand-mark" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="24" height="24" rx="6" fill="rgba(255,255,255,0.14)" />
+                <path d="M7.5 19.5V8.5H11.5C13.8 8.5 15.3 10.1 15.3 14C15.3 17.9 13.8 19.5 11.5 19.5H7.5Z" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" />
+                <path d="M18.2 8.5V19.5" stroke="#99F6E4" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M21.8 8.5V19.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span class="brand-text-wrap">
+              <span class="brand-name" style="color: #ffffff;">DMI <span>Finance</span></span>
+              <span class="brand-sub" style="color: #94a3b8;">portal.dmifinance.in</span>
+            </span>
+          </div>
+          <p style="margin: 0; color: #94a3b8; line-height: 1.6;">
+            <strong>Disclaimer:</strong> DMI Finance Customer Portal (portal.dmifinance.in) ki jaankari aur interactive tools customer sahayata ke liye hain. Hamesha official portal URL check karein aur apna OTP ya password kisi ke saath share na karein.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Portal Links</h4>
+          <ul class="footer-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About DMI Finance</a></li>
+            <li><a href="index.html#loans">Services &amp; Loans</a></li>
+            <li><a href="index.html#emi-calculator">EMI Calculator</a></li>
+            <li><a href="index.html#support">Customer Care</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Quick Actions</h4>
+          <ul class="footer-list">
+            <li><button type="button" onclick="openModal('loginModal')">Customer Login</button></li>
+            <li><button type="button" onclick="openModal('payEmiModal')">Pay EMI Online</button></li>
+            <li><button type="button" onclick="openModal('trackModal')">Track Application</button></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Helpline &amp; Suraksha</h4>
+          <p style="margin: 0 0 8px; color: #94a3b8; line-height: 1.6;">
+            Phone: <strong style="color: #cbd5e1;">022-68539500 / 08064807777</strong>
+          </p>
+          <p style="margin: 0; color: #94a3b8; line-height: 1.6;">
+            Email: <strong style="color: #cbd5e1;">customercare@dmifinance.in</strong>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; <span id="footerYear">2026</span> DMI Finance. All rights reserved.</span>
+        <span>DMI Finance Customer Portal (portal.dmifinance.in)</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal 1: Customer Login -->
+  <div class="modal-backdrop" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h3 class="modal-title" id="loginModalTitle">DMI Finance Customer Login</h3>
+        <button type="button" class="modal-close" aria-label="Close login modal" onclick="closeModal('loginModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="modalLoginForm" novalidate>
+          <div class="form-group">
+            <label for="modalLoginId" class="form-label">Mobile Number / PAN / Application ID</label>
+            <input type="text" id="modalLoginId" class="form-input" placeholder="Mobile Number, PAN, ya Application ID dalein" />
+          </div>
+          <div class="form-group">
+            <label for="modalLoginOtp" class="form-label">OTP / Password</label>
+            <div class="otp-row">
+              <input type="text" id="modalLoginOtp" class="form-input" placeholder="6-digit OTP ya password dalein" />
+              <button type="button" class="btn-otp" onclick="sendDemoOtp('modalLoginId', 'modalLoginFeedback')">Send OTP</button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Continue to Account</button>
+          <div id="modalLoginFeedback" class="feedback-box" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Pay EMI -->
+  <div class="modal-backdrop" id="payEmiModal" role="dialog" aria-modal="true" aria-labelledby="payEmiModalTitle">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h3 class="modal-title" id="payEmiModalTitle">Pay Monthly EMI — DMI Finance</h3>
+        <button type="button" class="modal-close" aria-label="Close Pay EMI modal" onclick="closeModal('payEmiModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="payEmiForm" novalidate>
+          <div class="form-group">
+            <label for="emiAccountInput" class="form-label">Loan ID / Mobile Number / PAN</label>
+            <input type="text" id="emiAccountInput" class="form-input" placeholder="e.g. LN8849201 ya 9876543210" />
+          </div>
+          <div class="form-group">
+            <label for="emiAmountInput" class="form-label">EMI Amount to Pay (&#8377;)</label>
+            <input type="number" id="emiAmountInput" class="form-input" min="100" step="1" value="12071" />
+          </div>
+          <div class="form-group">
+            <label for="emiPaymentMode" class="form-label">Preferred Payment Mode</label>
+            <select id="emiPaymentMode" class="form-select">
+              <option value="UPI / QR">UPI / QR Instant Pay</option>
+              <option value="Net Banking">Net Banking</option>
+              <option value="Debit Card">Debit Card</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-teal" style="width: 100%;">Initiate EMI Payment</button>
+          <div id="payEmiFeedback" class="feedback-box" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Track Application -->
+  <div class="modal-backdrop" id="trackModal" role="dialog" aria-modal="true" aria-labelledby="trackModalTitle">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h3 class="modal-title" id="trackModalTitle">Track Loan Application Status</h3>
+        <button type="button" class="modal-close" aria-label="Close Track Application modal" onclick="closeModal('trackModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="trackForm" novalidate>
+          <div class="form-group">
+            <label for="trackAppId" class="form-label">Application ID ya Registered Mobile Number</label>
+            <input type="text" id="trackAppId" class="form-input" placeholder="e.g. DMI2026-78412 ya 9876543210" />
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Check Status</button>
+          <div id="trackFeedback" class="feedback-box" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       Interactive About Page Logic — DMI Finance Customer Portal
+       ========================================================================== */
+
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+    // Journey stages for the interactive HTML5 Canvas graphic
+    const JOURNEY_STAGES = [
+      {
+        label: 'Step 1 • Digital Apply',
+        headline: 'Paperless Onboarding & Instant Verification',
+        detail: 'Mobile/PAN/Application ID ke saath aasaan digital process aur clear status tracking.'
+      },
+      {
+        label: 'Step 2 • Clear Terms',
+        headline: 'Transparent EMI Schedule & Loan Details',
+        detail: 'Principal, interest, aur tenure ka spasht hisab bina kisi hidden confusion ke.'
+      },
+      {
+        label: 'Step 3 • Easy EMI',
+        headline: '24x7 Online EMI Payment & Auto-Debit Support',
+        detail: 'UPI, Net Banking, aur Debit Card se kabhi bhi EMI bhugtan aur instant receipt.'
+      },
+      {
+        label: 'Step 4 • Statement & NOC',
+        headline: 'Loan Statement, Interest Certificate & Closure NOC',
+        detail: 'Zaroori loan documents aur closure NOC ek hi portal par aasani se uplabdh.'
+      }
+    ];
+
+    let activeJourneyStage = 0;
+
+    function selectJourneyStage(index) {
+      activeJourneyStage = index;
+      document.querySelectorAll('.stage-btn').forEach((btn) => {
+        const isMatch = Number(btn.getAttribute('data-stage')) === index;
+        btn.classList.toggle('active', isMatch);
+      });
+      renderTrustJourneyCanvas();
+    }
+
+    function renderTrustJourneyCanvas() {
+      const canvas = document.getElementById('trustJourneyCanvas');
+      if (!canvas) return;
+
+      try {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        const width = Math.max(300, rect.width || 900);
+        const height = 188;
+
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+
+        const ctx = canvas.getContext('2d');
+        ctx.save();
+        ctx.scale(dpr, dpr);
+
+        // Background surface & subtle border
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.strokeStyle = '#e2e8f0';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(0.5, 0.5, width - 1, height - 1);
+
+        // Draw 4 connected milestone nodes across the width
+        const padX = 24;
+        const usableW = width - padX * 2;
+        const stepCount = JOURNEY_STAGES.length;
+        const gap = usableW / stepCount;
+        const nodeY = 54;
+
+        // Connecting track line
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(padX + gap * 0.5, nodeY);
+        ctx.lineTo(padX + gap * (stepCount - 0.5), nodeY);
+        ctx.stroke();
+
+        // Active progress line up to selected stage
+        ctx.strokeStyle = '#0d9488';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(padX + gap * 0.5, nodeY);
+        ctx.lineTo(padX + gap * (activeJourneyStage + 0.5), nodeY);
+        ctx.stroke();
+
+        for (let i = 0; i < stepCount; i++) {
+          const cx = padX + gap * (i + 0.5);
+          const isSelected = i === activeJourneyStage;
+          const isCompleted = i <= activeJourneyStage;
+
+          ctx.fillStyle = isSelected ? '#0b1f3a' : (isCompleted ? '#0d9488' : '#ffffff');
+          ctx.strokeStyle = isCompleted ? '#0d9488' : '#94a3b8';
+          ctx.lineWidth = 2.5;
+          ctx.beginPath();
+          ctx.arc(cx, nodeY, isSelected ? 18 : 14, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.fillStyle = isCompleted ? '#ffffff' : '#475569';
+          ctx.font = '700 12px Inter, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(String(i + 1), cx, nodeY);
+
+          ctx.fillStyle = isSelected ? '#0b1f3a' : '#475569';
+          ctx.font = isSelected ? '700 12px Inter, sans-serif' : '600 11px Inter, sans-serif';
+          ctx.fillText(JOURNEY_STAGES[i].label.split('•')[1].trim(), cx, nodeY + 32);
+        }
+
+        // Bottom highlight banner for selected stage
+        const current = JOURNEY_STAGES[activeJourneyStage];
+        const bannerX = 18;
+        const bannerY = 108;
+        const bannerW = width - 36;
+        const bannerH = 62;
+
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'alphabetic';
+        ctx.fillStyle = '#0b1f3a';
+        ctx.beginPath();
+        ctx.roundRect(bannerX, bannerY, bannerW, bannerH, 12);
+        ctx.fill();
+
+        ctx.fillStyle = '#5eead4';
+        ctx.font = '700 11px Inter, sans-serif';
+        ctx.fillText(current.label.toUpperCase(), bannerX + 16, bannerY + 22);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '700 13px Inter, sans-serif';
+        ctx.fillText(current.headline, bannerX + 16, bannerY + 39);
+
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = '500 11.5px Inter, sans-serif';
+        const maxDetailChars = Math.max(36, Math.floor((bannerW - 32) / 6.4));
+        const clippedDetail = current.detail.length > maxDetailChars
+          ? current.detail.slice(0, maxDetailChars - 1) + '…'
+          : current.detail;
+        ctx.fillText(clippedDetail, bannerX + 16, bannerY + 55);
+
+        ctx.restore();
+      } catch (err) {
+        // Fallback silently if canvas context is unavailable
+      }
+    }
+
+    // Allow clicking directly on canvas milestones
+    document.getElementById('trustJourneyCanvas').addEventListener('click', (event) => {
+      const canvas = event.currentTarget;
+      const rect = canvas.getBoundingClientRect();
+      const clickX = event.clientX - rect.left;
+      const padX = 24;
+      const usableW = Math.max(1, rect.width - padX * 2);
+      const stepCount = JOURNEY_STAGES.length;
+      const idx = Math.min(stepCount - 1, Math.max(0, Math.floor(((clickX - padX) / usableW) * stepCount)));
+      selectJourneyStage(idx);
+    });
+
+    window.addEventListener('load', renderTrustJourneyCanvas);
+    window.addEventListener('resize', renderTrustJourneyCanvas);
+
+    // Mobile Navigation Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('open');
+      mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    function closeMobileNav() {
+      mobileNav.classList.remove('open');
+      mobileMenuBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    // Modal Open & Close Controls
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (!modal) return;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      const firstInput = modal.querySelector('input, select');
+      if (firstInput) {
+        setTimeout(() => firstInput.focus(), 40);
+      }
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (!modal) return;
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.modal-backdrop').forEach((backdrop) => {
+      backdrop.addEventListener('click', (event) => {
+        if (event.target === backdrop) {
+          closeModal(backdrop.id);
+        }
+      });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        document.querySelectorAll('.modal-backdrop.open').forEach((openModalEl) => {
+          closeModal(openModalEl.id);
+        });
+        closeMobileNav();
+      }
+    });
+
+    // Helper for status messages
+    function showFeedback(targetId, type, message) {
+      const box = document.getElementById(targetId);
+      if (!box) return;
+      box.className = `feedback-box show feedback-${type}`;
+      box.textContent = message;
+    }
+
+    function sendDemoOtp(identifierInputId, feedbackId) {
+      const identifier = document.getElementById(identifierInputId).value.trim();
+      if (!identifier) {
+        showFeedback(feedbackId, 'error', 'Pehle apna Mobile Number, PAN, ya Application ID dalein.');
+        return;
+      }
+      showFeedback(feedbackId, 'info', `"${identifier}" ke registered contact par verification OTP bhej diya gaya hai (Demo OTP: 482910).`);
+    }
+
+    document.getElementById('modalLoginForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const idVal = document.getElementById('modalLoginId').value.trim();
+      const credVal = document.getElementById('modalLoginOtp').value.trim();
+
+      if (!idVal || !credVal) {
+        showFeedback('modalLoginFeedback', 'error', 'Mobile/PAN/Application ID aur OTP ya Password dono bharein.');
+        return;
+      }
+
+      showFeedback('modalLoginFeedback', 'success', `"${idVal}" ke liye DMI Finance account session tayar hai.`);
+    });
+
+    function formatINR(num) {
+      return '₹' + Math.round(num).toLocaleString('en-IN');
+    }
+
+    document.getElementById('payEmiForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const accVal = document.getElementById('emiAccountInput').value.trim();
+      const amtVal = Number(document.getElementById('emiAmountInput').value);
+      const modeVal = document.getElementById('emiPaymentMode').value;
+
+      if (!accVal) {
+        showFeedback('payEmiFeedback', 'error', 'Kripya Loan ID, Mobile Number, ya PAN dalein.');
+        return;
+      }
+
+      if (!amtVal || amtVal <= 0) {
+        showFeedback('payEmiFeedback', 'error', 'Kripya valid EMI amount dalein.');
+        return;
+      }
+
+      showFeedback(
+        'payEmiFeedback',
+        'success',
+        `EMI payment request (${formatINR(amtVal)}) for "${accVal}" via ${modeVal} initiate ho gayi hai.`
+      );
+    });
+
+    document.getElementById('trackForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const trackVal = document.getElementById('trackAppId').value.trim();
+
+      if (!trackVal) {
+        showFeedback('trackFeedback', 'error', 'Kripya Application ID ya registered Mobile Number dalein.');
+        return;
+      }
+
+      showFeedback(
+        'trackFeedback',
+        'info',
+        `Application "${trackVal}" ka status: Document & KYC verification in progress (DMI Finance Customer Portal).`
+      );
+    });
+  </script>
+</body>
+</html>
