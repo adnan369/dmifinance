@@ -1,0 +1,2255 @@
+<!DOCTYPE html>
+<html lang="hi-Latn" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DMI Finance Customer Portal | portal.dmifinance.in</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ==========================================================================
+       Design Tokens & Corporate UI Foundation — DMI Finance Customer Portal
+       ========================================================================== */
+    :root {
+      --bg-page: #f4f7fb;
+      --bg-surface: #ffffff;
+      --bg-subtle: #eef2f7;
+      --navy-950: #071528;
+      --navy-900: #0b1f3a;
+      --navy-800: #13315c;
+      --teal-600: #0d9488;
+      --teal-700: #0f766e;
+      --teal-50: #f0fdfa;
+      --amber-500: #d97706;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --border-soft: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --shadow-sm: 0 2px 8px rgba(11, 31, 58, 0.05);
+      --shadow-md: 0 10px 28px rgba(11, 31, 58, 0.08);
+      --shadow-lg: 0 22px 50px rgba(7, 21, 40, 0.16);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --container-max: 1180px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text-primary);
+      background-color: var(--bg-page);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, select {
+      font-family: inherit;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    /* ==========================================================================
+       Top Security & Helpline Bar
+       ========================================================================== */
+    .top-strip {
+      background-color: var(--navy-950);
+      color: #cbd5e1;
+      font-size: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .top-strip-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    .top-strip-left, .top-strip-right {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background-color: #2dd4bf;
+      box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.2);
+      display: inline-block;
+    }
+
+    /* ==========================================================================
+       Sticky Main Navigation Header
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background-color: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 70px;
+      gap: 16px;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 16px rgba(11, 31, 58, 0.18);
+      flex-shrink: 0;
+    }
+
+    .brand-text-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--navy-900);
+      line-height: 1.15;
+    }
+
+    .brand-name span {
+      color: var(--teal-600);
+    }
+
+    .brand-sub {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .nav-links a:hover {
+      color: var(--navy-900);
+    }
+
+    @media (min-width: 860px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mobile-menu-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background-color: var(--bg-surface);
+      color: var(--navy-900);
+      cursor: pointer;
+    }
+
+    @media (min-width: 860px) {
+      .mobile-menu-btn {
+        display: none;
+      }
+    }
+
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      padding: 12px 20px 18px;
+      border-top: 1px solid var(--border-soft);
+      background-color: var(--bg-surface);
+    }
+
+    .mobile-nav.open {
+      display: flex;
+    }
+
+    .mobile-nav a {
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .mobile-nav a:hover {
+      background-color: var(--bg-subtle);
+      color: var(--navy-900);
+    }
+
+    /* ==========================================================================
+       Buttons & Interactive Controls
+       ========================================================================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, background-color 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-sm {
+      padding: 9px 15px;
+      font-size: 13px;
+    }
+
+    .btn-primary {
+      background-color: var(--navy-900);
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(11, 31, 58, 0.16);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--navy-800);
+    }
+
+    .btn-teal {
+      background-color: var(--teal-600);
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(13, 148, 136, 0.22);
+    }
+
+    .btn-teal:hover {
+      background-color: var(--teal-700);
+    }
+
+    .btn-outline {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-outline:hover {
+      background-color: rgba(255, 255, 255, 0.16);
+    }
+
+    .inline-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       Hero Section & Sign-In Card
+       ========================================================================== */
+    .hero-section {
+      background:
+        radial-gradient(circle at 88% 15%, rgba(20, 184, 166, 0.22), transparent 42%),
+        radial-gradient(circle at 12% 85%, rgba(56, 189, 248, 0.12), transparent 45%),
+        linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 58%, var(--navy-800) 100%);
+      color: #ffffff;
+      padding-top: 44px;
+      padding-bottom: 56px;
+    }
+
+    @media (min-width: 768px) {
+      .hero-section {
+        padding-top: 60px;
+        padding-bottom: 68px;
+      }
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    @media (min-width: 980px) {
+      .hero-grid {
+        grid-template-columns: 1.18fr 0.82fr;
+        gap: 40px;
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #99f6e4;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      margin: 0 0 14px;
+      font-size: clamp(28px, 4.4vw, 44px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+    }
+
+    .hero-title .accent {
+      color: #5eead4;
+    }
+
+    .hero-desc {
+      margin: 0 0 24px;
+      font-size: 15px;
+      line-height: 1.65;
+      color: #cbd5e1;
+      max-width: 580px;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .hero-visual-panel {
+      background-color: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      margin-bottom: 22px;
+    }
+
+    .hero-visual-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+      color: #cbd5e1;
+      margin-bottom: 10px;
+    }
+
+    .hero-visual-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: #99f6e4;
+      background-color: rgba(20, 184, 166, 0.18);
+      border: 1px solid rgba(45, 212, 191, 0.35);
+      padding: 2px 9px;
+      border-radius: 999px;
+    }
+
+    .png-style-canvas {
+      width: 100%;
+      height: 124px;
+      display: block;
+      border-radius: var(--radius-md);
+      background-color: #ffffff;
+    }
+
+    .hero-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .hero-stat-value {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .hero-stat-label {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    /* Sign-In Card */
+    .signin-card {
+      background-color: var(--bg-surface);
+      color: var(--text-primary);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
+    @media (min-width: 640px) {
+      .signin-card {
+        padding: 28px;
+      }
+    }
+
+    .signin-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .signin-title {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--navy-900);
+    }
+
+    .signin-subtitle {
+      margin: 4px 0 0;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .portal-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background-color: var(--teal-50);
+      color: var(--teal-700);
+      border: 1px solid #99f6e4;
+      white-space: nowrap;
+    }
+
+    .auth-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      padding: 4px;
+      border-radius: var(--radius-md);
+      background-color: var(--bg-subtle);
+      margin-bottom: 16px;
+    }
+
+    .auth-tab {
+      padding: 8px 10px;
+      border: none;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      background-color: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .auth-tab.active {
+      background-color: var(--bg-surface);
+      color: var(--navy-900);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
+      font-size: 13.5px;
+      color: var(--text-primary);
+      background-color: var(--bg-surface);
+      transition: border-color 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--teal-600);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+    }
+
+    .otp-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-otp {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #99f6e4;
+      background-color: var(--teal-50);
+      color: var(--teal-700);
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-otp:hover {
+      background-color: #ccfbf1;
+    }
+
+    .signin-footer-links {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .link-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--teal-700);
+      cursor: pointer;
+    }
+
+    .link-btn:hover {
+      text-decoration: underline;
+    }
+
+    .feedback-box {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
+    .feedback-box.show {
+      display: block;
+    }
+
+    .feedback-info {
+      background-color: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e3a8a;
+    }
+
+    .feedback-success {
+      background-color: var(--teal-50);
+      border: 1px solid #99f6e4;
+      color: #115e59;
+    }
+
+    .feedback-error {
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+    }
+
+    /* ==========================================================================
+       Section Rhythm & Headers
+       ========================================================================== */
+    .section {
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+
+    @media (min-width: 768px) {
+      .section {
+        padding-top: 68px;
+        padding-bottom: 68px;
+      }
+    }
+
+    .section-white {
+      background-color: var(--bg-surface);
+      border-top: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .section-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    @media (min-width: 768px) {
+      .section-header {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+    }
+
+    .section-kicker {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--teal-700);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--navy-900);
+    }
+
+    .section-subtitle {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+      max-width: 460px;
+    }
+
+    /* ==========================================================================
+       Quick-Action Cards Grid
+       ========================================================================== */
+    .actions-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    @media (min-width: 640px) {
+      .actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .actions-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .action-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .action-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: #99f6e4;
+    }
+
+    .action-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background-color: var(--teal-50);
+      color: var(--teal-700);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .action-title {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy-900);
+    }
+
+    .action-desc {
+      margin: 0 0 18px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .action-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--teal-700);
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .action-link:hover {
+      color: var(--navy-900);
+    }
+
+    /* ==========================================================================
+       EMI Calculator Widget
+       ========================================================================== */
+    .emi-card {
+      background-color: var(--bg-page);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (min-width: 768px) {
+      .emi-card {
+        padding: 32px;
+      }
+    }
+
+    @media (min-width: 960px) {
+      .emi-card {
+        grid-template-columns: 1.25fr 0.75fr;
+        align-items: center;
+      }
+    }
+
+    .slider-block {
+      margin-bottom: 22px;
+    }
+
+    .slider-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .slider-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .slider-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy-900);
+    }
+
+    .slider-value-pill {
+      padding: 4px 12px;
+      border-radius: 999px;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--teal-700);
+    }
+
+    .range-slider {
+      width: 100%;
+      accent-color: var(--teal-600);
+      cursor: pointer;
+      height: 6px;
+    }
+
+    .slider-bounds {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .emi-summary-box {
+      background-color: var(--navy-900);
+      color: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .emi-monthly-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #99f6e4;
+      font-weight: 700;
+    }
+
+    .emi-monthly-amount {
+      font-size: clamp(28px, 3.6vw, 36px);
+      font-weight: 800;
+      margin-top: 4px;
+      letter-spacing: -0.02em;
+    }
+
+    .emi-breakdown {
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+      padding-top: 14px;
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 13.5px;
+    }
+
+    .emi-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .emi-row span:first-child {
+      color: #cbd5e1;
+    }
+
+    .emi-row span:last-child {
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       Loans, Trust & Support Sections
+       ========================================================================== */
+    .loans-grid, .trust-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    @media (min-width: 640px) {
+      .trust-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .loans-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .trust-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .loan-card, .trust-item {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .trust-item {
+      background-color: var(--bg-page);
+    }
+
+    .loan-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background-color: var(--bg-subtle);
+      color: var(--navy-900);
+      margin-bottom: 12px;
+    }
+
+    .loan-title, .trust-title {
+      margin: 0 0 8px;
+      font-size: 16.5px;
+      font-weight: 700;
+      color: var(--navy-900);
+    }
+
+    .loan-desc, .trust-desc {
+      margin: 0 0 14px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .loan-meta {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--teal-700);
+    }
+
+    .trust-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background-color: var(--teal-50);
+      color: var(--teal-700);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .support-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 900px) {
+      .support-grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+      }
+    }
+
+    .support-channels {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .support-box, .support-form-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .support-form-card {
+      padding: 24px;
+    }
+
+    .support-box-title {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy-900);
+    }
+
+    .support-box-detail {
+      margin: 0;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+    }
+
+    /* ==========================================================================
+       Footer
+       ========================================================================== */
+    .site-footer {
+      background-color: var(--navy-950);
+      color: #cbd5e1;
+      padding-top: 48px;
+      padding-bottom: 28px;
+      font-size: 13.5px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @media (min-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+      }
+    }
+
+    .footer-heading {
+      margin: 0 0 12px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #ffffff;
+    }
+
+    .footer-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-list a, .footer-list button {
+      background: none;
+      border: none;
+      padding: 0;
+      color: #94a3b8;
+      font-size: 13.5px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .footer-list a:hover, .footer-list button:hover {
+      color: #ffffff;
+    }
+
+    .footer-bottom {
+      padding-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    /* ==========================================================================
+       Accessible Modal Dialogs
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background-color: rgba(7, 21, 40, 0.65);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-panel {
+      width: 100%;
+      max-width: 450px;
+      background-color: var(--bg-surface);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      animation: modalPop 0.16s ease-out;
+    }
+
+    @keyframes modalPop {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--border-soft);
+      background-color: #f8fafc;
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 16.5px;
+      font-weight: 800;
+      color: var(--navy-900);
+    }
+
+    .modal-close {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-soft);
+      background-color: var(--bg-surface);
+      color: var(--text-secondary);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      color: var(--navy-900);
+      background-color: var(--bg-subtle);
+    }
+
+    .modal-body {
+      padding: 22px;
+    }
+  </style>
+</head>
+<body id="top">
+  <!-- Top Security & Helpline Strip -->
+  <div class="top-strip">
+    <div class="container top-strip-inner">
+      <div class="top-strip-left">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span><strong>DMI Finance Customer Portal</strong> (portal.dmifinance.in) &bull; Safe Self-Service</span>
+      </div>
+      <div class="top-strip-right">
+        <span>Helpline: <strong>022-68539500 / 08064807777</strong></span>
+        <span>Mon–Sat, 9:00 AM – 7:00 PM IST</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Sticky Navigation Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="brand-logo" aria-label="DMI Finance Customer Portal Home">
+        <span class="brand-mark" aria-hidden="true">
+          <!-- DMI Finance Geometric Vector Emblem -->
+          <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="24" height="24" rx="6" fill="rgba(255,255,255,0.14)" />
+            <path d="M7.5 19.5V8.5H11.5C13.8 8.5 15.3 10.1 15.3 14C15.3 17.9 13.8 19.5 11.5 19.5H7.5Z" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" />
+            <path d="M18.2 8.5V19.5" stroke="#99F6E4" stroke-width="2.2" stroke-linecap="round" />
+            <path d="M21.8 8.5V19.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span class="brand-text-wrap">
+          <span class="brand-name">DMI <span>Finance</span></span>
+          <span class="brand-sub">CUSTOMER PORTAL &bull; PORTAL.DMIFINANCE.IN</span>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="#top">Home</a>
+        <a href="#quick-actions">Quick Actions</a>
+        <a href="#emi-calculator">EMI Calculator</a>
+        <a href="#loans">Loans</a>
+        <a href="#support">Support</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="btn btn-primary btn-sm" onclick="openModal('loginModal')">
+          <svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+            <polyline points="10 17 15 12 10 7" />
+            <line x1="15" y1="12" x2="3" y2="12" />
+          </svg>
+          <span>Login</span>
+        </button>
+        <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#top" onclick="closeMobileNav()">Home</a>
+      <a href="#quick-actions" onclick="closeMobileNav()">Quick Actions</a>
+      <a href="#emi-calculator" onclick="closeMobileNav()">EMI Calculator</a>
+      <a href="#loans" onclick="closeMobileNav()">Loans</a>
+      <a href="#support" onclick="closeMobileNav()">Support</a>
+    </div>
+  </header>
+
+  <!-- Hero Section + Customer Sign-In Card -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-badge">
+          <svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <polyline points="9 12 11 14 15 10" />
+          </svg>
+          <span>portal.dmifinance.in &bull; Apna Loan &amp; EMI Customer Portal</span>
+        </div>
+
+        <h1 class="hero-title">
+          Apne <span class="accent">DMI Finance</span> Loans &amp; EMIs Ko Aasani Se Manage Karein
+        </h1>
+
+        <p class="hero-desc">
+          Loan schedule check karein, monthly EMI online pay karein, statement ya NOC download karein, ya apni application status track karein — sab kuch DMI Finance Customer Portal par ek jagah.
+        </p>
+
+        <div class="hero-cta-row">
+          <button type="button" class="btn btn-teal" onclick="openModal('payEmiModal')">
+            <svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+            <span>Pay EMI Online</span>
+          </button>
+
+          <button type="button" class="btn btn-outline" onclick="openModal('trackModal')">
+            <svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              <polyline points="8 11 10 13 14 9" />
+            </svg>
+            <span>Track Application</span>
+          </button>
+        </div>
+
+        <!-- Crisp Canvas-Rendered Loan Overview Graphic -->
+        <div class="hero-visual-panel">
+          <div class="hero-visual-header">
+            <span><strong>Digital Loan Snapshot</strong> &bull; EMI Schedule, Statement &amp; NOC</span>
+            <span class="hero-visual-badge">Live Portal Preview</span>
+          </div>
+          <canvas id="loanSnapshotCanvas" class="png-style-canvas" aria-label="DMI Finance digital loan overview graphic"></canvas>
+        </div>
+
+        <div class="hero-highlights">
+          <div>
+            <div class="hero-stat-value">24&times;7</div>
+            <div class="hero-stat-label">EMI Payment &amp; Ledger Access</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">Instant</div>
+            <div class="hero-stat-label">OTP Login &amp; Status Check</div>
+          </div>
+          <div>
+            <div class="hero-stat-value">Safe &amp; SSL</div>
+            <div class="hero-stat-label">Encrypted Portal Session</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right-Hand Customer Sign-In Card -->
+      <div class="signin-card">
+        <div class="signin-header">
+          <div>
+            <h2 class="signin-title">Customer Sign In (Login)</h2>
+            <p class="signin-subtitle">Registered Mobile, PAN, ya Application ID dalein</p>
+          </div>
+          <span class="portal-pill">DMI Finance</span>
+        </div>
+
+        <div class="auth-toggle" role="tablist" aria-label="Sign in method">
+          <button type="button" class="auth-tab active" id="tabOtp" role="tab" aria-selected="true" onclick="setHeroAuthMode('otp')">
+            OTP Login
+          </button>
+          <button type="button" class="auth-tab" id="tabPassword" role="tab" aria-selected="false" onclick="setHeroAuthMode('password')">
+            Password Login
+          </button>
+        </div>
+
+        <form id="heroLoginForm" novalidate>
+          <div class="form-group">
+            <label for="heroIdentifier" class="form-label">Mobile Number / PAN / Application ID</label>
+            <input
+              type="text"
+              id="heroIdentifier"
+              class="form-input"
+              placeholder="e.g. 9876543210, ABCDE1234F, ya DMI102938"
+              autocomplete="username"
+            />
+          </div>
+
+          <div class="form-group" id="heroOtpGroup">
+            <label for="heroOtpInput" class="form-label">One-Time Password (OTP)</label>
+            <div class="otp-row">
+              <input
+                type="text"
+                id="heroOtpInput"
+                class="form-input"
+                maxlength="6"
+                placeholder="6-digit OTP dalein"
+                inputmode="numeric"
+              />
+              <button type="button" class="btn-otp" onclick="sendDemoOtp('heroIdentifier', 'heroFeedback')">
+                Send OTP
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group" id="heroPasswordGroup" style="display: none;">
+            <label for="heroPasswordInput" class="form-label">Portal Password</label>
+            <input
+              type="password"
+              id="heroPasswordInput"
+              class="form-input"
+              placeholder="Apna portal password dalein"
+              autocomplete="current-password"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            <svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>Sign In to DMI Finance Portal</span>
+          </button>
+
+          <div id="heroFeedback" class="feedback-box" role="status" aria-live="polite"></div>
+        </form>
+
+        <div class="signin-footer-links">
+          <span>Application status check karna hai?</span>
+          <button type="button" class="link-btn" onclick="openModal('trackModal')">
+            Track Application &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick-Action Cards Section -->
+  <section class="section" id="quick-actions">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-kicker">Self-Service Hub</span>
+          <h2 class="section-title">Quick Customer Actions</h2>
+        </div>
+        <p class="section-subtitle">
+          EMI pay karna, statement ya NOC download karna, ya application status track karna ab bilkul aasaan.
+        </p>
+      </div>
+
+      <div class="actions-grid">
+        <article class="action-card">
+          <div>
+            <div class="action-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+                <path d="M9 16l2 2 4-4" />
+              </svg>
+            </div>
+            <h3 class="action-title">Pay EMI (EMI Bhugtan)</h3>
+            <p class="action-desc">
+              Apni upcoming ya overdue EMI online pay karein aur instant payment confirmation paayein.
+            </p>
+          </div>
+          <button type="button" class="action-link" onclick="openModal('payEmiModal')">
+            <span>Pay EMI Now</span>
+            <svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </article>
+
+        <article class="action-card">
+          <div>
+            <div class="action-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="12" y1="18" x2="12" y2="12" />
+                <polyline points="9 15 12 18 15 15" />
+              </svg>
+            </div>
+            <h3 class="action-title">Statement &amp; NOC Download</h3>
+            <p class="action-desc">
+              Repayment schedule, loan statement, interest certificate, aur closure NOC aasani se download karein.
+            </p>
+          </div>
+          <button type="button" class="action-link" onclick="openModal('loginModal')">
+            <span>Login to Download</span>
+            <svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </article>
+
+        <article class="action-card">
+          <div>
+            <div class="action-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                <polyline points="8 11 10 13 14 9" />
+              </svg>
+            </div>
+            <h3 class="action-title">Track Application Status</h3>
+            <p class="action-desc">
+              Application ID ya registered mobile number se apni loan verification aur disbursal status dekhein.
+            </p>
+          </div>
+          <button type="button" class="action-link" onclick="openModal('trackModal')">
+            <span>Track Status</span>
+            <svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </article>
+
+        <article class="action-card">
+          <div>
+            <div class="action-icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+              </svg>
+            </div>
+            <h3 class="action-title">Customer Care &amp; Loans</h3>
+            <p class="action-desc">
+              DMI Finance loan options dekhein ya kisi bhi query ke liye customer support team se sampark karein.
+            </p>
+          </div>
+          <a href="#loans" class="action-link">
+            <span>Explore Loans</span>
+            <svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive EMI Calculator Section -->
+  <section class="section section-white" id="emi-calculator">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-kicker">Repayment Planner</span>
+          <h2 class="section-title">EMI Calculator (Kist Hisab)</h2>
+        </div>
+        <p class="section-subtitle">
+          Loan amount, interest rate, aur tenure (months) badal kar apni monthly EMI ka andaaza lagayein.
+        </p>
+      </div>
+
+      <div class="emi-card">
+        <div>
+          <div class="slider-block">
+            <div class="slider-top">
+              <label for="loanAmountRange" class="slider-label">Loan Amount</label>
+              <span class="slider-value-pill" id="loanAmountDisplay">&#8377;2,50,000</span>
+            </div>
+            <input
+              type="range"
+              id="loanAmountRange"
+              class="range-slider"
+              min="25000"
+              max="2500000"
+              step="5000"
+              value="250000"
+              oninput="calculateEmi()"
+            />
+            <div class="slider-bounds">
+              <span>&#8377;25,000</span>
+              <span>&#8377;25,00,000</span>
+            </div>
+          </div>
+
+          <div class="slider-block">
+            <div class="slider-top">
+              <label for="interestRateRange" class="slider-label">Interest Rate (% p.a.)</label>
+              <span class="slider-value-pill" id="interestRateDisplay">14.5%</span>
+            </div>
+            <input
+              type="range"
+              id="interestRateRange"
+              class="range-slider"
+              min="9"
+              max="30"
+              step="0.25"
+              value="14.5"
+              oninput="calculateEmi()"
+            />
+            <div class="slider-bounds">
+              <span>9.0% p.a.</span>
+              <span>30.0% p.a.</span>
+            </div>
+          </div>
+
+          <div class="slider-block">
+            <div class="slider-top">
+              <label for="tenureMonthsRange" class="slider-label">Tenure (Months)</label>
+              <span class="slider-value-pill" id="tenureMonthsDisplay">24 Months</span>
+            </div>
+            <input
+              type="range"
+              id="tenureMonthsRange"
+              class="range-slider"
+              min="6"
+              max="60"
+              step="1"
+              value="24"
+              oninput="calculateEmi()"
+            />
+            <div class="slider-bounds">
+              <span>6 Months</span>
+              <span>60 Months</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="emi-summary-box">
+          <div>
+            <div class="emi-monthly-label">Estimated Monthly EMI</div>
+            <div class="emi-monthly-amount" id="monthlyEmiValue">&#8377;12,071</div>
+
+            <div class="emi-breakdown">
+              <div class="emi-row">
+                <span>Principal Amount</span>
+                <span id="principalSummary">&#8377;2,50,000</span>
+              </div>
+              <div class="emi-row">
+                <span>Total Interest Payable</span>
+                <span id="totalInterestValue">&#8377;39,704</span>
+              </div>
+              <div class="emi-row">
+                <span>Total Payable Amount</span>
+                <span id="totalPayableValue">&#8377;2,89,704</span>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-teal" style="width: 100%;" onclick="openModal('payEmiModal')">
+            <svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+            <span>Proceed to EMI Payment</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Loan Overview Section -->
+  <section class="section" id="loans">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-kicker">Loan Overview</span>
+          <h2 class="section-title">DMI Finance Loan Categories</h2>
+        </div>
+        <p class="section-subtitle">
+          Personal, consumer, aur business loan accounts ka clear overview aur digital servicing.
+        </p>
+      </div>
+
+      <div class="loans-grid">
+        <div class="loan-card">
+          <span class="loan-tag">Personal Credit</span>
+          <h3 class="loan-title">Personal Loans</h3>
+          <p class="loan-desc">
+            Apni zarooraton ke liye flexible tenure aur clear monthly EMI schedule ke saath personal credit facility.
+          </p>
+          <div class="loan-meta">Tenure: 6 to 60 Months &bull; Statement &amp; NOC Ready</div>
+        </div>
+
+        <div class="loan-card">
+          <span class="loan-tag">Everyday Purchases</span>
+          <h3 class="loan-title">Consumer &amp; EMI Finance</h3>
+          <p class="loan-desc">
+            Appliances, electronics, aur partner purchases ke liye easy EMI plans jo portal par aasani se track hote hain.
+          </p>
+          <div class="loan-meta">Transparent EMI Plan &bull; Instant Payment Receipt</div>
+        </div>
+
+        <div class="loan-card">
+          <span class="loan-tag">Business Growth</span>
+          <h3 class="loan-title">MSME &amp; Business Loans</h3>
+          <p class="loan-desc">
+            Business expansion aur working capital ke liye structured repayment aur complete account ledger access.
+          </p>
+          <div class="loan-meta">Dedicated Servicing &bull; Full Ledger Visibility</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust & Security Highlights -->
+  <section class="section section-white" id="security">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-kicker">Trust &amp; Suraksha</span>
+          <h2 class="section-title">Security &amp; Portal Highlights</h2>
+        </div>
+        <p class="section-subtitle">
+          Aapke account aur payment details ko surakshit rakhne ke liye zaroori security standards.
+        </p>
+      </div>
+
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-badge" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <polyline points="9 12 11 14 15 10" />
+            </svg>
+          </div>
+          <h3 class="trust-title">Encrypted Portal Session</h3>
+          <p class="trust-desc">
+            Login, OTP verification, aur account actions secure connection ke zariye protect kiye jaate hain.
+          </p>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-badge" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+          <h3 class="trust-title">Verified OTP Access</h3>
+          <p class="trust-desc">
+            Registered mobile number, PAN, ya Application ID ke saath OTP verification se safe sign-in.
+          </p>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-badge" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+          </div>
+          <h3 class="trust-title">Clear Loan Records</h3>
+          <p class="trust-desc">
+            EMI schedule, statement, aur NOC jaise zaroori documents ek hi jagah par aasani se uplabdh.
+          </p>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-badge" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+            </svg>
+          </div>
+          <h3 class="trust-title">Anti-Fraud Alert</h3>
+          <p class="trust-desc">
+            Apna OTP, PIN, CVV, ya password kisi anjaan call ya message par kabhi share na karein.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Care & Support Section -->
+  <section class="section" id="support">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-kicker">Customer Care</span>
+          <h2 class="section-title">Support &amp; Sahayata</h2>
+        </div>
+        <p class="section-subtitle">
+          EMI, login, statement, ya application tracking se judi kisi bhi madad ke liye humse judein.
+        </p>
+      </div>
+
+      <div class="support-grid">
+        <div class="support-channels">
+          <div class="support-box">
+            <h3 class="support-box-title">Customer Care Helpline</h3>
+            <p class="support-box-detail">
+              Phone: <strong>022-68539500 / 08064807777</strong> (Mon–Sat, 9:00 AM – 7:00 PM IST)
+            </p>
+          </div>
+
+          <div class="support-box">
+            <h3 class="support-box-title">Email Support</h3>
+            <p class="support-box-detail">
+              Customer Care Email: <strong>customercare@dmifinance.in</strong>
+            </p>
+          </div>
+
+          <div class="support-box">
+            <h3 class="support-box-title">Official Customer Portal</h3>
+            <p class="support-box-detail">
+              Web Access: <strong>portal.dmifinance.in</strong> (Registered Mobile &amp; OTP Login)
+            </p>
+          </div>
+        </div>
+
+        <div class="support-form-card">
+          <h3 class="action-title" style="margin-bottom: 12px;">Callback Request Bhejein</h3>
+          <form id="supportCallbackForm" novalidate>
+            <div class="form-group">
+              <label for="supportName" class="form-label">Aapka Naam (Full Name)</label>
+              <input type="text" id="supportName" class="form-input" placeholder="Apna naam likhein" />
+            </div>
+
+            <div class="form-group">
+              <label for="supportPhone" class="form-label">Registered Mobile / Loan ID / App ID</label>
+              <input type="text" id="supportPhone" class="form-input" placeholder="e.g. 9876543210 ya DMI102938" />
+            </div>
+
+            <div class="form-group">
+              <label for="supportTopic" class="form-label">Query Category</label>
+              <select id="supportTopic" class="form-select">
+                <option value="EMI & Payment Query">EMI &amp; Payment Query</option>
+                <option value="Statement / NOC Request">Statement / NOC Request</option>
+                <option value="Application Status">Application Status</option>
+                <option value="Portal Login Assistance">Portal Login Assistance</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <svg class="inline-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+              </svg>
+              <span>Submit Support Request</span>
+            </button>
+            <div id="supportFeedback" class="feedback-box" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Complete DMI Finance Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-logo" style="margin-bottom: 12px;">
+            <span class="brand-mark" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="24" height="24" rx="6" fill="rgba(255,255,255,0.14)" />
+                <path d="M7.5 19.5V8.5H11.5C13.8 8.5 15.3 10.1 15.3 14C15.3 17.9 13.8 19.5 11.5 19.5H7.5Z" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" />
+                <path d="M18.2 8.5V19.5" stroke="#99F6E4" stroke-width="2.2" stroke-linecap="round" />
+                <path d="M21.8 8.5V19.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </span>
+            <span class="brand-text-wrap">
+              <span class="brand-name" style="color: #ffffff;">DMI <span>Finance</span></span>
+              <span class="brand-sub" style="color: #94a3b8;">portal.dmifinance.in</span>
+            </span>
+          </div>
+          <p style="margin: 0; color: #94a3b8; line-height: 1.6;">
+            DMI Finance Customer Portal par aap apne loan details, EMI payments, statements/NOC, aur application status ko aasani se manage kar sakte hain.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Portal Navigation</h4>
+          <ul class="footer-list">
+            <li><a href="#top">Home</a></li>
+            <li><a href="#emi-calculator">EMI Calculator</a></li>
+            <li><a href="#loans">Loan Overview</a></li>
+            <li><a href="#support">Customer Care</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Quick Actions</h4>
+          <ul class="footer-list">
+            <li><button type="button" onclick="openModal('loginModal')">Customer Login</button></li>
+            <li><button type="button" onclick="openModal('payEmiModal')">Pay EMI Online</button></li>
+            <li><button type="button" onclick="openModal('trackModal')">Track Application</button></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Security Advisory</h4>
+          <p style="margin: 0; color: #94a3b8; line-height: 1.6;">
+            Hamesha check karein ki aap <strong>portal.dmifinance.in</strong> par hi hain aur apna OTP ya password kisi ke saath share na karein.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; <span id="footerYear">2026</span> DMI Finance. All rights reserved.</span>
+        <span>DMI Finance Customer Portal (portal.dmifinance.in)</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal 1: Customer Login -->
+  <div class="modal-backdrop" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h3 class="modal-title" id="loginModalTitle">DMI Finance Customer Login</h3>
+        <button type="button" class="modal-close" aria-label="Close login modal" onclick="closeModal('loginModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="modalLoginForm" novalidate>
+          <div class="form-group">
+            <label for="modalLoginId" class="form-label">Mobile Number / PAN / Application ID</label>
+            <input type="text" id="modalLoginId" class="form-input" placeholder="Mobile Number, PAN, ya Application ID dalein" />
+          </div>
+          <div class="form-group">
+            <label for="modalLoginOtp" class="form-label">OTP / Password</label>
+            <div class="otp-row">
+              <input type="text" id="modalLoginOtp" class="form-input" placeholder="6-digit OTP ya password dalein" />
+              <button type="button" class="btn-otp" onclick="sendDemoOtp('modalLoginId', 'modalLoginFeedback')">Send OTP</button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Continue to Account</button>
+          <div id="modalLoginFeedback" class="feedback-box" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Pay EMI -->
+  <div class="modal-backdrop" id="payEmiModal" role="dialog" aria-modal="true" aria-labelledby="payEmiModalTitle">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h3 class="modal-title" id="payEmiModalTitle">Pay Monthly EMI — DMI Finance</h3>
+        <button type="button" class="modal-close" aria-label="Close Pay EMI modal" onclick="closeModal('payEmiModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="payEmiForm" novalidate>
+          <div class="form-group">
+            <label for="emiAccountInput" class="form-label">Loan ID / Mobile Number / PAN</label>
+            <input type="text" id="emiAccountInput" class="form-input" placeholder="e.g. LN8849201 ya 9876543210" />
+          </div>
+          <div class="form-group">
+            <label for="emiAmountInput" class="form-label">EMI Amount to Pay (&#8377;)</label>
+            <input type="number" id="emiAmountInput" class="form-input" min="100" step="1" value="12071" />
+          </div>
+          <div class="form-group">
+            <label for="emiPaymentMode" class="form-label">Preferred Payment Mode</label>
+            <select id="emiPaymentMode" class="form-select">
+              <option value="UPI / QR">UPI / QR Instant Pay</option>
+              <option value="Net Banking">Net Banking</option>
+              <option value="Debit Card">Debit Card</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-teal" style="width: 100%;">Initiate EMI Payment</button>
+          <div id="payEmiFeedback" class="feedback-box" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Track Application -->
+  <div class="modal-backdrop" id="trackModal" role="dialog" aria-modal="true" aria-labelledby="trackModalTitle">
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h3 class="modal-title" id="trackModalTitle">Track Loan Application Status</h3>
+        <button type="button" class="modal-close" aria-label="Close Track Application modal" onclick="closeModal('trackModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="trackForm" novalidate>
+          <div class="form-group">
+            <label for="trackAppId" class="form-label">Application ID ya Registered Mobile Number</label>
+            <input type="text" id="trackAppId" class="form-input" placeholder="e.g. DMI2026-78412 ya 9876543210" />
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Check Status</button>
+          <div id="trackFeedback" class="feedback-box" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       Interactive Portal Logic — DMI Finance Customer Portal
+       ========================================================================== */
+
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+    // Render crisp loan overview visual on HTML5 Canvas
+    function renderLoanSnapshotCanvas() {
+      const canvas = document.getElementById('loanSnapshotCanvas');
+      if (!canvas) return;
+
+      try {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        const width = Math.max(280, rect.width || 460);
+        const height = 124;
+
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+
+        const ctx = canvas.getContext('2d');
+        ctx.save();
+        ctx.scale(dpr, dpr);
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.strokeStyle = '#e2e8f0';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(0.5, 0.5, width - 1, height - 1);
+
+        ctx.fillStyle = '#0b1f3a';
+        ctx.font = '700 13px Inter, sans-serif';
+        ctx.fillText('DMI Finance — Loan & EMI Overview', 14, 24);
+
+        ctx.fillStyle = '#475569';
+        ctx.font = '500 11px Inter, sans-serif';
+        ctx.fillText('Statement • NOC • Application Tracking', 14, 41);
+
+        const barX = 14;
+        const barY = 56;
+        const barW = Math.min(240, width - 140);
+        const barH = 10;
+
+        ctx.fillStyle = '#e2e8f0';
+        ctx.beginPath();
+        ctx.roundRect(barX, barY, barW, barH, 5);
+        ctx.fill();
+
+        ctx.fillStyle = '#0d9488';
+        ctx.beginPath();
+        ctx.roundRect(barX, barY, barW * 0.68, barH, 5);
+        ctx.fill();
+
+        ctx.fillStyle = '#0f172a';
+        ctx.font = '600 11px Inter, sans-serif';
+        ctx.fillText('EMI Schedule: 68% Completed', barX, 84);
+
+        ctx.fillStyle = '#0d9488';
+        ctx.font = '700 11px Inter, sans-serif';
+        ctx.fillText('Auto-Debit Active', barX, 102);
+
+        const boxW = 108;
+        const boxH = 88;
+        const boxX = Math.max(barX + barW + 12, width - boxW - 14);
+        const boxY = 18;
+
+        if (boxX + boxW <= width - 8) {
+          ctx.fillStyle = '#0b1f3a';
+          ctx.beginPath();
+          ctx.roundRect(boxX, boxY, boxW, boxH, 10);
+          ctx.fill();
+
+          ctx.fillStyle = '#99f6e4';
+          ctx.font = '700 10px Inter, sans-serif';
+          ctx.fillText('PORTAL STATUS', boxX + 12, boxY + 22);
+
+          ctx.fillStyle = '#ffffff';
+          ctx.font = '800 14px Inter, sans-serif';
+          ctx.fillText('24x7 Ready', boxX + 12, boxY + 44);
+
+          ctx.fillStyle = '#cbd5e1';
+          ctx.font = '500 10px Inter, sans-serif';
+          ctx.fillText('EMI & NOC Desk', boxX + 12, boxY + 66);
+        }
+
+        ctx.restore();
+      } catch (err) {
+        // Fallback silently if canvas context is unavailable
+      }
+    }
+
+    window.addEventListener('load', renderLoanSnapshotCanvas);
+    window.addEventListener('resize', renderLoanSnapshotCanvas);
+
+    // Mobile Navigation Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('open');
+      mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    function closeMobileNav() {
+      mobileNav.classList.remove('open');
+      mobileMenuBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    // Modal Open & Close Controls
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (!modal) return;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      const firstInput = modal.querySelector('input, select');
+      if (firstInput) {
+        setTimeout(() => firstInput.focus(), 40);
+      }
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (!modal) return;
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.modal-backdrop').forEach((backdrop) => {
+      backdrop.addEventListener('click', (event) => {
+        if (event.target === backdrop) {
+          closeModal(backdrop.id);
+        }
+      });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        document.querySelectorAll('.modal-backdrop.open').forEach((openModalEl) => {
+          closeModal(openModalEl.id);
+        });
+        closeMobileNav();
+      }
+    });
+
+    // Helper for status messages
+    function showFeedback(targetId, type, message) {
+      const box = document.getElementById(targetId);
+      if (!box) return;
+      box.className = `feedback-box show feedback-${type}`;
+      box.textContent = message;
+    }
+
+    // Hero OTP vs Password Sign-In Mode Switcher
+    let currentHeroMode = 'otp';
+
+    function setHeroAuthMode(mode) {
+      currentHeroMode = mode;
+      const tabOtp = document.getElementById('tabOtp');
+      const tabPassword = document.getElementById('tabPassword');
+      const otpGroup = document.getElementById('heroOtpGroup');
+      const passwordGroup = document.getElementById('heroPasswordGroup');
+
+      if (mode === 'otp') {
+        tabOtp.classList.add('active');
+        tabOtp.setAttribute('aria-selected', 'true');
+        tabPassword.classList.remove('active');
+        tabPassword.setAttribute('aria-selected', 'false');
+        otpGroup.style.display = 'block';
+        passwordGroup.style.display = 'none';
+      } else {
+        tabPassword.classList.add('active');
+        tabPassword.setAttribute('aria-selected', 'true');
+        tabOtp.classList.remove('active');
+        tabOtp.setAttribute('aria-selected', 'false');
+        passwordGroup.style.display = 'block';
+        otpGroup.style.display = 'none';
+      }
+    }
+
+    function sendDemoOtp(identifierInputId, feedbackId) {
+      const identifier = document.getElementById(identifierInputId).value.trim();
+      if (!identifier) {
+        showFeedback(feedbackId, 'error', 'Pehle apna Mobile Number, PAN, ya Application ID dalein.');
+        return;
+      }
+      showFeedback(feedbackId, 'info', `"${identifier}" ke registered contact par verification OTP bhej diya gaya hai (Demo OTP: 482910).`);
+    }
+
+    document.getElementById('heroLoginForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const identifier = document.getElementById('heroIdentifier').value.trim();
+      const otpVal = document.getElementById('heroOtpInput').value.trim();
+      const passVal = document.getElementById('heroPasswordInput').value.trim();
+
+      if (!identifier) {
+        showFeedback('heroFeedback', 'error', 'Kripya Mobile Number, PAN, ya Application ID dalein.');
+        return;
+      }
+
+      if (currentHeroMode === 'otp' && otpVal.length < 4) {
+        showFeedback('heroFeedback', 'error', 'Kripya valid OTP dalein (ya "Send OTP" par click karein).');
+        return;
+      }
+
+      if (currentHeroMode === 'password' && passVal.length < 4) {
+        showFeedback('heroFeedback', 'error', 'Kripya apna valid portal Password dalein.');
+        return;
+      }
+
+      showFeedback('heroFeedback', 'success', `Portal preview ready: "${identifier}" ke liye DMI Finance customer session verify ho gaya hai.`);
+    });
+
+    document.getElementById('modalLoginForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const idVal = document.getElementById('modalLoginId').value.trim();
+      const credVal = document.getElementById('modalLoginOtp').value.trim();
+
+      if (!idVal || !credVal) {
+        showFeedback('modalLoginFeedback', 'error', 'Mobile/PAN/Application ID aur OTP ya Password dono bharein.');
+        return;
+      }
+
+      showFeedback('modalLoginFeedback', 'success', `"${idVal}" ke liye DMI Finance account session tayar hai.`);
+    });
+
+    document.getElementById('payEmiForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const accVal = document.getElementById('emiAccountInput').value.trim();
+      const amtVal = Number(document.getElementById('emiAmountInput').value);
+      const modeVal = document.getElementById('emiPaymentMode').value;
+
+      if (!accVal) {
+        showFeedback('payEmiFeedback', 'error', 'Kripya Loan ID, Mobile Number, ya PAN dalein.');
+        return;
+      }
+
+      if (!amtVal || amtVal <= 0) {
+        showFeedback('payEmiFeedback', 'error', 'Kripya valid EMI amount dalein.');
+        return;
+      }
+
+      showFeedback(
+        'payEmiFeedback',
+        'success',
+        `EMI payment request (${formatINR(amtVal)}) for "${accVal}" via ${modeVal} initiate ho gayi hai.`
+      );
+    });
+
+    document.getElementById('trackForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const trackVal = document.getElementById('trackAppId').value.trim();
+
+      if (!trackVal) {
+        showFeedback('trackFeedback', 'error', 'Kripya Application ID ya registered Mobile Number dalein.');
+        return;
+      }
+
+      showFeedback(
+        'trackFeedback',
+        'info',
+        `Application "${trackVal}" ka status: Document & KYC verification in progress (DMI Finance Customer Portal).`
+      );
+    });
+
+    document.getElementById('supportCallbackForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const nameVal = document.getElementById('supportName').value.trim();
+      const phoneVal = document.getElementById('supportPhone').value.trim();
+      const topicVal = document.getElementById('supportTopic').value;
+
+      if (!nameVal || !phoneVal) {
+        showFeedback('supportFeedback', 'error', 'Kripya apna naam aur Mobile/Loan ID/App ID bharein.');
+        return;
+      }
+
+      showFeedback(
+        'supportFeedback',
+        'success',
+        `Shukriya ${nameVal}! Aapki "${topicVal}" callback request (${phoneVal}) darj kar li gayi hai.`
+      );
+    });
+
+    // Indian Rupee Formatter & Standard Reducing-Balance EMI Calculation
+    function formatINR(num) {
+      return '₹' + Math.round(num).toLocaleString('en-IN');
+    }
+
+    function calculateEmi() {
+      const principal = Number(document.getElementById('loanAmountRange').value);
+      const annualRate = Number(document.getElementById('interestRateRange').value);
+      const months = Number(document.getElementById('tenureMonthsRange').value);
+
+      document.getElementById('loanAmountDisplay').textContent = formatINR(principal);
+      document.getElementById('interestRateDisplay').textContent = `${annualRate.toFixed(annualRate % 1 === 0 ? 0 : 2)}%`;
+      document.getElementById('tenureMonthsDisplay').textContent = `${months} Months`;
+
+      const monthlyRate = annualRate / 12 / 100;
+      let emi = 0;
+
+      if (monthlyRate === 0) {
+        emi = principal / months;
+      } else {
+        const factor = Math.pow(1 + monthlyRate, months);
+        emi = (principal * monthlyRate * factor) / (factor - 1);
+      }
+
+      const totalPayable = emi * months;
+      const totalInterest = Math.max(0, totalPayable - principal);
+
+      document.getElementById('monthlyEmiValue').textContent = formatINR(emi);
+      document.getElementById('principalSummary').textContent = formatINR(principal);
+      document.getElementById('totalInterestValue').textContent = formatINR(totalInterest);
+      document.getElementById('totalPayableValue').textContent = formatINR(totalPayable);
+
+      const modalEmiInput = document.getElementById('emiAmountInput');
+      if (modalEmiInput && document.activeElement !== modalEmiInput) {
+        modalEmiInput.value = Math.round(emi);
+      }
+    }
+
+    calculateEmi();
+  </script>
+</body>
+</html>
