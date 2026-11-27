@@ -103,8 +103,76 @@
     .receipt-card {
       background-color: #FFFFFF;
       border-radius: 16px;
-      padding: 32px 26px 26px;
+      padding: 28px 24px 22px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .receipt-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #0F172A;
+      margin-bottom: 22px;
+      text-transform: uppercase;
+    }
+
+    .detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .icon-wrap {
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .receipt-icon-img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .detail-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .detail-label {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #6B7280;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 1px;
+    }
+
+    .detail-value {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: #0F172A;
+      letter-spacing: 0.25px;
+      line-height: 1.2;
+    }
+
+    .green-underline {
+      width: 38px;
+      height: 4px;
+      background-color: #00C853;
+      border-radius: 4px;
+      margin-top: 4px;
     }
 
     .receipt-title {
@@ -590,20 +658,8 @@
       gap: 10px;
     }
 
-    .qr-btn-copy {
-      flex: 1;
-      background-color: #EEF2FF;
-      color: #1754D8;
-      border: 1.5px solid #BFDBFE;
-      border-radius: 12px;
-      padding: 11px 12px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
     .qr-btn-close {
-      flex: 1;
+      width: 100%;
       background-color: #1754D8;
       color: #FFFFFF;
       border: none;
@@ -845,7 +901,6 @@
       <div class="qr-manager-caption">Collection Manager Md Adnan From DMI Finance</div>
 
       <div class="qr-actions-row">
-        <button type="button" class="qr-btn-copy" id="qrCopyLinkBtn" onclick="copyPcUpiLink()">Copy UPI Link</button>
         <button type="button" class="qr-btn-close" onclick="closePaymentModal()">Close</button>
       </div>
     </div>
@@ -868,6 +923,7 @@
     // Fixed Merchant UPI Configuration
     const MERCHANT_UPI_ID = 'BHARATPE09917548991@yesbankltd';
     const MERCHANT_PAYEE_NAME = 'DMI Finance';
+    const MERCHANT_TRANSACTION_NOTE = 'DMI Finance';
 
     // Default values for the first 5 dynamic receipt fields
     const DEFAULT_RECEIPT_FIELDS = {
@@ -932,7 +988,7 @@
     }
 
     /**
-     * Build UPI intent URI: upi://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR
+     * Build UPI intent URI: upi://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=2500.00&cu=INR&tn=DMI%20Finance
      */
     function buildUpiIntentUri(formattedAmount) {
       const amountParam = extractNumericUpiAmount(formattedAmount);
@@ -943,7 +999,8 @@
         encodeURIComponent(MERCHANT_PAYEE_NAME) +
         '&am=' +
         encodeURIComponent(amountParam) +
-        '&cu=INR'
+        '&cu=INR&tn=' +
+        encodeURIComponent(MERCHANT_TRANSACTION_NOTE)
       );
     }
 
@@ -1332,23 +1389,6 @@
       }
     }
 
-    function copyPcUpiLink() {
-      const amount = syncBillAmountDisplay(document.getElementById('bill-amount').textContent);
-      const upiUri = buildUpiIntentUri(amount);
-      try {
-        const tempInput = document.createElement('textarea');
-        tempInput.value = upiUri;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        document.execCommand('copy');
-        document.body.removeChild(tempInput);
-        const btn = document.getElementById('qrCopyLinkBtn');
-        if (btn) btn.textContent = 'Copied!';
-      } catch (e) {
-        // Ignore clipboard errors if blocked
-      }
-    }
-
     function openPaymentModal() {
       const amount = syncBillAmountDisplay(document.getElementById('bill-amount').textContent);
       const loanId = document.getElementById('loan-id').textContent.trim();
@@ -1380,8 +1420,6 @@
       document.getElementById('qrCustomerName').textContent = customerName || 'ADNAN IBRAHIM';
       document.getElementById('qrLoanId').textContent = 'LOAN ID: ' + (loanId || 'DMI00892028');
       document.getElementById('qrAmountDisplay').textContent = amount;
-      const copyBtn = document.getElementById('qrCopyLinkBtn');
-      if (copyBtn) copyBtn.textContent = 'Copy UPI Link';
 
       renderPcQrCode(upiUri);
       if (overlay) overlay.classList.add('active');
