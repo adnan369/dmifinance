@@ -744,14 +744,14 @@
       <div class="contact-section">
         <p class="contact-heading">For any queries, please contact <strong>DMI Finance</strong></p>
         <div class="contact-row">
-          <a href="tel:08064807777" class="contact-link">
+          <a href="tel:+917669818769" class="contact-link">
             <img
               src="https://adnan369.github.io/dmifinance/brand/chat.png"
               alt="Contact"
               class="contact-icon-img"
               onerror="this.style.display='none'"
             />
-            08064807777
+            76698 18769
           </a>
           <a href="mailto:customercae@dmifinance.com" class="contact-link">
             <img
@@ -1357,25 +1357,18 @@
 
       const mobileBox = document.getElementById('mobilePaymentBox');
       const pcBox = document.getElementById('pcQrModalBox');
+      const overlay = document.getElementById('paymentModal');
 
-      // On mobile / touch screens, launch UPI intent directly and show quick mobile modal
+      // Mobile / touch devices: launch UPI app directly without opening QR or modal overlay
       if (isMobileDevice()) {
+        if (overlay) overlay.classList.remove('active');
         if (pcBox) pcBox.style.display = 'none';
-        if (mobileBox) mobileBox.style.display = 'block';
-
-        document.getElementById('modalTitle').textContent = 'Confirm Repayment';
-        document.getElementById('modalDesc').innerHTML =
-          'Pay to <strong>' + MERCHANT_PAYEE_NAME + '</strong> for Loan ID <strong>' + loanId + '</strong>.';
-        document.getElementById('modalAmount').textContent = amount;
-        document.getElementById('modalActions').innerHTML =
-          '<button type="button" class="modal-btn modal-btn-cancel" onclick="closePaymentModal()">Cancel</button>' +
-          '<button type="button" class="modal-btn modal-btn-confirm" onclick="confirmPayment()">Pay Now</button>';
-        document.getElementById('paymentModal').classList.add('active');
+        if (mobileBox) mobileBox.style.display = 'none';
 
         try {
           window.location.href = upiUri;
         } catch (err) {
-          // Fallback remains in modal
+          // Ignore if blocked by browser
         }
         return;
       }
@@ -1391,7 +1384,7 @@
       if (copyBtn) copyBtn.textContent = 'Copy UPI Link';
 
       renderPcQrCode(upiUri);
-      document.getElementById('paymentModal').classList.add('active');
+      if (overlay) overlay.classList.add('active');
     }
 
     function copyUpiLink(uriText) {
