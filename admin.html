@@ -602,378 +602,37 @@
 
     @keyframes proceedRippleLoop {
       0% {
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15), 0 0 0 0 ,
-      'FORECLOSE',
-      'SETTLEMENT',
-      'SETTLEMENT TOKEN',
-      'FULL PAYMENT'
-    ];
-
-    /**
-     * Display status banner inside the generator card
-     */
-    function showStatus(message, type = 'info') {
-      const box = document.getElementById('statusBox');
-      if (!box) return;
-      box.classList.remove('hidden', 'bg-rose-50', 'border-rose-200', 'text-rose-800', 'bg-emerald-50', 'border-emerald-200', 'text-emerald-800', 'bg-blue-50', 'border-blue-200', 'text-blue-800');
-      if (type === 'error') {
-        box.classList.add('bg-rose-50', 'border-rose-200', 'text-rose-800');
-      } else if (type === 'success') {
-        box.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-800');
-      } else {
-        box.classList.add('bg-blue-50', 'border-blue-200', 'text-blue-800');
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15), 0 0 0 0 rgba(255, 255, 255, 0.5);
       }
-      box.textContent = message;
-    }
-
-    function hideStatus() {
-      const box = document.getElementById('statusBox');
-      if (box) box.classList.add('hidden');
-    }
-
-    /**
-     * Format current date as "DD MMMM YYYY" in uppercase
-     */
-    function getTodayFormattedDate() {
-      const now = new Date();
-      const day = String(now.getDate()).padStart(2, '0');
-      const month = MONTH_NAMES[now.getMonth()];
-      const year = now.getFullYear();
-      return `${day} ${month} ${year}`;
-    }
-
-    /**
-     * Normalize and validate Bill Date into "DD MMMM YYYY" (ALL CAPS).
-     * If empty or only day number is provided, uses today's date.
-     */
-    function normalizeBillDate(rawInput) {
-      const trimmed = String(rawInput || '').trim().toUpperCase();
-      const todayFormatted = getTodayFormattedDate();
-
-      if (!trimmed) {
-        return todayFormatted;
+      70%, 100% {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15), 0 0 0 10px rgba(255, 255, 255, 0);
       }
-
-      // If user only entered a day number (e.g., "25" or "5"), use current month & year
-      const dayOnlyMatch = trimmed.match(/^(\d{1,2})$/);
-      if (dayOnlyMatch) {
-        const dayNum = parseInt(dayOnlyMatch[1], 10);
-        if (dayNum >= 1 && dayNum <= 31) {
-          const now = new Date();
-          return `${String(dayNum).padStart(2, '0')} ${MONTH_NAMES[now.getMonth()]} ${now.getFullYear()}`;
-        }
-        return todayFormatted;
-      }
-
-      // Match "DD MONTH YYYY" (full or prefix month name)
-      const parts = trimmed.split(/\s+/);
-      if (parts.length >= 3) {
-        const dayNum = parseInt(parts[0].replace(/\D/g, ''), 10);
-        const monthToken = parts[1].replace(/[^A-Z]/g, '');
-        const yearNum = parseInt(parts[2].replace(/\D/g, ''), 10);
-
-        const matchedMonth = MONTH_NAMES.find((m) => m === monthToken || m.startsWith(monthToken));
-        if (dayNum >= 1 && dayNum <= 31 && matchedMonth && yearNum >= 1900 && yearNum <= 2100) {
-          return `${String(dayNum).padStart(2, '0')} ${matchedMonth} ${yearNum}`;
-        }
-      }
-
-      // Fallback parse with Date constructor
-      const parsed = new Date(trimmed);
-      if (!Number.isNaN(parsed.getTime())) {
-        const day = String(parsed.getDate()).padStart(2, '0');
-        const month = MONTH_NAMES[parsed.getMonth()];
-        const year = parsed.getFullYear();
-        return `${day} ${month} ${year}`;
-      }
-
-      return null;
     }
 
-    /**
-     * Validate and normalize Loan ID to "DMI" + 10 numeric digits (13 chars total).
-     * Accepts "DMI0089202812" or 10 digits and prepends "DMI".
-     */
-    function normalizeLoanId(rawLoan) {
-      let cleaned = String(rawLoan || '').trim().toUpperCase().replace(/\s+/g, '');
-      if (/^\d{10}$/.test(cleaned)) {
-        cleaned = 'DMI' + cleaned;
-      }
-      if (/^DMI\d{10}$/.test(cleaned)) {
-        return cleaned;
-      }
-      return null;
-    }
-
-    /**
-     * Extract lowercase first name for file path: loan/<firstname>.html
-     */
-    function getFirstNameSlug(fullNameUpper) {
-      const firstToken = String(fullNameUpper || '').trim().split(/\s+/)[0] || 'customer';
-      const slug = firstToken.toLowerCase().replace(/[^a-z0-9]/g, '');
-      return slug || 'customer';
-    }
-
-    /**
-     * Format bill amount into "INR X,XXX.XX" and raw numeric "XXXX.XX"
-     */
-    function parseBillAmount(rawAmount) {
-      const cleaned = String(rawAmount || '').replace(/,/g, '').trim();
-      const match = cleaned.match(/\d+(?:\.\d+)?/);
-      if (!match) return null;
-      const numeric = parseFloat(match[0]);
-      if (Number.isNaN(numeric) || numeric <= 0) return null;
-      const formattedDisplay = 'INR ' + numeric.toLocaleString('en-IN', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-      return {
-        numericFixed: numeric.toFixed(2),
-        formattedDisplay
-      };
-    }
-
-    /**
-     * Escape HTML special characters safely
-     */
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-
-    /**
-     * Build standalone receipt HTML with exact customer values and fixed UPI/note/manager settings
-     */
-    function buildReceiptHtml({ holderName, loanId, billStatus, billDate, formattedAmount, numericAmount }) {
-      const safeName = escapeHtml(holderName);
-      const safeLoan = escapeHtml(loanId);
-      const safeStatus = escapeHtml(billStatus);
-      const safeDate = escapeHtml(billDate);
-      const safeAmount = escapeHtml(formattedAmount);
-      const safeNumericAmount = escapeHtml(numericAmount);
-
-      return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DMI Finance - Repayment Receipt</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600;700&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Titillium Web', sans-serif;
-    }
-
-    body {
-      background-color: #2457F5;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      color: #111827;
-      padding-bottom: 28px;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .mobile-container {
-      width: 100%;
-      max-width: 440px;
-      padding: 0 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-    }
-
-    .top-header {
-      background-color: #FFFFFF;
-      border-bottom-left-radius: 16px;
-      border-bottom-right-radius: 16px;
-      padding: 22px 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-
-    .logo-box {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .top-brand-logo {
-      height: 52px;
-      width: auto;
-      max-width: 240px;
-      object-fit: contain;
-      display: block;
-    }
-
-    .receipt-card {
-      background-color: #FFFFFF;
-      border-radius: 16px;
-      padding: 28px 24px 22px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    }
-
-    .receipt-title {
-      font-size: 17px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      color: #0F172A;
-      margin-bottom: 22px;
-      text-transform: uppercase;
-    }
-
-    .detail-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .detail-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-    }
-
-    .icon-wrap {
-      width: 26px;
-      height: 26px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 2px;
-      flex-shrink: 0;
-    }
-
-    .receipt-icon-img {
-      width: 24px;
-      height: 24px;
-      object-fit: contain;
-      display: block;
-    }
-
-    .detail-content {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .detail-label {
-      font-size: 9.5px;
-      font-weight: 600;
-      color: #6B7280;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin-bottom: 1px;
-    }
-
-    .detail-value {
-      font-size: 15.5px;
-      font-weight: 700;
-      color: #0F172A;
-      letter-spacing: 0.25px;
-      line-height: 1.2;
-      text-transform: uppercase;
-    }
-
-    .green-underline {
-      width: 38px;
-      height: 4px;
-      background-color: #00C853;
-      border-radius: 4px;
-      margin-top: 4px;
-    }
-
-    .contact-section {
-      margin-top: 28px;
-      padding-left: 8px;
-      font-size: 11.5px;
-      color: #1F2937;
-    }
-
-    .contact-heading {
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-
-    .contact-heading strong {
-      font-weight: 700;
-    }
-
-    .contact-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-weight: 700;
-      font-size: 11.5px;
-      color: #111827;
-    }
-
-    .contact-link {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      text-decoration: none;
-      color: #111827;
-    }
-
-    .contact-icon-img {
-      width: 15px;
-      height: 15px;
-      object-fit: contain;
-      display: block;
-      flex-shrink: 0;
-    }
-
-    .pay-btn {
-      width: 100%;
-      background-color: #1754D8;
-      color: #FFFFFF;
-      border: 2.5px solid #FFFFFF;
-      border-radius: 14px;
-      padding: 18px 16px;
-      font-size: 19px;
-      font-weight: 700;
-      letter-spacing: 0.9px;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-      transition: transform 0.15s ease, background-color 0.15s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1.2;
+    @keyframes proceedShineLoop {
+      0% { left: -120%; }
+      55%, 100% { left: 145%; }
     }
 
     .pay-btn:active {
       transform: scale(0.98);
       background-color: #1143B5;
+      animation: none;
     }
 
     .disclaimer-card {
       background-color: #FFFFFF;
       border-radius: 16px;
-      padding: 20px 18px 16px;
+      padding: 16px 16px 14px;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     }
 
     .disclaimer-text {
-      font-size: 12px;
-      line-height: 1.48;
+      font-size: 11.5px;
+      line-height: 1.42;
       color: #1F2937;
       text-align: justify;
-      margin-bottom: 18px;
+      margin-bottom: 12px;
       font-weight: 600;
     }
 
@@ -1210,7 +869,7 @@
       <div class="detail-list">
         <div class="detail-item">
           <div class="icon-wrap">
-            <img id="icon-account-holder" src="${ICON_BASE_URL}holder.png" alt="Account Holder" class="receipt-icon-img" data-fallback="user" />
+            <img src="${ICON_BASE_URL}holder.png" alt="Account Holder" class="receipt-icon-img" data-fallback="user" />
           </div>
           <div class="detail-content">
             <span class="detail-label">ACCOUNT HOLDER</span>
@@ -1220,7 +879,7 @@
 
         <div class="detail-item">
           <div class="icon-wrap">
-            <img id="icon-loan-id" src="${ICON_BASE_URL}loan.png" alt="Loan ID" class="receipt-icon-img" data-fallback="loan" />
+            <img src="${ICON_BASE_URL}loan.png" alt="Loan ID" class="receipt-icon-img" data-fallback="loan" />
           </div>
           <div class="detail-content">
             <span class="detail-label">LOAN ID</span>
@@ -1230,7 +889,7 @@
 
         <div class="detail-item">
           <div class="icon-wrap">
-            <img id="icon-bill-status" src="${ICON_BASE_URL}status.png" alt="Bill Status" class="receipt-icon-img" data-fallback="status" />
+            <img src="${ICON_BASE_URL}status.png" alt="Bill Status" class="receipt-icon-img" data-fallback="status" />
           </div>
           <div class="detail-content">
             <span class="detail-label">BILL STATUS</span>
@@ -1240,7 +899,7 @@
 
         <div class="detail-item">
           <div class="icon-wrap">
-            <img id="icon-bill-date" src="${ICON_BASE_URL}date.png" alt="Bill Date" class="receipt-icon-img" data-fallback="date" />
+            <img src="${ICON_BASE_URL}date.png" alt="Bill Date" class="receipt-icon-img" data-fallback="date" />
           </div>
           <div class="detail-content">
             <span class="detail-label">BILL DATE</span>
@@ -1250,18 +909,18 @@
 
         <div class="detail-item">
           <div class="icon-wrap">
-            <img id="icon-bill-amount" src="${ICON_BASE_URL}amount.png" alt="Bill Amount" class="receipt-icon-img" data-fallback="amount" />
+            <img src="${ICON_BASE_URL}amount.png" alt="Bill Amount" class="receipt-icon-img" data-fallback="amount" />
           </div>
           <div class="detail-content">
             <span class="detail-label">BILL AMOUNT</span>
-            <span class="detail-value" id="bill-amount">${safeAmount}</span>
+            <span class="detail-value" id="bill-amount">${safeDisplayAmount}</span>
             <div class="green-underline"></div>
           </div>
         </div>
 
         <div class="detail-item">
           <div class="icon-wrap">
-            <img id="icon-collection-manager" src="${ICON_BASE_URL}manager.png" alt="Collection Manager" class="receipt-icon-img" data-fallback="manager" />
+            <img src="${ICON_BASE_URL}manager.png" alt="Collection Manager" class="receipt-icon-img" data-fallback="manager" />
           </div>
           <div class="detail-content">
             <span class="detail-label">COLLECTION MANAGER</span>
@@ -1273,13 +932,13 @@
       <div class="contact-section">
         <p class="contact-heading">For any queries, please contact <strong>DMI Finance</strong></p>
         <div class="contact-row">
-          <a href="tel:+917669818769" class="contact-link">
+          <a href="tel:${CUSTOMER_PHONE_TEL}" class="contact-link">
             <img src="${ICON_BASE_URL}chat.png" alt="Contact" class="contact-icon-img" onerror="this.style.display='none'" />
-            76698 18769
+            ${CUSTOMER_PHONE_DISPLAY}
           </a>
-          <a href="mailto:customercae@dmifinance.com" class="contact-link">
+          <a href="mailto:${CUSTOMER_EMAIL}" class="contact-link">
             <img src="${ICON_BASE_URL}mail.png" alt="Email" class="contact-icon-img" onerror="this.style.display='none'" />
-            customercae@dmifinance.com
+            ${CUSTOMER_EMAIL}
           </a>
         </div>
       </div>
@@ -1333,7 +992,7 @@
         <div class="qr-loan-id" id="qrLoanId">LOAN ID: ${safeLoan}</div>
       </div>
       <div class="qr-code-frame" id="qrCodeContainer" aria-label="UPI QR Code"></div>
-      <div class="qr-amount-bold" id="qrAmountDisplay">${safeAmount}</div>
+      <div class="qr-amount-bold" id="qrAmountDisplay">${safeDisplayAmount}</div>
       <div class="qr-manager-caption">Collection Manager Md Adnan From DMI Finance</div>
       <div class="qr-actions-row">
         <button type="button" class="qr-btn-close" onclick="closePaymentModal()">Close</button>
@@ -1343,27 +1002,26 @@
 
   <script>
     const FIXED_UPI_AMOUNT = "${safeNumericAmount}";
-    const FIXED_DISPLAY_AMOUNT = "${safeAmount}";
     const MERCHANT_UPI_ID = "${MERCHANT_UPI_ID}";
     const MERCHANT_PAYEE_NAME = "${MERCHANT_PAYEE_NAME}";
     const MERCHANT_TRANSACTION_NOTE = "${MERCHANT_TRANSACTION_NOTE}";
 
     const FALLBACK_SVGS = {
-      user: '<svg width="20" height="20" viewBox="0 0 24 24" fill="#000000"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg>',
-      loan: '<svg width="20" height="20" viewBox="0 0 24 24" fill="#000000"><rect x="4" y="3" width="16" height="18" rx="4" fill="#000000"/><rect x="8" y="11" width="8" height="2.2" rx="1" fill="#FFFFFF"/></svg>',
-      status: '<svg width="20" height="20" viewBox="0 0 24 24" fill="#000000"><path d="M4 3v18l3-2 3 2 2-2 2 2 3-2 3 2V3l-3 2-3-2-2 2-2-2-3 2-3-2zm4 5h8v2H8V8zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>',
-      date: '<svg width="20" height="20" viewBox="0 0 24 24" fill="#000000"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/><path d="M12.5 11.5h-2v1.5h1v3.5h-1v1.5h3.5v-1.5h-1v-5z"/></svg>',
-      amount: '<svg width="21" height="21" viewBox="0 0 24 24" fill="#000000"><circle cx="12" cy="12" r="10" fill="#000000"/><path d="M9 7h6v1.5h-2.2c.4.4.7.9.8 1.5H15v1.5h-1.4c-.2 1.4-1.3 2.4-2.8 2.5l3.2 3.5h-2.1l-3-3.4V12.5h1.5c.9 0 1.6-.4 1.8-1H9V10h3.1c-.2-.6-.9-1-1.8-1H9V7z" fill="#FFFFFF"/></svg>',
-      manager: '<svg width="20" height="20" viewBox="0 0 24 24" fill="#000000"><rect x="3" y="3" width="18" height="18" rx="5" fill="#000000"/><path d="M9.5 15.5L6.5 12.5l1.4-1.4 1.6 1.6 4.6-4.6 1.4 1.4-6 6z" fill="#FFFFFF"/></svg>'
+      user: '<svg width="24" height="24" viewBox="0 0 24 24" fill="#000000"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg>',
+      loan: '<svg width="24" height="24" viewBox="0 0 24 24" fill="#000000"><rect x="4" y="3" width="16" height="18" rx="4" fill="#000000"/><rect x="8" y="11" width="8" height="2.2" rx="1" fill="#FFFFFF"/></svg>',
+      status: '<svg width="24" height="24" viewBox="0 0 24 24" fill="#000000"><path d="M4 3v18l3-2 3 2 2-2 2 2 3-2 3 2V3l-3 2-3-2-2 2-2-2-3 2-3-2zm4 5h8v2H8V8zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>',
+      date: '<svg width="24" height="24" viewBox="0 0 24 24" fill="#000000"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/><path d="M12.5 11.5h-2v1.5h1v3.5h-1v1.5h3.5v-1.5h-1v-5z"/></svg>',
+      amount: '<svg width="25" height="25" viewBox="0 0 24 24" fill="#000000"><circle cx="12" cy="12" r="10" fill="#000000"/><path d="M9 7h6v1.5h-2.2c.4.4.7.9.8 1.5H15v1.5h-1.4c-.2 1.4-1.3 2.4-2.8 2.5l3.2 3.5h-2.1l-3-3.4V12.5h1.5c.9 0 1.6-.4 1.8-1H9V10h3.1c-.2-.6-.9-1-1.8-1H9V7z" fill="#FFFFFF"/></svg>',
+      manager: '<svg width="24" height="24" viewBox="0 0 24 24" fill="#000000"><rect x="3" y="3" width="18" height="18" rx="5" fill="#000000"/><path d="M9.5 15.5L6.5 12.5l1.4-1.4 1.6 1.6 4.6-4.6 1.4 1.4-6 6z" fill="#FFFFFF"/></svg>'
     };
 
     function applyIconFallbacks() {
       document.querySelectorAll('.receipt-icon-img').forEach((imgEl) => {
-        const fallbackKey = imgEl.getAttribute('data-fallback');
+        const key = imgEl.getAttribute('data-fallback');
         imgEl.onerror = () => {
           const parent = imgEl.parentElement;
-          if (parent && fallbackKey && FALLBACK_SVGS[fallbackKey]) {
-            parent.innerHTML = FALLBACK_SVGS[fallbackKey];
+          if (parent && key && FALLBACK_SVGS[key]) {
+            parent.innerHTML = FALLBACK_SVGS[key];
           }
         };
       });
@@ -1711,16 +1369,13 @@
     window.addEventListener('DOMContentLoaded', () => {
       applyIconFallbacks();
     });
-  </script>
+  <\/script>
 </body>
 </html>`;
     }
 
-    /**
-     * Encode UTF-8 string cleanly into Base64 for GitHub Contents API
-     */
-    function toBase64Utf8(str) {
-      const bytes = new TextEncoder().encode(str);
+    function encodeUtf8Base64(text) {
+      const bytes = new TextEncoder().encode(text);
       let binary = '';
       for (let i = 0; i < bytes.length; i++) {
         binary += String.fromCharCode(bytes[i]);
@@ -1729,186 +1384,152 @@
     }
 
     /**
-     * Push or update loan/<firstname>.html in GitHub repository via Contents API
+     * Create or update loan/<slug>.html in GitHub repository via Contents API
      */
-    async function pushReceiptToGitHub({ fileNameSlug, htmlContent, token, commitMessage }) {
-      const repoPath = `${TARGET_FOLDER}/${fileNameSlug}.html`;
-      const apiUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${repoPath}`;
+    async function saveReceiptToRepo({ fileSlug, htmlContent, commitMessage }) {
+      const filePath = `${TARGET_FOLDER}/${fileSlug}.html`;
+      const endpoint = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`;
       const headers = {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
         Accept: 'application/vnd.github+json',
         'Content-Type': 'application/json'
       };
 
       let existingSha = null;
-      const getResp = await fetch(apiUrl, { method: 'GET', headers });
-      if (getResp.ok) {
-        const existingData = await getResp.json();
-        existingSha = existingData.sha || null;
-      } else if (getResp.status !== 404) {
-        const errBody = await getResp.json().catch(() => ({}));
-        throw new Error(errBody.message || `GitHub lookup failed (${getResp.status})`);
+      const lookupRes = await fetch(endpoint, { method: 'GET', headers });
+      if (lookupRes.ok) {
+        const lookupJson = await lookupRes.json();
+        existingSha = lookupJson.sha || null;
+      } else if (lookupRes.status !== 404) {
+        const errJson = await lookupRes.json().catch(() => ({}));
+        throw new Error(`Lookup failed (${lookupRes.status}): ${errJson.message || 'Unknown GitHub error'}`);
       }
 
-      const payload = {
+      const bodyPayload = {
         message: commitMessage,
-        content: toBase64Utf8(htmlContent),
+        content: encodeUtf8Base64(htmlContent),
         ...(existingSha ? { sha: existingSha } : {})
       };
 
-      const putResp = await fetch(apiUrl, {
+      const putRes = await fetch(endpoint, {
         method: 'PUT',
         headers,
-        body: JSON.stringify(payload)
+        body: JSON.stringify(bodyPayload)
       });
 
-      if (!putResp.ok) {
-        const errBody = await putResp.json().catch(() => ({}));
-        throw new Error(errBody.message || `Failed to save file on GitHub (${putResp.status})`);
+      if (!putRes.ok) {
+        const errJson = await putRes.json().catch(() => ({}));
+        const docLink = errJson.documentation_url ? ` (${errJson.documentation_url})` : '';
+        throw new Error(`Save failed (${putRes.status}): ${errJson.message || 'Permission or API error'}${docLink}`);
       }
 
       return {
-        repoPath,
-        shareableUrl: `${LIVE_SITE_BASE}${repoPath}`
+        filePath,
+        publicUrl: `${LIVE_SITE_BASE}${filePath}`
       };
     }
 
-    /**
-     * Update live file name preview when Account Holder Name changes
-     */
-    function updateFileNamePreview() {
+    function syncSlugPreview() {
       const rawName = document.getElementById('holderName').value || 'Adnan Ibrahim';
-      const slug = getFirstNameSlug(rawName.toUpperCase());
-      const previewEl = document.getElementById('fileNamePreview');
-      if (previewEl) {
-        previewEl.textContent = `${TARGET_FOLDER}/${slug}.html`;
+      const slug = extractFileSlug(rawName.toUpperCase());
+      const preview = document.getElementById('fileSlugPreview');
+      if (preview) {
+        preview.textContent = `${TARGET_FOLDER}/${slug}.html`;
       }
     }
 
-    // Initialize saved token and event listeners
     window.addEventListener('DOMContentLoaded', () => {
-      const tokenInput = document.getElementById('ghToken');
-      const rememberCheckbox = document.getElementById('rememberToken');
+      document.getElementById('holderName').addEventListener('input', syncSlugPreview);
 
-      try {
-        const savedToken = localStorage.getItem(TOKEN_STORAGE_KEY) || FIXED_GITHUB_TOKEN;
-        if (tokenInput) {
-          tokenInput.value = savedToken;
-        }
-      } catch (e) {
-        if (tokenInput) {
-          tokenInput.value = FIXED_GITHUB_TOKEN;
-        }
-      }
-
-      document.getElementById('holderName').addEventListener('input', updateFileNamePreview);
-
-      document.getElementById('useTodayBtn').addEventListener('click', () => {
-        document.getElementById('billDate').value = getTodayFormattedDate();
-        hideStatus();
+      document.getElementById('todayBtn').addEventListener('click', () => {
+        document.getElementById('billDate').value = formatTodayDate();
+        clearStatusMessage();
       });
 
-      document.getElementById('clearTokenBtn').addEventListener('click', () => {
-    // Initialize event listeners
-    window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('holderName').addEventListener('input', updateFileNamePreview);
-
-      document.getElementById('useTodayBtn').addEventListener('click', () => {
-        document.getElementById('billDate').value = getTodayFormattedDate();
-        hideStatus();
-      });
-
-      document.getElementById('copyLinkBtn').addEventListener('click', () => {
-        const linkInput = document.getElementById('shareableLinkInput');
-        if (!linkInput || !linkInput.value) return;
+      document.getElementById('copyBtn').addEventListener('click', () => {
+        const inputEl = document.getElementById('shareLinkInput');
+        if (!inputEl || !inputEl.value) return;
         try {
-          linkInput.select();
-          linkInput.setSelectionRange(0, linkInput.value.length);
+          inputEl.select();
+          inputEl.setSelectionRange(0, inputEl.value.length);
           document.execCommand('copy');
-          showStatus('Shareable receipt link copied to clipboard.', 'success');
-        } catch (e) {
-          showStatus('Unable to copy link automatically; please copy manually.', 'error');
+          setStatusMessage('Shareable receipt link copied.', 'success');
+        } catch (err) {
+          setStatusMessage('Copy failed; please copy the link manually.', 'error');
         }
       });
 
       document.getElementById('receiptForm').addEventListener('submit', async (event) => {
         event.preventDefault();
-        hideStatus();
+        clearStatusMessage();
 
         const rawHolder = document.getElementById('holderName').value.trim();
         const rawLoan = document.getElementById('loanId').value.trim();
         const rawStatus = document.getElementById('billStatus').value.trim().toUpperCase();
         const rawDate = document.getElementById('billDate').value.trim();
         const rawAmount = document.getElementById('billAmount').value.trim();
-        const token = FIXED_GITHUB_TOKEN;
 
         if (!rawHolder) {
-          showStatus('Please enter Account Holder Name.', 'error');
+          setStatusMessage('Please enter Account Holder Name.', 'error');
           return;
         }
 
-        const normalizedLoan = normalizeLoanId(rawLoan);
+        const normalizedLoan = parseLoanId(rawLoan);
         if (!normalizedLoan) {
-          showStatus('Loan ID must start with DMI followed by 10 numeric digits (e.g. DMI0089202812).', 'error');
+          setStatusMessage('Loan ID must start with DMI followed by 10 numeric digits.', 'error');
           return;
         }
 
         if (!VALID_STATUSES.includes(rawStatus)) {
-          showStatus('Please select a valid Bill Status.', 'error');
+          setStatusMessage('Please select a valid Bill Status.', 'error');
           return;
         }
 
-        const normalizedDate = normalizeBillDate(rawDate);
+        const normalizedDate = parseBillDate(rawDate);
         if (!normalizedDate) {
-          showStatus('Invalid Bill Date. Use DD MMMM YYYY (e.g. 30 NOVEMBER 2026) or leave blank for today.', 'error');
+          setStatusMessage('Invalid Bill Date. Use DD MMMM YYYY or leave blank for today.', 'error');
           return;
         }
 
-        const parsedAmount = parseBillAmount(rawAmount);
-        if (!parsedAmount) {
-          showStatus('Please enter a valid positive Bill Amount.', 'error');
-          return;
-        }
-
-        if (!token) {
-          showStatus('Please enter your GitHub Personal Access Token to save the HTML file.', 'error');
+        const parsedAmt = parseAmount(rawAmount);
+        if (!parsedAmt) {
+          setStatusMessage('Please enter a valid positive Bill Amount.', 'error');
           return;
         }
 
         const holderUpper = rawHolder.toUpperCase();
-        const fileNameSlug = getFirstNameSlug(holderUpper);
-        const submitBtn = document.getElementById('generateBtn');
+        const fileSlug = extractFileSlug(holderUpper);
+        const submitBtn = document.getElementById('submitBtn');
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Saving to GitHub...';
+        submitBtn.textContent = 'Pushing to GitHub...';
 
         try {
-          const receiptHtml = buildReceiptHtml({
+          const htmlDoc = buildReceiptDocument({
             holderName: holderUpper,
             loanId: normalizedLoan,
             billStatus: rawStatus,
             billDate: normalizedDate,
-            formattedAmount: parsedAmount.formattedDisplay,
-            numericAmount: parsedAmount.numericFixed
+            displayAmount: parsedAmt.displayFormatted,
+            numericAmount: parsedAmt.numericFixed
           });
 
-          const result = await pushReceiptToGitHub({
-            fileNameSlug,
-            htmlContent: receiptHtml,
-            token,
-            commitMessage: `Add/update receipt for ${holderUpper} (${normalizedLoan})`
+          const saved = await saveReceiptToRepo({
+            fileSlug,
+            htmlContent: htmlDoc,
+            commitMessage: `Create/update receipt for ${holderUpper} (${normalizedLoan})`
           });
 
           document.getElementById('resultCard').classList.remove('hidden');
-          document.getElementById('savedPathBadge').textContent = result.repoPath;
-          document.getElementById('shareableLinkInput').value = result.shareableUrl;
-          document.getElementById('openReceiptLink').href = result.shareableUrl;
+          document.getElementById('savedFileBadge').textContent = saved.filePath;
+          document.getElementById('shareLinkInput').value = saved.publicUrl;
+          document.getElementById('openPageBtn').href = saved.publicUrl;
 
-          showStatus(`Saved ${result.repoPath} to ${REPO_OWNER}/${REPO_NAME}.`, 'success');
+          setStatusMessage(`Saved ${saved.filePath} in ${REPO_OWNER}/${REPO_NAME}.`, 'success');
         } catch (err) {
-          showStatus(err.message || 'Error saving receipt to GitHub.', 'error');
+          setStatusMessage(err.message || 'Failed to publish receipt to GitHub.', 'error');
         } finally {
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Generate & Save HTML to GitHub';
+          submitBtn.textContent = 'Generate & Push to GitHub';
         }
       });
     });
