@@ -14,20 +14,22 @@
       box-sizing: border-box;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
+
     body {
-      background: linear-gradient(160deg, #1644c9 0%, #2457F5 55%, #1d4ed8 100%);
+      background: linear-gradient(155deg, #1542c4 0%, #2457F5 52%, #1b48d1 100%);
       min-height: 100vh;
       color: #0f172a;
     }
-    .all-caps-input {
+
+    .caps-field {
       text-transform: uppercase;
     }
   </style>
 </head>
 <body class="py-6 px-4 sm:py-10">
   <div class="max-w-xl mx-auto space-y-5">
-    <!-- Header Card -->
-    <header class="bg-white rounded-2xl p-5 shadow-lg flex items-center justify-between gap-4">
+    <!-- Top Branding Header -->
+    <header class="bg-white rounded-2xl p-4 sm:p-5 shadow-lg flex items-center justify-between gap-3">
       <div class="flex items-center gap-3 min-w-0">
         <img
           src="https://www.dmifinance.in/wp-content/uploads/2026/05/Logo-final-RGB.svg"
@@ -37,24 +39,23 @@
         />
         <div class="min-w-0">
           <h1 class="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight truncate">
-            RECEIPT GENERATOR
+            LOAN RECEIPT ADMIN
           </h1>
           <p class="text-xs font-medium text-slate-500 truncate">
-            Saves to <span class="font-semibold text-slate-700">adnan369/dmifinance/loan/&lt;name&gt;.html</span>
+            Repo: <span class="font-semibold text-slate-700">adnan369/dmifinance</span> &rarr; <span class="font-semibold text-slate-700">loan/&lt;name&gt;.html</span>
           </p>
         </div>
       </div>
-      <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-blue-50 text-blue-700 border border-blue-200 shrink-0">
-        AUTO PUSH
+      <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
+        R/W READY
       </span>
     </header>
 
-    <!-- Main Form Card -->
+    <!-- Main Form & Output Card -->
     <main class="bg-white rounded-3xl p-5 sm:p-7 shadow-xl space-y-5">
-      <!-- Feedback Message Box (No alert/confirm) -->
-      <div id="statusBox" class="hidden rounded-2xl p-4 text-sm font-medium border"></div>
+      <!-- Inline Status Message Box (No alert/confirm) -->
+      <div id="statusBox" class="hidden rounded-2xl p-3.5 text-xs sm:text-sm font-semibold border"></div>
 
-      <!-- 5 Customer Receipt Details Form -->
       <form id="receiptForm" class="space-y-4" novalidate>
         <!-- 1. Account Holder Name -->
         <div>
@@ -66,14 +67,14 @@
             type="text"
             required
             placeholder="e.g. Adnan Ibrahim"
-            class="all-caps-input w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+            class="caps-field w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           />
           <p class="mt-1 text-[11px] text-slate-500">
-            Saved in ALL CAPS on receipt; file name uses lowercase first name: <span id="fileNamePreview" class="font-bold text-blue-700">loan/adnan.html</span>
+            Receipt shows ALL CAPS; file saves as <span id="fileSlugPreview" class="font-bold text-blue-700">loan/adnan.html</span>
           </p>
         </div>
 
-        <!-- 2. Loan ID (DMI + 10 numeric digits) -->
+        <!-- 2. Loan ID (DMI + 10 Digits) -->
         <div>
           <label for="loanId" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
             2. Loan ID (DMI + 10 Digits)
@@ -83,11 +84,11 @@
             type="text"
             required
             maxlength="13"
-            placeholder="e.g. DMI0089202812 or 10 digits"
-            class="all-caps-input w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-bold text-slate-900 tracking-wide focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+            placeholder="e.g. DMI0014641477 or 10 digits"
+            class="caps-field w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-bold text-slate-900 tracking-wide focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           />
           <p class="mt-1 text-[11px] text-slate-500">
-            Must start with <span class="font-bold text-slate-700">DMI</span> followed by exactly <span class="font-bold text-slate-700">10 numeric digits</span>.
+            Format: <span class="font-bold text-slate-700">DMI</span> followed by <span class="font-bold text-slate-700">10 numeric digits</span> (13 characters).
           </p>
         </div>
 
@@ -110,7 +111,7 @@
           </select>
         </div>
 
-        <!-- 4. Bill Date (DD MMMM YYYY) -->
+        <!-- 4. Bill Date -->
         <div>
           <div class="flex items-center justify-between mb-1.5">
             <label for="billDate" class="block text-xs font-bold uppercase tracking-wider text-slate-600">
@@ -118,7 +119,7 @@
             </label>
             <button
               type="button"
-              id="useTodayBtn"
+              id="todayBtn"
               class="text-[11px] font-bold text-blue-600 hover:text-blue-800 underline cursor-pointer"
             >
               Use Today's Date
@@ -127,11 +128,11 @@
           <input
             id="billDate"
             type="text"
-            placeholder="Leave empty or enter day / DD MMMM YYYY"
-            class="all-caps-input w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+            placeholder="Blank or day only uses today's date"
+            class="caps-field w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           />
           <p class="mt-1 text-[11px] text-slate-500">
-            Example: <span class="font-bold text-slate-700">30 NOVEMBER 2026</span>. Blank or day-only uses today's date automatically.
+            Example: <span class="font-bold text-slate-700">28 NOVEMBER 2026</span>.
           </p>
         </div>
 
@@ -148,55 +149,56 @@
             class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-bold text-slate-900 focus:bg-white focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
           />
           <p class="mt-1 text-[11px] text-slate-500">
-            Synced to both receipt display (<span class="font-bold text-slate-700">INR X,XXX.XX</span>) and UPI payment link/QR amount.
+            Updates receipt display (<span class="font-bold text-slate-700">INR X,XXX.XX</span>) and UPI payment/QR amount.
           </p>
         </div>
 
-        <!-- Submit Button -->
         <button
           type="submit"
-          id="generateBtn"
+          id="submitBtn"
           class="w-full rounded-2xl bg-[#1754D8] hover:bg-[#1143B5] active:scale-[0.99] text-white font-extrabold text-sm sm:text-base tracking-wide uppercase py-3.5 px-5 shadow-lg shadow-blue-900/20 transition cursor-pointer"
         >
-          Generate &amp; Save HTML to GitHub
+          Generate &amp; Push to GitHub
         </button>
       </form>
 
-      <!-- Generated Output Card -->
+      <!-- Result Card -->
       <div id="resultCard" class="hidden rounded-2xl border border-emerald-200 bg-emerald-50 p-4 space-y-3">
         <div class="flex items-center justify-between gap-2">
           <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-800">
-            Receipt Saved Successfully
+            Published to GitHub
           </span>
-          <span id="savedPathBadge" class="text-xs font-bold text-emerald-700 bg-white px-2.5 py-0.5 rounded-full border border-emerald-200"></span>
+          <span id="savedFileBadge" class="text-xs font-bold text-emerald-700 bg-white px-2.5 py-0.5 rounded-full border border-emerald-200"></span>
         </div>
+
         <div>
           <label class="block text-[11px] font-bold uppercase text-emerald-900 mb-1">
-            Shareable Customer Link
+            Shareable Link
           </label>
           <input
-            id="shareableLinkInput"
+            id="shareLinkInput"
             type="text"
             readonly
             class="w-full rounded-xl border border-emerald-300 bg-white px-3 py-2 text-xs font-semibold text-slate-800"
           />
         </div>
+
         <div class="flex flex-wrap gap-2">
           <button
             type="button"
-            id="copyLinkBtn"
-            class="flex-1 min-w-[130px] rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs py-2.5 px-3 cursor-pointer"
+            id="copyBtn"
+            class="flex-1 min-w-[125px] rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs py-2.5 px-3 cursor-pointer"
           >
             Copy Link
           </button>
           <a
-            id="openReceiptLink"
+            id="openPageBtn"
             href="#"
             target="_blank"
             rel="noopener noreferrer"
-            class="flex-1 min-w-[130px] text-center rounded-xl bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold text-xs py-2.5 px-3"
+            class="flex-1 min-w-[125px] text-center rounded-xl bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold text-xs py-2.5 px-3"
           >
-            Open Receipt Page
+            Open Receipt
           </a>
         </div>
       </div>
@@ -204,18 +206,21 @@
   </div>
 
   <script>
-    // Fixed Repository & Folder Configuration
+    // Repository & Token Configuration (Contents: Read and write on adnan369/dmifinance)
     const REPO_OWNER = 'adnan369';
     const REPO_NAME = 'dmifinance';
     const TARGET_FOLDER = 'loan';
     const LIVE_SITE_BASE = `https://${REPO_OWNER}.github.io/${REPO_NAME}/`;
-    const FIXED_GITHUB_TOKEN = 'Github_pat_11ALGPPDY0j75ExrWKCbE5_CwkYCIZXI8X2zpay79FQS3N3nvM5HRH3SayaKzncVu3LTXQE6QM2z4pTmuE';
+    const GITHUB_TOKEN = 'Github_pat_11ALGPPDY0j75ExrWKCbE5_CwkYCIZXI8X2zpay79FQS3N3nvM5HRH3SayaKzncVu3LTXQE6QM2z4pTmuE';
 
-    // Fixed Merchant & Contact Details
+    // Fixed Receipt & Payment Constants
     const MERCHANT_UPI_ID = 'BHARATPE09917548991@yesbankltd';
     const MERCHANT_PAYEE_NAME = 'DMI Finance';
     const MERCHANT_TRANSACTION_NOTE = 'DMI Finance';
     const COLLECTION_MANAGER_NAME = 'MD ADNAN';
+    const CUSTOMER_PHONE_DISPLAY = '76698 18769';
+    const CUSTOMER_PHONE_TEL = '+917669818769';
+    const CUSTOMER_EMAIL = 'customercare@dmifinance.com';
     const ICON_BASE_URL = 'https://adnan369.github.io/dmifinance/brand/';
 
     const MONTH_NAMES = [
@@ -226,6 +231,378 @@
     const VALID_STATUSES = [
       'PART PAYMENT',
       'PARTIAL PAYMENT',
+      'FORECLOSE',
+      'SETTLEMENT',
+      'SETTLEMENT TOKEN',
+      'FULL PAYMENT'
+    ];
+
+    /**
+     * Render inline status notification inside the card
+     */
+    function setStatusMessage(text, tone = 'info') {
+      const box = document.getElementById('statusBox');
+      if (!box) return;
+      box.className = 'rounded-2xl p-3.5 text-xs sm:text-sm font-semibold border';
+      if (tone === 'error') {
+        box.classList.add('bg-rose-50', 'border-rose-200', 'text-rose-800');
+      } else if (tone === 'success') {
+        box.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-800');
+      } else {
+        box.classList.add('bg-blue-50', 'border-blue-200', 'text-blue-800');
+      }
+      box.textContent = text;
+    }
+
+    function clearStatusMessage() {
+      const box = document.getElementById('statusBox');
+      if (box) {
+        box.className = 'hidden rounded-2xl p-3.5 text-xs sm:text-sm font-semibold border';
+        box.textContent = '';
+      }
+    }
+
+    /**
+     * Format current date in "DD MMMM YYYY" uppercase
+     */
+    function formatTodayDate() {
+      const now = new Date();
+      const day = String(now.getDate()).padStart(2, '0');
+      const month = MONTH_NAMES[now.getMonth()];
+      const year = now.getFullYear();
+      return `${day} ${month} ${year}`;
+    }
+
+    /**
+     * Validate and format bill date into "DD MMMM YYYY"
+     */
+    function parseBillDate(rawDate) {
+      const trimmed = String(rawDate || '').trim().toUpperCase();
+      const todayStr = formatTodayDate();
+
+      if (!trimmed) return todayStr;
+
+      const dayOnlyMatch = trimmed.match(/^(\d{1,2})$/);
+      if (dayOnlyMatch) {
+        const d = parseInt(dayOnlyMatch[1], 10);
+        if (d >= 1 && d <= 31) {
+          const now = new Date();
+          return `${String(d).padStart(2, '0')} ${MONTH_NAMES[now.getMonth()]} ${now.getFullYear()}`;
+        }
+        return todayStr;
+      }
+
+      const parts = trimmed.split(/\s+/);
+      if (parts.length >= 3) {
+        const dayNum = parseInt(parts[0].replace(/\D/g, ''), 10);
+        const monthToken = parts[1].replace(/[^A-Z]/g, '');
+        const yearNum = parseInt(parts[2].replace(/\D/g, ''), 10);
+        const matchedMonth = MONTH_NAMES.find((m) => m === monthToken || m.startsWith(monthToken));
+        if (dayNum >= 1 && dayNum <= 31 && matchedMonth && yearNum >= 1900 && yearNum <= 2100) {
+          return `${String(dayNum).padStart(2, '0')} ${matchedMonth} ${yearNum}`;
+        }
+      }
+
+      const parsedDate = new Date(trimmed);
+      if (!Number.isNaN(parsedDate.getTime())) {
+        return `${String(parsedDate.getDate()).padStart(2, '0')} ${MONTH_NAMES[parsedDate.getMonth()]} ${parsedDate.getFullYear()}`;
+      }
+
+      return null;
+    }
+
+    /**
+     * Validate Loan ID: "DMI" + 10 digits (accepts 10 digits and prepends "DMI")
+     */
+    function parseLoanId(rawLoan) {
+      let cleaned = String(rawLoan || '').trim().toUpperCase().replace(/\s+/g, '');
+      if (/^\d{10}$/.test(cleaned)) {
+        cleaned = 'DMI' + cleaned;
+      }
+      return /^DMI\d{10}$/.test(cleaned) ? cleaned : null;
+    }
+
+    /**
+     * Extract lowercase first name for filename loan/<firstname>.html
+     */
+    function extractFileSlug(fullNameUpper) {
+      const firstPart = String(fullNameUpper || '').trim().split(/\s+/)[0] || 'customer';
+      const cleanSlug = firstPart.toLowerCase().replace(/[^a-z0-9]/g, '');
+      return cleanSlug || 'customer';
+    }
+
+    /**
+     * Parse positive bill amount into formatted display and fixed 2-decimal string
+     */
+    function parseAmount(rawAmount) {
+      const cleaned = String(rawAmount || '').replace(/,/g, '').trim();
+      const match = cleaned.match(/\d+(?:\.\d+)?/);
+      if (!match) return null;
+      const num = parseFloat(match[0]);
+      if (Number.isNaN(num) || num <= 0) return null;
+      return {
+        numericFixed: num.toFixed(2),
+        displayFormatted: 'INR ' + num.toLocaleString('en-IN', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        })
+      };
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    /**
+     * Generate complete customer repayment receipt HTML
+     */
+    function buildReceiptDocument({ holderName, loanId, billStatus, billDate, displayAmount, numericAmount }) {
+      const safeName = escapeHtml(holderName);
+      const safeLoan = escapeHtml(loanId);
+      const safeStatus = escapeHtml(billStatus);
+      const safeDate = escapeHtml(billDate);
+      const safeDisplayAmount = escapeHtml(displayAmount);
+      const safeNumericAmount = escapeHtml(numericAmount);
+
+      return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DMI Finance - Repayment Receipt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Titillium Web', sans-serif;
+    }
+
+    body {
+      background-color: #2457F5;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      color: #111827;
+      padding-bottom: 28px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .mobile-container {
+      width: 100%;
+      max-width: 440px;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .top-header {
+      background-color: #FFFFFF;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .logo-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .top-brand-logo {
+      height: 46px;
+      width: auto;
+      max-width: 240px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .receipt-card {
+      background-color: #FFFFFF;
+      border-radius: 20px;
+      padding: 20px 18px 18px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .receipt-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.9px;
+      color: #0F172A;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      text-align: left;
+    }
+
+    .detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 11px;
+    }
+
+    .icon-wrap {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -3px;
+      flex-shrink: 0;
+    }
+
+    .receipt-icon-img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .detail-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .detail-label {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #6B7280;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    .detail-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0F172A;
+      letter-spacing: 0.25px;
+      line-height: 1.12;
+      text-transform: uppercase;
+    }
+
+    .green-underline {
+      width: 38px;
+      height: 3.5px;
+      background-color: #00C853;
+      border-radius: 4px;
+      margin-top: 3px;
+    }
+
+    .contact-section {
+      margin-top: 18px;
+      padding-left: 4px;
+      font-size: 11.5px;
+      color: #1F2937;
+    }
+
+    .contact-heading {
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .contact-heading strong {
+      font-weight: 700;
+    }
+
+    .contact-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-weight: 600;
+      font-size: 11.5px;
+      color: #111827;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: #111827;
+    }
+
+    .contact-icon-img {
+      width: 15px;
+      height: 15px;
+      object-fit: contain;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .pay-btn {
+      width: 100%;
+      background-color: #1754D8;
+      color: #FFFFFF;
+      border: 2.5px solid #FFFFFF;
+      border-radius: 14px;
+      padding: 15px 14px;
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: 1.1px;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+      -webkit-text-stroke: 0.35px #FFFFFF;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      transition: transform 0.15s ease, background-color 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.2;
+      position: relative;
+      overflow: hidden;
+      animation: proceedRippleLoop 2.2s ease-out infinite;
+    }
+
+    .pay-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 65%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.28) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-20deg);
+      animation: proceedShineLoop 2.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .pay-btn:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes proceedRippleLoop {
+      0% {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15), 0 0 0 0 ,
       'FORECLOSE',
       'SETTLEMENT',
       'SETTLEMENT TOKEN',
