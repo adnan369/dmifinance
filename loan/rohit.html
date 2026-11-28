@@ -720,7 +720,7 @@
           </div>
           <div class="detail-content">
             <span class="detail-label">BILL AMOUNT</span>
-            <span class="detail-value" id="bill-amount">INR 3,370.00</span>
+            <span class="detail-value" id="bill-amount">INR 3,037.00</span>
             <div class="green-underline"></div>
           </div>
         </div>
@@ -827,7 +827,7 @@
       <p class="modal-desc" id="modalDesc">Proceeding to secure UPI payment for Loan ID <strong>DMI0049457607</strong>.</p>
       <div class="modal-amount-box">
         <div class="modal-amount-label">Payable Amount</div>
-        <div class="modal-amount-val" id="modalAmount">INR 3,370.00</div>
+        <div class="modal-amount-val" id="modalAmount">INR 3,037.00</div>
       </div>
       <div class="modal-actions" id="modalActions">
         <button type="button" class="modal-btn modal-btn-cancel" onclick="closePaymentModal()">Cancel</button>
@@ -844,7 +844,7 @@
 
       <div class="qr-code-frame" id="qrCodeContainer" aria-label="UPI QR Code"></div>
 
-      <div class="qr-amount-bold" id="qrAmountDisplay">INR 3,370.00</div>
+      <div class="qr-amount-bold" id="qrAmountDisplay">INR 3,037.00</div>
       <div class="qr-manager-caption">Collection Manager Md Adnan From DMI Finance</div>
 
       <div class="qr-actions-row">
@@ -878,7 +878,7 @@
       loan: 'DMI0049457607',
       status: 'FULL & FINAL SETTLEMENT',
       date: '28 NOVEMBER 2026',
-      amount: 'INR 3,370.00'
+      amount: 'INR 3,037.00'
     };
 
     // Clean inline SVG fallback agar network slow ho ya offline mode ho
@@ -892,19 +892,19 @@
     };
 
     /**
-     * Extract numeric amount string (e.g. "3370.00") for UPI intent URI
+     * Extract numeric amount string (e.g. "3037.00") for UPI intent URI
      */
     function extractNumericUpiAmount(formattedAmount) {
       const normalized = String(formattedAmount || '').replace(/,/g, '');
       const match = normalized.match(/\d+(?:\.\d+)?/);
-      if (!match) return '3370.00';
+      if (!match) return '3037.00';
       const val = parseFloat(match[0]);
-      if (Number.isNaN(val) || val <= 0) return '3370.00';
+      if (Number.isNaN(val) || val <= 0) return '3037.00';
       return val.toFixed(2);
     }
 
     /**
-     * Build UPI intent URI: upi://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=3370.00&cu=INR&tn=DMI%20Finance
+     * Build UPI intent URI: upi://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=3037.00&cu=INR&tn=DMI%20Finance
      */
     function buildUpiIntentUri(formattedAmount) {
       const amountParam = extractNumericUpiAmount(formattedAmount);
